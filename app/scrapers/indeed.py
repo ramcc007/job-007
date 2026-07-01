@@ -29,7 +29,7 @@ class IndeedScraper(BaseScraper):
             "sort": "date",
         }
         resp = http_get(SEARCH_URL, params=params)
-        soup = BeautifulSoup(resp.text, "lxml")
+        soup = BeautifulSoup(resp.text, "html.parser")
 
         jobs: List[RawJob] = []
         for card in soup.select("div.job_seen_beacon"):
