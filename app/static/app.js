@@ -1,0 +1,94 @@
+const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+
+const els = {
+  body: document.getElementById("jobs-body"),
+  lastRefreshed: document.getElementById("last-refreshed"),
+  jobCount: document.getElementById("job-count"),
+  search: document.getElementById("search-box"),
+  source: document.getElementById("source-filter"),
+  mode: document.getElementById("mode-filter"),
+  bucket: document.getElementById("bucket-filter"),
+  refreshBtn: document.getElementById("refresh-now"),
+};
+
+function modeBadge(mode) {
+  const cls = { Remote: "badge-remote", Hybrid: "badge-hybrid" }[mode] || "badge-unspecified";
+  const label = mode === "Hybrid" ? "Hybrid" : (mode || "Unspecified");
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+function timeAgo(isoString) {
+  const posted = new Date(isoString + "Z");
+  const diffMs = Date.now() - posted.getTime();
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
+}
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str || "";
+  return div.innerHTML;
+}
+
+function renderJobs(jobs) {
+  if (!jobs.length) {
+    els.body.innerHTML = `<tr><td colspan="8" class="empty-state">No matching jobs right now. The radar keeps checking every 5 minutes.</td></tr>`;
+    return;
+  }
+
+  els.body.innerHTML = jobs
+    .map((job) => {
+      const otherSources = (job.other_sources || [])
+        .map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${s.source}</a>`)
+        .join(", ");
+      const hybridNote = job.work_mode === "Hybrid" && job.hybrid_office_days != null
+        ? ` (${job.hybrid_office_days}d office)`
+        : "";
+      return `
+        <tr>
+          <td>${timeAgo(job.posted_date)}</td>
+          <td>${escapeHtml(job.title)}</td>
+          <td>${escapeHtml(job.company)}</td>
+          <td>${modeBadge(job.work_mode)}${hybridNote}</td>
+          <td>${escapeHtml(job.salary) || "N/A"}</td>
+          <td>${escapeHtml(job.location)}</td>
+          <td class="summary-cell">${escapeHtml(job.summary) || "—"}</td>
+          <td>
+            <a class="apply-link" href="${job.url}" target="_blank" rel="noopener">Open ↗</a>
+            ${otherSources ? `<div class="other-sources">also on: ${otherSources}</div>` : ""}
+          </td>
+        </tr>`;
+    })
+    .join("");
+}
+
+async function loadJobs() {
+  const params = new URLSearchParams({
+    bucket: els.bucket.value,
+    work_mode: els.mode.value,
+    source: els.source.value,
+    q: els.search.value,
+  });
+
+  try {
+    const resp = await fetch(`/api/jobs?${params.toString()}`);
+    const data = await resp.json();
+    renderJobs(data.jobs);
+    els.jobCount.textContent = `${data.count} job${data.count === 1 ? "" : "s"} matching`;
+    els.lastRefreshed.textContent = `Last refreshed: ${new Date().toLocaleTimeString()}`;
+  } catch (err) {
+    els.jobCount.textContent = "Failed to load jobs — is the server running?";
+  }
+}
+
+[els.search, els.source, els.mode, els.bucket].forEach((el) => {
+  el.addEventListener(el.tagName === "INPUT" ? "input" : "change", () => loadJobs());
+});
+els.refreshBtn.addEventListener("click", loadJobs);
+
+loadJobs();
+setInterval(loadJobs, REFRESH_INTERVAL_MS);
