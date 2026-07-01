@@ -8,9 +8,12 @@ Hybrid (≤3 days in office) or Remote, posted in the last 15/30 days.
 ## How it works
 
 1. **Scrapers** (`app/scrapers/`) pull listings from Naukri, LinkedIn
-   (guest/public search), Instahyre, Indeed and Foundit — all via public,
-   non-login-walled endpoints. Each source is isolated: if one board
-   changes its markup/API and breaks, the others keep working.
+   (guest/public search), Instahyre, Indeed and Foundit. Each source is
+   isolated: if one board changes its markup/API and breaks, the others
+   keep working. Naukri is the exception to "non-login" — it runs Akamai
+   bot-defense and per-request signed tokens that block plain HTTP
+   requests entirely, so it's scraped via a real, persistent, logged-in
+   Chromium session (Playwright) instead — see **Naukri setup** below.
 2. **Filter engine** (`app/filters.py`) applies, in order:
    - Title whitelist (Digital Marketing Director / Head of Digital
      Marketing / Growth or Demand Gen Director) minus VP/Senior
@@ -38,6 +41,35 @@ Hybrid (≤3 days in office) or Remote, posted in the last 15/30 days.
 
 ```bash
 pip install -r requirements.txt
+playwright install chromium
+```
+
+### Naukri setup (one-time)
+
+Naukri can't be scraped with plain HTTP — it needs a real logged-in
+browser session:
+
+```bash
+python scripts/setup_naukri_login.py
+```
+
+This opens a visible Chromium window. Log in to Naukri normally in that
+window, then come back to the terminal and press Enter. Your session is
+saved to `.naukri_browser_profile/` (gitignored, stays local to your
+machine) and reused automatically on every future run — no need to log
+in again or paste any cookies/tokens. Re-run this script only if Naukri
+logs your saved session out (should be rare — weeks, not hours).
+
+Naukri's automated poll interval is set conservatively (every 20 min, see
+`SCRAPE_INTERVAL_MINUTES` in `app/config.py`) to look like normal manual
+browsing on your account rather than aggressive bot polling. Don't lower
+it without a reason — Akamai bot-defense is specifically designed to flag
+unusually regular/frequent automated request patterns, and this uses your
+real personal Naukri login.
+
+### Run it
+
+```bash
 python run.py
 ```
 
@@ -59,13 +91,25 @@ Everything is centralized in `app/config.py`:
 
 ## Known limitations
 
-- **Scraper fragility**: Naukri/LinkedIn/Instahyre/Indeed/Foundit are all
-  scraped via public but *unofficial* endpoints (no ToS-violating
-  login-walled scraping is used). Job-board frontends change their
-  markup/APIs periodically; each scraper file has a comment explaining
-  how to re-verify/update it if it starts returning 0 results. Wrap
-  requests in a network debugger (browser DevTools → Network tab) on the
-  live site to diff against the parsing code.
+- **Scraper fragility**: LinkedIn/Instahyre/Indeed/Foundit are scraped
+  via public, non-login HTTP endpoints; job-board frontends change their
+  markup/APIs periodically. Each scraper file has a comment explaining
+  how to re-verify/update it if it starts returning 0 results — open the
+  live site, browser DevTools → Network tab, and diff the real request
+  against the parsing code.
+- **Indeed specifically** returns 403 (bot-fingerprint block) even with
+  correct headers, since it does more than header-checking. This may
+  need to stay broken/dropped rather than chased further — Naukri and
+  LinkedIn already cover Gurgaon senior-marketing listings well.
+- **Naukri account risk**: the Naukri scraper drives your real logged-in
+  browser session. It's built to look as close to normal manual browsing
+  as reasonably possible (real browser, infrequent polling, no headless
+  fingerprint), but any automation against a site with active bot-defense
+  carries some inherent risk of the account being flagged. If you'd
+  rather avoid that entirely, disable it in `app/scrapers/__init__.py`
+  and instead use Naukri's own built-in "Create a job alert" feature on
+  the search results page — same coverage, zero automation risk, just
+  arrives by email instead of in this dashboard.
 - **Rate limiting**: aggressive polling (especially LinkedIn) can trigger
   temporary blocks. Back off the interval in `config.py` if a source
   starts erroring consistently.

@@ -86,7 +86,11 @@ EXTENDED_WINDOW_DAYS = 30  # secondary bucket: 16-30 days old, then dropped
 # than the rest. Adjust freely; the dashboard still shows a unified,
 # continuously-updating list regardless of per-source cadence.
 SCRAPE_INTERVAL_MINUTES = {
-    "naukri": 5,
+    # Naukri is scraped via a real logged-in browser session (see
+    # app/scrapers/naukri.py) rather than raw HTTP. Kept deliberately
+    # infrequent to look like normal manual browsing on your account, not
+    # automated polling -- do not lower this without a reason.
+    "naukri": 20,
     "instahyre": 5,
     "indeed": 5,
     "foundit": 5,
@@ -96,6 +100,10 @@ SCRAPE_INTERVAL_MINUTES = {
 # --- Search query -------------------------------------------------------
 SEARCH_KEYWORDS = "Digital Marketing Director"
 SEARCH_LOCATION = "Gurgaon"
+NAUKRI_SEARCH_URL = (
+    "https://www.naukri.com/digital-marketing-director-jobs-in-gurugram"
+    "?k=digital%20marketing%20director&l=gurugram"
+)
 
 DB_PATH = "job_radar.db"
 HTTP_TIMEOUT_SECONDS = 15
@@ -103,3 +111,12 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
+
+# --- Naukri browser automation -------------------------------------------
+# Naukri sits behind Akamai Bot Manager and per-request signed tokens, so
+# it can't be scraped with plain HTTP requests -- app/scrapers/naukri.py
+# drives a real Chromium instance instead, reusing a persistent login
+# profile saved by scripts/setup_naukri_login.py (run that once first).
+NAUKRI_PROFILE_DIR = ".naukri_browser_profile"
+NAUKRI_HEADLESS = True
+NAUKRI_PAGE_TIMEOUT_MS = 30000
