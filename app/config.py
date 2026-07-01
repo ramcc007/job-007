@@ -14,6 +14,12 @@ TITLE_INCLUDE_PATTERNS = [
     r"\bdirector\s*[-–—,]?\s*growth\s*marketing\b",
     r"\bdemand\s*generation\s*director\b",
     r"\bdirector\s*[-–—,]?\s*demand\s*generation\b",
+    # Widened: Indian listings often title senior marketing roles just
+    # "Marketing Director" / "Director, Marketing" without the word
+    # "digital", even when the role itself is digital-heavy.
+    r"\bmarketing\s*director\b",
+    r"\bdirector\s*[-–—,]?\s*marketing\b",
+    r"\bhead\s*of\s*marketing\b",
 ]
 
 # A job is rejected if its title matches ANY of these, even if it also
@@ -28,6 +34,13 @@ TITLE_EXCLUDE_PATTERNS = [
     r"\bcmo\b",
     r"\bmanager\b",
     r"\bexecutive\b",
+    # Adjacent functions that carry "marketing"/"director" wording but
+    # aren't digital-marketing-director-equivalent roles.
+    r"\bbrand\s*director\b",
+    r"\bpublic\s*relations\b",
+    r"\bcommunications?\s*director\b",
+    r"\bsales\s*director\b",
+    r"\bproduct\s*marketing\s*director\b",
     r"\bassociate\b",
     r"\bintern(ship)?\b",
     r"\bexecutive\s*assistant\b",
