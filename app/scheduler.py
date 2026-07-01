@@ -1,4 +1,5 @@
 import logging
+from collections import Counter
 from datetime import datetime, timedelta
 
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -19,11 +20,16 @@ def run_source(name: str):
     now = datetime.utcnow()
 
     matched = 0
+    reject_reasons = Counter()
+    sample_rejects = []
     session = get_session()
     try:
         for raw in raw_jobs:
             passes, reason, work_mode, hybrid_days = evaluate(raw, now=now)
             if not passes:
+                reject_reasons[reason] += 1
+                if len(sample_rejects) < 5:
+                    sample_rejects.append(f"{reason}: \"{raw.title}\" @ {raw.company} ({raw.location_raw})")
                 continue
 
             dedup_key = normalize_for_dedup(raw.title, raw.company)
@@ -70,6 +76,10 @@ def run_source(name: str):
         session.close()
 
     logger.info("[%s] %d/%d listings matched filters and were stored", name, matched, len(raw_jobs))
+    if raw_jobs and matched == 0:
+        logger.info("[%s] reject reasons: %s", name, dict(reject_reasons))
+        for sample in sample_rejects:
+            logger.info("[%s] rejected sample -> %s", name, sample)
 
 
 def purge_old_jobs():
