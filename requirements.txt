@@ -5,4 +5,7 @@ requests==2.32.3
 beautifulsoup4==4.12.3
 sqlalchemy==2.0.35
 python-dateutil==2.9.0.post0
-playwright==1.47.0
+# 1.61+ needed: older releases pin a greenlet with no prebuilt wheel for
+# Python 3.14 on Windows, forcing a from-source C++ build that fails
+# without MSVC Build Tools.
+playwright==1.61.0
