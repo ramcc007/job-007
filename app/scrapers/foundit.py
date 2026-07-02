@@ -1,80 +1,124 @@
 """
-Foundit (formerly Monster India) renders search results client-side and
-backs them with a JSON search API. The endpoint/payload shape below is
-inferred and the most likely of the five scrapers to need adjustment --
-open foundit.in's search page in a browser, check the Network tab for the
-XHR request the search box triggers, and update SEARCH_URL/payload/parsing
-to match if this returns 0 results.
+Foundit (formerly Monster India) renders search results client-side; its
+internal JSON API rejected direct HTTP calls (400), so search pages are
+fetched through a real anonymous Chromium session and parsed from the
+rendered DOM. Class names on foundit.in are generated/verbose, so the
+selectors below use attribute-contains matching plus a generic
+link-harvest fallback -- if results still come back 0 while the site
+shows jobs, inspect a job card in DevTools and adjust CARD_SELECTORS.
 """
-from datetime import datetime
-from typing import List
+import re
+from typing import Dict, List, Optional
+from urllib.parse import quote, urljoin
 
-from dateutil import parser as dateutil_parser
+from bs4 import BeautifulSoup
 
-from app.config import SEARCH_KEYWORDS, SEARCH_LOCATION
+from app.config import SEARCH_KEYWORDS_LIST, SEARCH_LOCATION
 from app.filters import RawJob
-from app.scrapers.base import BaseScraper, http_get
+from app.scrapers.base import BaseScraper, logger, parse_relative_date
+from app.scrapers.browser import fetch_pages_with_browser
 
-SEARCH_URL = "https://www.foundit.in/middleware/jobsearch"
+CARD_SELECTORS = "div[class*='srpResultCard'], div[class*='cardContainer'], div[class*='jobTuple']"
+
+FOUNDIT_KEYWORDS = SEARCH_KEYWORDS_LIST[:2]
+
+
+def _build_search_url(keyword: str) -> str:
+    return (
+        f"https://www.foundit.in/srp/results?query={quote(keyword)}"
+        f"&locations={quote(SEARCH_LOCATION)}"
+    )
 
 
 class FounditScraper(BaseScraper):
     name = "foundit"
 
     def fetch(self) -> List[RawJob]:
-        params = {
-            "query": SEARCH_KEYWORDS,
-            "locations": SEARCH_LOCATION,
-            "sort": "1",  # most recent first
-            "days": 15,
-        }
-        headers = {"Accept": "application/json"}
-        resp = http_get(SEARCH_URL, params=params, headers=headers)
-        data = resp.json()
+        urls = [_build_search_url(kw) for kw in FOUNDIT_KEYWORDS]
+        htmls = fetch_pages_with_browser(urls, wait_selector=CARD_SELECTORS)
 
-        jobs: List[RawJob] = []
-        results = data.get("jobs") or data.get("results") or []
-        for item in results:
-            try:
-                job = self._parse_item(item)
-                if job:
-                    jobs.append(job)
-            except Exception:  # noqa: BLE001
+        jobs_by_id: Dict[str, RawJob] = {}
+        for html in htmls.values():
+            if not html:
                 continue
-        return jobs
+            soup = BeautifulSoup(html, "html.parser")
+            cards = soup.select(CARD_SELECTORS)
+            if cards:
+                for card in cards:
+                    try:
+                        job = self._parse_card(card)
+                        if job:
+                            jobs_by_id.setdefault(job.source_job_id, job)
+                    except Exception:  # noqa: BLE001
+                        continue
+            else:
+                # Markup changed or unexpected page: harvest job links
+                # generically so the source degrades instead of dying.
+                harvested = self._harvest_links(soup)
+                if harvested:
+                    logger.info("[foundit] card selectors found nothing; link-harvest fallback got %d", len(harvested))
+                for job in harvested:
+                    jobs_by_id.setdefault(job.source_job_id, job)
+        return list(jobs_by_id.values())
 
     @staticmethod
-    def _parse_item(item: dict) -> RawJob:
-        job_id = str(item.get("jobId") or item.get("id") or "")
+    def _parse_card(card) -> Optional[RawJob]:
+        title_el = card.select_one("[class*='jobTitle'], h3 a, h2 a")
+        if not title_el:
+            return None
+        link_el = title_el if title_el.name == "a" else (title_el.select_one("a") or card.select_one("a[href*='/job/']"))
+        url = urljoin("https://www.foundit.in/", link_el.get("href", "")) if link_el else ""
+
+        company_el = card.select_one("[class*='companyName'], [class*='company-name']")
+        location_el = card.select_one("[class*='location'], [class*='details'] span")
+        posted_el = card.select_one("[class*='timeText'], [class*='posted'], time")
+        salary_el = card.select_one("[class*='salary'], [class*='package']")
+
+        job_id_match = re.search(r"(\d{6,})", url)
+        job_id = job_id_match.group(1) if job_id_match else url
         if not job_id:
             return None
 
-        title = item.get("title") or item.get("jobTitle", "")
-        company = item.get("companyName") or item.get("company", "")
-        location = item.get("location") or item.get("locations", "")
-        description = item.get("description") or item.get("jobDescription", "")
-
-        posted_raw = item.get("postedDate") or item.get("createDate")
-        try:
-            posted_date = dateutil_parser.parse(posted_raw) if posted_raw else datetime.utcnow()
-            if posted_date.tzinfo:
-                posted_date = posted_date.replace(tzinfo=None)
-        except (ValueError, TypeError):
-            posted_date = datetime.utcnow()
-
-        url = item.get("jobUrl") or item.get("url") or (f"https://www.foundit.in/job/{job_id}" if job_id else "")
-
         return RawJob(
             source="foundit",
-            source_job_id=job_id,
+            source_job_id=str(job_id),
             url=url,
-            title=title,
-            company=company or "",
-            location_raw=location if isinstance(location, str) else ", ".join(location or []),
-            posted_date=posted_date,
-            description_text=description or "",
-            work_mode_hint=item.get("workMode", ""),
-            employment_type_raw=item.get("employmentType", ""),
-            salary_raw=item.get("salary", ""),
-            summary=(description or "")[:400],
+            title=title_el.get_text(strip=True),
+            company=company_el.get_text(strip=True) if company_el else "",
+            location_raw=location_el.get_text(strip=True) if location_el else "",
+            posted_date=parse_relative_date(posted_el.get_text(strip=True) if posted_el else ""),
+            description_text="",
+            work_mode_hint="",
+            employment_type_raw="",
+            salary_raw=salary_el.get_text(strip=True) if salary_el else "",
+            summary="",
         )
+
+    @staticmethod
+    def _harvest_links(soup) -> List[RawJob]:
+        jobs: List[RawJob] = []
+        for a in soup.select("a[href*='/job/']"):
+            title = a.get_text(strip=True)
+            href = urljoin("https://www.foundit.in/", a.get("href", ""))
+            if not title or len(title) < 5:
+                continue
+            job_id_match = re.search(r"(\d{6,})", href)
+            if not job_id_match:
+                continue
+            jobs.append(
+                RawJob(
+                    source="foundit",
+                    source_job_id=job_id_match.group(1),
+                    url=href,
+                    title=title,
+                    company="",
+                    location_raw="",
+                    posted_date=parse_relative_date(""),
+                    description_text="",
+                    work_mode_hint="",
+                    employment_type_raw="",
+                    salary_raw="",
+                    summary="",
+                )
+            )
+        return jobs

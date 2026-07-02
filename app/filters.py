@@ -133,13 +133,18 @@ def evaluate(raw: RawJob, now: Optional[datetime] = None):
     if not title_matches(raw.title):
         return False, "title_mismatch", None, None
 
-    if not location_matches(raw.location_raw):
-        return False, "location_mismatch", None, None
+    work_mode, hybrid_days = parse_work_mode(raw.work_mode_hint, raw.description_text)
+
+    # Remote roles are workable from Gurgaon no matter what city the
+    # posting is anchored to, so the Gurgaon-only rule applies to
+    # onsite/hybrid/unspecified listings but not confirmed-remote ones.
+    is_remote = work_mode == "Remote" or re.search(r"\bremote\b", raw.location_raw or "", re.I)
+    if not is_remote and not location_matches(raw.location_raw):
+        return False, "location_mismatch", work_mode, hybrid_days
 
     if not employment_type_ok(raw.employment_type_raw, raw.description_text):
-        return False, "employment_type_excluded", None, None
+        return False, "employment_type_excluded", work_mode, hybrid_days
 
-    work_mode, hybrid_days = parse_work_mode(raw.work_mode_hint, raw.description_text)
     if not work_mode_ok(work_mode, hybrid_days):
         return False, "work_mode_excluded", work_mode, hybrid_days
 

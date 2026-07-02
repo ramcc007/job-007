@@ -1,5 +1,7 @@
 import logging
+import re
 from abc import ABC, abstractmethod
+from datetime import datetime, timedelta
 from typing import List
 
 import requests
@@ -8,6 +10,29 @@ from app.config import HTTP_TIMEOUT_SECONDS, USER_AGENT
 from app.filters import RawJob
 
 logger = logging.getLogger("job_radar.scrapers")
+
+
+def parse_relative_date(text: str) -> datetime:
+    """'3 days ago' / '5 hours ago' / 'Just now' -> absolute UTC datetime.
+    Unrecognized text maps to now; the scheduler never overwrites
+    posted_date after first insert, so that acts as a first-seen date."""
+    text = (text or "").lower().strip()
+    now = datetime.utcnow()
+    if not text or "today" in text or "just now" in text or "few" in text:
+        return now
+    hours_match = re.search(r"(\d+)\s*hour", text)
+    if hours_match:
+        return now - timedelta(hours=int(hours_match.group(1)))
+    days_match = re.search(r"(\d+)\+?\s*day", text)
+    if days_match:
+        return now - timedelta(days=int(days_match.group(1)))
+    weeks_match = re.search(r"(\d+)\+?\s*week", text)
+    if weeks_match:
+        return now - timedelta(weeks=int(weeks_match.group(1)))
+    months_match = re.search(r"(\d+)\+?\s*month", text)
+    if months_match:
+        return now - timedelta(days=30 * int(months_match.group(1)))
+    return now
 
 
 def http_get(url: str, params: dict = None, headers: dict = None, timeout: int = HTTP_TIMEOUT_SECONDS):

@@ -1,53 +1,69 @@
 """
-Indeed serves standard HTML search results and does not require login,
-but it actively fingerprints bot-like traffic and may occasionally return
-a CAPTCHA/verification page instead of results. If fetch() starts
-returning 0 jobs, check resp.text for a captcha challenge before assuming
-the CSS selectors below are stale.
+Indeed blocks plain HTTP requests with a 403 bot-fingerprint check
+(confirmed live -- correct headers alone don't pass), so this fetches
+search pages through a real anonymous Chromium session instead. Indeed
+may still occasionally serve a CAPTCHA/verification interstitial; when
+that happens the run logs a hint and returns whatever parsed.
+
+fromage=14 is Indeed's longest supported freshness filter tier below a
+month; the app's own recency filter handles the exact 15/30-day buckets.
 """
 import re
-from datetime import datetime, timedelta
-from typing import List
+from typing import Dict, List, Optional
+from urllib.parse import quote
 
 from bs4 import BeautifulSoup
 
-from app.config import SEARCH_KEYWORDS, SEARCH_LOCATION
+from app.config import SEARCH_KEYWORDS_LIST, SEARCH_LOCATION
 from app.filters import RawJob
-from app.scrapers.base import BaseScraper, http_get
+from app.scrapers.base import BaseScraper, logger, parse_relative_date
+from app.scrapers.browser import fetch_pages_with_browser
 
-SEARCH_URL = "https://in.indeed.com/jobs"
+CARD_SELECTOR = "div.job_seen_beacon"
+
+INDEED_KEYWORDS = SEARCH_KEYWORDS_LIST[:2]
+
+
+def _build_search_url(keyword: str) -> str:
+    return (
+        f"https://in.indeed.com/jobs?q={quote(keyword)}"
+        f"&l={quote(SEARCH_LOCATION)}&fromage=14&sort=date"
+    )
 
 
 class IndeedScraper(BaseScraper):
     name = "indeed"
 
     def fetch(self) -> List[RawJob]:
-        params = {
-            "q": SEARCH_KEYWORDS,
-            "l": SEARCH_LOCATION,
-            "fromage": 15,
-            "sort": "date",
-        }
-        resp = http_get(SEARCH_URL, params=params)
-        soup = BeautifulSoup(resp.text, "html.parser")
+        urls = [_build_search_url(kw) for kw in INDEED_KEYWORDS]
+        htmls = fetch_pages_with_browser(urls, wait_selector=CARD_SELECTOR)
 
-        jobs: List[RawJob] = []
-        for card in soup.select("div.job_seen_beacon"):
-            try:
-                job = self._parse_card(card)
-                if job:
-                    jobs.append(job)
-            except Exception:  # noqa: BLE001
+        jobs_by_id: Dict[str, RawJob] = {}
+        for html in htmls.values():
+            if not html:
                 continue
-        return jobs
+            soup = BeautifulSoup(html, "html.parser")
+            cards = soup.select(CARD_SELECTOR)
+            if not cards and re.search(r"captcha|verify you are|are you a robot", html, re.I):
+                logger.warning("[indeed] served a verification challenge instead of results")
+                continue
+            for card in cards:
+                try:
+                    job = self._parse_card(card)
+                    if job:
+                        jobs_by_id.setdefault(job.source_job_id, job)
+                except Exception:  # noqa: BLE001
+                    continue
+        return list(jobs_by_id.values())
 
     @staticmethod
-    def _parse_card(card) -> RawJob:
+    def _parse_card(card) -> Optional[RawJob]:
         title_el = card.select_one("h2.jobTitle span")
-        company_el = card.select_one("span.companyName")
-        location_el = card.select_one("div.companyLocation")
+        company_el = card.select_one("span.companyName") or card.select_one("[data-testid='company-name']")
+        location_el = card.select_one("div.companyLocation") or card.select_one("[data-testid='text-location']")
         link_el = card.select_one("h2.jobTitle a")
-        snippet_el = card.select_one("div.job-snippet")
+        snippet_el = card.select_one("div.job-snippet") or card.select_one("[class*='snippet']")
+        salary_el = card.select_one("[class*='salary-snippet']") or card.select_one("[data-testid='attribute_snippet_testid']")
 
         if not (title_el and link_el):
             return None
@@ -57,15 +73,10 @@ class IndeedScraper(BaseScraper):
         job_id = job_id_match.group(1) if job_id_match else href
         url = f"https://in.indeed.com/viewjob?jk={job_id}" if job_id_match else f"https://in.indeed.com{href}"
 
-        posted_date = datetime.utcnow()
-        age_el = card.select_one("span.date")
-        if age_el:
-            age_text = age_el.get_text(strip=True)
-            days_match = re.search(r"(\d+)\+?\s*day", age_text)
-            if days_match:
-                posted_date = datetime.utcnow() - timedelta(days=int(days_match.group(1)))
-            elif "today" in age_text.lower() or "just posted" in age_text.lower():
-                posted_date = datetime.utcnow()
+        age_el = card.select_one("span.date") or card.select_one("[data-testid='myJobsStateDate']")
+        posted_date = parse_relative_date(age_el.get_text(strip=True) if age_el else "")
+
+        snippet = snippet_el.get_text(" ", strip=True) if snippet_el else ""
 
         return RawJob(
             source="indeed",
@@ -75,9 +86,9 @@ class IndeedScraper(BaseScraper):
             company=company_el.get_text(strip=True) if company_el else "",
             location_raw=location_el.get_text(strip=True) if location_el else "",
             posted_date=posted_date,
-            description_text=snippet_el.get_text(" ", strip=True) if snippet_el else "",
+            description_text=snippet,
             work_mode_hint="",
             employment_type_raw="",
-            salary_raw="",
-            summary=snippet_el.get_text(" ", strip=True)[:400] if snippet_el else "",
+            salary_raw=salary_el.get_text(strip=True) if salary_el else "",
+            summary=snippet[:400],
         )

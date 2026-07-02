@@ -53,6 +53,11 @@ def run_source(name: str):
                 )
                 .on_conflict_do_update(
                     index_elements=["source", "source_job_id"],
+                    # posted_date deliberately NOT updated on re-scrape:
+                    # sources without a real posting date report "now" each
+                    # cycle, which would pin the job at "0d ago" forever.
+                    # Keeping the first-inserted value gives first-seen
+                    # semantics and lets listings age out correctly.
                     set_={
                         "url": raw.url,
                         "title": raw.title,
@@ -63,7 +68,6 @@ def run_source(name: str):
                         "employment_type_raw": raw.employment_type_raw,
                         "salary_raw": raw.salary_raw,
                         "summary": raw.summary,
-                        "posted_date": raw.posted_date,
                         "scraped_at": now,
                         "dedup_key": dedup_key,
                     },

@@ -91,19 +91,37 @@ SCRAPE_INTERVAL_MINUTES = {
     # infrequent to look like normal manual browsing on your account, not
     # automated polling -- do not lower this without a reason.
     "naukri": 20,
-    "instahyre": 5,
-    "indeed": 5,
-    "foundit": 5,
+    # Indeed/Foundit/Instahyre also go through a real (anonymous) browser
+    # since their HTTP endpoints block or don't exist; browser launches
+    # are heavy, so these run less often than the old 5-min HTTP polls.
+    "indeed": 15,
+    "foundit": 15,
+    "instahyre": 30,
     "linkedin": 15,
 }
 
-# --- Search query -------------------------------------------------------
-SEARCH_KEYWORDS = "Digital Marketing Director"
+# --- Search queries -------------------------------------------------------
+# Every scraper runs one search per keyword below. More keywords = broader
+# coverage but more requests per cycle; keep the list focused on title
+# variants that actually appear on Indian boards for this level.
+SEARCH_KEYWORDS_LIST = [
+    "digital marketing director",
+    "marketing director",
+    "head of digital marketing",
+    "head of marketing",
+    "growth marketing director",
+]
 SEARCH_LOCATION = "Gurgaon"
-NAUKRI_SEARCH_URL = (
-    "https://www.naukri.com/digital-marketing-director-jobs-in-gurugram"
-    "?k=digital%20marketing%20director&l=gurugram"
-)
+
+# --- LinkedIn depth ------------------------------------------------------
+LINKEDIN_PAGES_PER_KEYWORD = 3       # guest API returns ~10 listings per page
+LINKEDIN_PAGE_SIZE = 10
+LINKEDIN_POSTED_WITHIN_SECONDS = 30 * 24 * 3600  # 30d, to fill the extended bucket too
+LINKEDIN_REQUEST_DELAY_SECONDS = 1.5  # be gentle; the guest API 429s fast
+# After searching, fetch the full JD (guest endpoint, no login) for up to
+# this many title/location-matching jobs per cycle, so work mode and
+# summary can actually be parsed instead of landing in "Unspecified".
+LINKEDIN_MAX_DESCRIPTION_FETCHES = 8
 
 DB_PATH = "job_radar.db"
 HTTP_TIMEOUT_SECONDS = 15
@@ -112,11 +130,14 @@ USER_AGENT = (
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
 
-# --- Naukri browser automation -------------------------------------------
+# --- Browser automation ---------------------------------------------------
 # Naukri sits behind Akamai Bot Manager and per-request signed tokens, so
 # it can't be scraped with plain HTTP requests -- app/scrapers/naukri.py
 # drives a real Chromium instance instead, reusing a persistent login
 # profile saved by scripts/setup_naukri_login.py (run that once first).
 NAUKRI_PROFILE_DIR = ".naukri_browser_profile"
-NAUKRI_HEADLESS = True
-NAUKRI_PAGE_TIMEOUT_MS = 30000
+# Indeed/Foundit/Instahyre share a separate anonymous browser profile (no
+# login involved); it's created automatically on first run.
+GENERIC_BROWSER_PROFILE_DIR = ".browser_profile"
+BROWSER_HEADLESS = True
+BROWSER_PAGE_TIMEOUT_MS = 30000

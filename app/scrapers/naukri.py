@@ -7,30 +7,40 @@ a real, persistent, logged-in Chromium session via Playwright -- run
 scripts/setup_naukri_login.py once to create that session, then this
 module reuses it on every scheduled run.
 
+One search page is fetched per keyword in SEARCH_KEYWORDS_LIST, all
+within a single browser launch, sorted by freshness so the newest
+postings surface first.
+
 If this starts returning 0 jobs while the search page clearly has
 results when you check manually, the site's markup likely changed --
 open a Naukri search results page, right-click a job card -> Inspect, and
 update the CSS selectors in _parse_card() below to match.
 """
 import re
-from datetime import datetime, timedelta
 from pathlib import Path
-from typing import List, Optional
+from typing import Dict, List, Optional
+from urllib.parse import quote
 
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
 
-from app.config import (
-    NAUKRI_HEADLESS,
-    NAUKRI_PAGE_TIMEOUT_MS,
-    NAUKRI_PROFILE_DIR,
-    NAUKRI_SEARCH_URL,
-    USER_AGENT,
-)
+from app.config import NAUKRI_PROFILE_DIR, SEARCH_KEYWORDS_LIST
 from app.filters import RawJob
-from app.scrapers.base import BaseScraper
+from app.scrapers.base import BaseScraper, parse_relative_date
+from app.scrapers.browser import fetch_pages_with_browser
 
 CARD_SELECTOR = "div.srp-jobtuple-wrapper, article.jobTuple"
+
+# Keep Naukri's per-cycle footprint modest: one page per keyword, top
+# variants only. sort=f = freshness (newest first).
+NAUKRI_KEYWORDS = SEARCH_KEYWORDS_LIST[:3]
+
+
+def _build_search_url(keyword: str) -> str:
+    slug = keyword.lower().replace(" ", "-")
+    return (
+        f"https://www.naukri.com/{slug}-jobs-in-gurugram"
+        f"?k={quote(keyword)}&l=gurugram&sort=f"
+    )
 
 
 class NaukriScraper(BaseScraper):
@@ -44,31 +54,24 @@ class NaukriScraper(BaseScraper):
                 "`python scripts/setup_naukri_login.py` once before starting the app."
             )
 
-        with sync_playwright() as p:
-            context = p.chromium.launch_persistent_context(
-                user_data_dir=str(profile_dir),
-                headless=NAUKRI_HEADLESS,
-                user_agent=USER_AGENT,
-                viewport={"width": 1280, "height": 900},
-            )
-            try:
-                page = context.new_page()
-                page.goto(NAUKRI_SEARCH_URL, timeout=NAUKRI_PAGE_TIMEOUT_MS)
-                page.wait_for_selector(CARD_SELECTOR, timeout=NAUKRI_PAGE_TIMEOUT_MS)
-                html = page.content()
-            finally:
-                context.close()
+        urls = [_build_search_url(kw) for kw in NAUKRI_KEYWORDS]
+        htmls = fetch_pages_with_browser(
+            urls, wait_selector=CARD_SELECTOR, profile_dir=str(profile_dir)
+        )
 
-        soup = BeautifulSoup(html, "html.parser")
-        jobs: List[RawJob] = []
-        for card in soup.select(CARD_SELECTOR):
-            try:
-                job = self._parse_card(card)
-                if job:
-                    jobs.append(job)
-            except Exception:  # noqa: BLE001
+        jobs_by_id: Dict[str, RawJob] = {}
+        for html in htmls.values():
+            if not html:
                 continue
-        return jobs
+            soup = BeautifulSoup(html, "html.parser")
+            for card in soup.select(CARD_SELECTOR):
+                try:
+                    job = self._parse_card(card)
+                    if job:
+                        jobs_by_id.setdefault(job.source_job_id, job)
+                except Exception:  # noqa: BLE001
+                    continue
+        return list(jobs_by_id.values())
 
     @staticmethod
     def _parse_card(card) -> Optional[RawJob]:
@@ -87,7 +90,7 @@ class NaukriScraper(BaseScraper):
         job_id_match = re.search(r"-(\d+)(?:$|\?)", url)
         job_id = job_id_match.group(1) if job_id_match else (card.get("data-job-id") or url)
 
-        posted_date = _parse_relative_date(posted_el.get_text(strip=True) if posted_el else "")
+        posted_date = parse_relative_date(posted_el.get_text(strip=True) if posted_el else "")
 
         return RawJob(
             source="naukri",
@@ -103,17 +106,3 @@ class NaukriScraper(BaseScraper):
             salary_raw=salary_el.get_text(strip=True) if salary_el else "",
             summary="",
         )
-
-
-def _parse_relative_date(text: str) -> datetime:
-    text = (text or "").lower().strip()
-    now = datetime.utcnow()
-    if not text or "today" in text or "just now" in text:
-        return now
-    hours_match = re.search(r"(\d+)\s*hour", text)
-    if hours_match:
-        return now - timedelta(hours=int(hours_match.group(1)))
-    days_match = re.search(r"(\d+)\+?\s*day", text)
-    if days_match:
-        return now - timedelta(days=int(days_match.group(1)))
-    return now

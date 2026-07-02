@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from playwright.sync_api import sync_playwright
 
-from app.config import NAUKRI_PROFILE_DIR
+from app.config import NAUKRI_PROFILE_DIR, USER_AGENT
 
 
 def main():
@@ -25,9 +25,12 @@ def main():
     profile_dir.mkdir(exist_ok=True)
 
     with sync_playwright() as p:
+        # Same user agent as the scraper's headless runs, so the session
+        # Akamai fingerprints at login matches what it sees afterwards.
         context = p.chromium.launch_persistent_context(
             user_data_dir=str(profile_dir),
             headless=False,
+            user_agent=USER_AGENT,
             viewport={"width": 1280, "height": 900},
         )
         page = context.new_page()

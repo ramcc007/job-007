@@ -10,17 +10,27 @@ Hybrid (≤3 days in office) or Remote, posted in the last 15/30 days.
 1. **Scrapers** (`app/scrapers/`) pull listings from Naukri, LinkedIn
    (guest/public search), Instahyre, Indeed and Foundit. Each source is
    isolated: if one board changes its markup/API and breaks, the others
-   keep working. Naukri is the exception to "non-login" — it runs Akamai
-   bot-defense and per-request signed tokens that block plain HTTP
-   requests entirely, so it's scraped via a real, persistent, logged-in
-   Chromium session (Playwright) instead — see **Naukri setup** below.
+   keep working. Every source searches multiple title variants
+   (`SEARCH_KEYWORDS_LIST` in config) — LinkedIn additionally paginates
+   several pages per keyword and fetches full job descriptions for
+   likely matches so work-mode and summary get real text.
+   - **LinkedIn** uses public guest HTTP endpoints (no login).
+   - **Naukri** runs Akamai bot-defense and per-request signed tokens
+     that block plain HTTP entirely, so it's scraped via a real,
+     persistent, *logged-in* Chromium session (Playwright) — see
+     **Naukri setup** below.
+   - **Indeed, Foundit, Instahyre** also fetch through a real Chromium
+     session, but an *anonymous* one (shared `.browser_profile/`,
+     created automatically) — that's what defeats Indeed's 403
+     bot-fingerprint block.
 2. **Filter engine** (`app/filters.py`) applies, in order:
    - Title whitelist (Digital Marketing Director / Head of Digital
      Marketing / Growth or Demand Gen Director) minus VP/Senior
      Director/CMO/Manager-level titles.
    - Location: must explicitly say Gurgaon/Gurugram (generic "NCR"/"Delhi
      NCR" tags are rejected so Noida/Faridabad/Delhi postings don't leak
-     in).
+     in). Exception: confirmed-Remote roles pass regardless of the city
+     the posting is anchored to, since they're workable from Gurgaon.
    - Employment type: permanent only (contract/freelance/temp/internship
      rejected).
    - Work mode: Remote always passes; Hybrid passes only if the parsed
@@ -77,6 +87,16 @@ Open http://localhost:8000 — the dashboard loads immediately and the
 first scrape cycle fires on startup (no need to wait 5 minutes for the
 first results).
 
+### Debugging a source
+
+To test any source directly — outside the server, with full detail on
+what was fetched and why rows were accepted/rejected:
+
+```bash
+python scripts/test_scrapers.py            # all sources
+python scripts/test_scrapers.py naukri     # just one
+```
+
 ## Tuning the search
 
 Everything is centralized in `app/config.py`:
@@ -91,16 +111,19 @@ Everything is centralized in `app/config.py`:
 
 ## Known limitations
 
-- **Scraper fragility**: LinkedIn/Instahyre/Indeed/Foundit are scraped
-  via public, non-login HTTP endpoints; job-board frontends change their
-  markup/APIs periodically. Each scraper file has a comment explaining
-  how to re-verify/update it if it starts returning 0 results — open the
-  live site, browser DevTools → Network tab, and diff the real request
-  against the parsing code.
-- **Indeed specifically** returns 403 (bot-fingerprint block) even with
-  correct headers, since it does more than header-checking. This may
-  need to stay broken/dropped rather than chased further — Naukri and
-  LinkedIn already cover Gurgaon senior-marketing listings well.
+- **Scraper fragility**: job-board frontends change their markup
+  periodically. Each scraper file has a docstring explaining how to
+  re-verify/update its selectors if it starts returning 0 results while
+  the live site clearly shows jobs — and
+  `python scripts/test_scrapers.py <source>` shows exactly what was
+  fetched and why rows were rejected.
+- **Foundit/Instahyre selectors are best-effort guesses** (their DOMs
+  couldn't be inspected while building this). If they return 0, run the
+  test script and share the output — the parsing falls back to generic
+  job-link harvesting so there's usually *something* to diagnose from.
+- **Instahyre** gates most search results behind candidate login; if it
+  stays at 0, either ignore the source or log in once inside
+  `.browser_profile` (same approach as the Naukri setup script).
 - **Naukri account risk**: the Naukri scraper drives your real logged-in
   browser session. It's built to look as close to normal manual browsing
   as reasonably possible (real browser, infrequent polling, no headless
