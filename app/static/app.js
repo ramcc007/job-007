@@ -50,14 +50,14 @@ function renderJobs(jobs) {
         : "";
       return `
         <tr>
-          <td>${timeAgo(job.posted_date)}</td>
-          <td>${escapeHtml(job.title)}</td>
-          <td>${escapeHtml(job.company)}</td>
-          <td>${modeBadge(job.work_mode)}${hybridNote}</td>
-          <td>${escapeHtml(job.salary) || "N/A"}</td>
-          <td>${escapeHtml(job.location)}</td>
-          <td class="summary-cell">${escapeHtml(job.summary) || "—"}</td>
-          <td>
+          <td data-label="Posted">${timeAgo(job.posted_date)}</td>
+          <td data-label="Title" class="title-cell">${escapeHtml(job.title)}</td>
+          <td data-label="Company">${escapeHtml(job.company)}</td>
+          <td data-label="Mode">${modeBadge(job.work_mode)}${hybridNote}</td>
+          <td data-label="Salary">${escapeHtml(job.salary) || "N/A"}</td>
+          <td data-label="Location">${escapeHtml(job.location)}</td>
+          <td data-label="Summary" class="summary-cell">${escapeHtml(job.summary) || "—"}</td>
+          <td data-label="" class="apply-cell">
             <a class="apply-link" href="${job.url}" target="_blank" rel="noopener">Open ↗</a>
             ${otherSources ? `<div class="other-sources">also on: ${otherSources}</div>` : ""}
           </td>

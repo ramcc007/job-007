@@ -101,3 +101,47 @@ tbody tr:hover { background: #fafbfe; }
   padding: 40px;
   color: #888;
 }
+
+/* --- Mobile: collapse the table into stacked job cards --- */
+@media (max-width: 768px) {
+  .container { padding: 12px; }
+  header h1 { font-size: 16px; }
+  .filters { gap: 8px; padding: 10px; }
+  #search-box { min-width: 0; width: 100%; }
+
+  table, tbody, tr, td { display: block; width: 100%; }
+  thead { display: none; }
+
+  tbody tr {
+    margin-bottom: 12px;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    background: #fff;
+    padding: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  tbody td {
+    border: none;
+    padding: 3px 0;
+    font-size: 14px;
+  }
+  tbody td::before {
+    content: attr(data-label);
+    display: inline-block;
+    min-width: 78px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #999;
+  }
+  tbody td.title-cell {
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 6px;
+  }
+  tbody td.title-cell::before { display: none; }
+  .summary-cell { max-width: none; }
+  .apply-cell { padding-top: 10px; }
+  .apply-cell::before { display: none; }
+  .apply-link { display: block; text-align: center; padding: 10px; font-size: 14px; }
+}
