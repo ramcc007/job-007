@@ -55,10 +55,14 @@ class BaseScraper(ABC):
         raise NotImplementedError
 
     def safe_fetch(self) -> List[RawJob]:
+        from app import diagnostics
+
         try:
             jobs = self.fetch()
             logger.info("[%s] fetched %d raw listings", self.name, len(jobs))
+            diagnostics.record(self.name, error=None)
             return jobs
         except Exception as exc:  # noqa: BLE001 - intentionally broad, see docstring
             logger.warning("[%s] scrape failed: %s", self.name, exc)
+            diagnostics.record(self.name, error=f"{type(exc).__name__}: {exc}")
             return []

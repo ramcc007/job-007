@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 from app.config import SEARCH_KEYWORDS_LIST, SEARCH_LOCATION
 from app.filters import RawJob
 from app.scrapers.base import BaseScraper, logger, parse_relative_date
-from app.scrapers.browser import fetch_pages_with_browser
+from app.scrapers.browser import dump_debug_html, fetch_pages_with_browser
 
 CARD_SELECTORS = "div[class*='srpResultCard'], div[class*='cardContainer'], div[class*='jobTuple']"
 
@@ -38,7 +38,7 @@ class FounditScraper(BaseScraper):
         htmls = fetch_pages_with_browser(urls, wait_selector=CARD_SELECTORS)
 
         jobs_by_id: Dict[str, RawJob] = {}
-        for html in htmls.values():
+        for i, html in enumerate(htmls.values()):
             if not html:
                 continue
             soup = BeautifulSoup(html, "html.parser")
@@ -57,6 +57,8 @@ class FounditScraper(BaseScraper):
                 harvested = self._harvest_links(soup)
                 if harvested:
                     logger.info("[foundit] card selectors found nothing; link-harvest fallback got %d", len(harvested))
+                else:
+                    dump_debug_html(self.name, html, i)
                 for job in harvested:
                     jobs_by_id.setdefault(job.source_job_id, job)
         return list(jobs_by_id.values())

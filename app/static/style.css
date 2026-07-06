@@ -9,6 +9,28 @@ body {
 header h1 { font-size: 20px; margin: 0 0 4px; }
 .status-line { font-size: 13px; color: #666; display: flex; gap: 16px; }
 
+.source-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.src {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.src b { text-transform: capitalize; }
+.src-ok   { background: #e3f7e8; color: #1a7a34; border-color: #bfe8ca; }
+.src-warn { background: #fff4e0; color: #9a6b00; border-color: #f2ddaf; }
+.src-err  { background: #fde8e8; color: #b42318; border-color: #f5c6c6; }
+.src-idle { background: #f1f1f1; color: #777; border-color: #e0e0e0; }
+
 .filters {
   display: flex;
   flex-wrap: wrap;

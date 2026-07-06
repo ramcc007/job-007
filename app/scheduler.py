@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 
+from app import diagnostics
 from app.config import EXTENDED_WINDOW_DAYS, SCRAPE_INTERVAL_MINUTES
 from app.database import get_session
 from app.filters import evaluate
@@ -84,6 +85,14 @@ def run_source(name: str):
         logger.info("[%s] reject reasons: %s", name, dict(reject_reasons))
         for sample in sample_rejects:
             logger.info("[%s] rejected sample -> %s", name, sample)
+
+    diagnostics.record(
+        name,
+        raw_fetched=len(raw_jobs),
+        matched=matched,
+        reject_reasons=dict(reject_reasons),
+        sample_rejects=sample_rejects,
+    )
 
 
 def purge_old_jobs():

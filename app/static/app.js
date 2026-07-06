@@ -66,7 +66,44 @@ function renderJobs(jobs) {
     .join("");
 }
 
+function timeAgoShort(iso) {
+  if (!iso) return "never";
+  const diffMin = Math.floor((Date.now() - new Date(iso + "Z").getTime()) / 60000);
+  if (diffMin < 1) return "just now";
+  if (diffMin < 60) return `${diffMin}m ago`;
+  return `${Math.floor(diffMin / 60)}h ago`;
+}
+
+async function loadDiagnostics() {
+  const el = document.getElementById("source-status");
+  try {
+    const resp = await fetch("/api/diagnostics");
+    const data = await resp.json();
+    const sources = data.sources || {};
+    const names = ["naukri", "linkedin", "indeed", "foundit", "instahyre"];
+    el.innerHTML = names
+      .map((name) => {
+        const s = sources[name];
+        if (!s) return `<span class="src src-idle"><b>${name}</b> not run yet</span>`;
+        if (s.error) {
+          return `<span class="src src-err" title="${escapeHtml(s.error)}"><b>${name}</b> ERROR: ${escapeHtml(s.error).slice(0, 60)}</span>`;
+        }
+        const reasons = s.reject_reasons && Object.keys(s.reject_reasons).length
+          ? ` · rejected: ${Object.entries(s.reject_reasons).map(([k, v]) => `${k}×${v}`).join(", ")}`
+          : "";
+        const cls = (s.raw_fetched || 0) === 0 ? "src-warn" : "src-ok";
+        return `<span class="src ${cls}" title="${escapeHtml((s.sample_rejects || []).join("\n"))}">` +
+          `<b>${name}</b> ${s.raw_fetched ?? "?"} fetched → ${s.matched ?? "?"} matched` +
+          `${reasons} · ${timeAgoShort(s.updated_at)}</span>`;
+      })
+      .join("");
+  } catch (err) {
+    el.innerHTML = `<span class="src src-err">diagnostics unavailable</span>`;
+  }
+}
+
 async function loadJobs() {
+  loadDiagnostics();
   const params = new URLSearchParams({
     bucket: els.bucket.value,
     work_mode: els.mode.value,

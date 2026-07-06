@@ -70,6 +70,11 @@ class LinkedInScraper(BaseScraper):
                     jobs_by_id.setdefault(job.source_job_id, job)
 
                 if not page_jobs:
+                    if page_i == 0 and len(resp.text.strip()) > 200:
+                        # First page came back non-trivial but unparseable:
+                        # markup likely changed. Save it for diagnosis.
+                        from app.scrapers.browser import dump_debug_html
+                        dump_debug_html(self.name, resp.text)
                     break  # no more results for this keyword
                 time.sleep(LINKEDIN_REQUEST_DELAY_SECONDS)
 

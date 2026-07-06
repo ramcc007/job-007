@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 from app.config import SEARCH_KEYWORDS_LIST, SEARCH_LOCATION
 from app.filters import RawJob
 from app.scrapers.base import BaseScraper, logger, parse_relative_date
-from app.scrapers.browser import fetch_pages_with_browser
+from app.scrapers.browser import dump_debug_html, fetch_pages_with_browser
 
 CARD_SELECTOR = "div.job_seen_beacon"
 
@@ -39,13 +39,15 @@ class IndeedScraper(BaseScraper):
         htmls = fetch_pages_with_browser(urls, wait_selector=CARD_SELECTOR)
 
         jobs_by_id: Dict[str, RawJob] = {}
-        for html in htmls.values():
+        for i, html in enumerate(htmls.values()):
             if not html:
                 continue
             soup = BeautifulSoup(html, "html.parser")
             cards = soup.select(CARD_SELECTOR)
-            if not cards and re.search(r"captcha|verify you are|are you a robot", html, re.I):
-                logger.warning("[indeed] served a verification challenge instead of results")
+            if not cards:
+                if re.search(r"captcha|verify you are|are you a robot", html, re.I):
+                    logger.warning("[indeed] served a verification challenge instead of results")
+                dump_debug_html(self.name, html, i)
                 continue
             for card in cards:
                 try:

@@ -26,7 +26,7 @@ from bs4 import BeautifulSoup
 from app.config import NAUKRI_PROFILE_DIR, SEARCH_KEYWORDS_LIST
 from app.filters import RawJob
 from app.scrapers.base import BaseScraper, parse_relative_date
-from app.scrapers.browser import fetch_pages_with_browser
+from app.scrapers.browser import dump_debug_html, fetch_pages_with_browser
 
 CARD_SELECTOR = "div.srp-jobtuple-wrapper, article.jobTuple"
 
@@ -60,11 +60,15 @@ class NaukriScraper(BaseScraper):
         )
 
         jobs_by_id: Dict[str, RawJob] = {}
-        for html in htmls.values():
+        for i, html in enumerate(htmls.values()):
             if not html:
                 continue
             soup = BeautifulSoup(html, "html.parser")
-            for card in soup.select(CARD_SELECTOR):
+            cards = soup.select(CARD_SELECTOR)
+            if not cards:
+                dump_debug_html(self.name, html, i)
+                continue
+            for card in cards:
                 try:
                     job = self._parse_card(card)
                     if job:

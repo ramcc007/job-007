@@ -23,6 +23,19 @@ logger = logging.getLogger("job_radar.scrapers")
 
 _browser_lock = threading.Lock()
 
+DEBUG_DIR = Path("debug")
+
+
+def dump_debug_html(source: str, html: str, page_index: int = 0) -> str:
+    """Save the HTML a scraper fetched but couldn't parse any jobs out of,
+    so the real page structure can be inspected and the selectors fixed.
+    Overwrites the previous dump for the same source/page (latest wins)."""
+    DEBUG_DIR.mkdir(exist_ok=True)
+    path = DEBUG_DIR / f"{source}_{page_index}.html"
+    path.write_text(html, encoding="utf-8", errors="replace")
+    logger.info("[%s] parsed 0 jobs from a non-empty page; saved it to %s for selector diagnosis", source, path)
+    return str(path)
+
 
 def fetch_pages_with_browser(
     urls: List[str],

@@ -74,6 +74,17 @@ def list_jobs(
     return {"count": len(results), "jobs": results}
 
 
+@app.get("/api/diagnostics")
+def get_diagnostics():
+    from app import diagnostics
+
+    return {
+        "sources": diagnostics.snapshot(),
+        "refresh_intervals_minutes": SCRAPE_INTERVAL_MINUTES,
+        "server_time_utc": datetime.utcnow().isoformat(),
+    }
+
+
 @app.get("/api/status")
 def status():
     session = get_session()

@@ -18,7 +18,7 @@ from bs4 import BeautifulSoup
 from app.config import SEARCH_KEYWORDS_LIST
 from app.filters import RawJob
 from app.scrapers.base import BaseScraper, logger, parse_relative_date
-from app.scrapers.browser import fetch_pages_with_browser
+from app.scrapers.browser import dump_debug_html, fetch_pages_with_browser
 
 
 def _build_search_url(keyword: str) -> str:
@@ -33,9 +33,11 @@ class InstahyreScraper(BaseScraper):
         htmls = fetch_pages_with_browser(urls, wait_selector="a[href*='/job/']")
 
         jobs_by_id: Dict[str, RawJob] = {}
-        for html in htmls.values():
+        for i, html in enumerate(htmls.values()):
             if not html:
                 continue
+            if "/job/" not in html:
+                dump_debug_html(self.name, html, i)
             soup = BeautifulSoup(html, "html.parser")
             for a in soup.select("a[href*='/job/']"):
                 title = a.get_text(" ", strip=True)
