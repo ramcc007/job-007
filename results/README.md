@@ -3,6 +3,17 @@
 Target roles: Director Digital Marketing / Head of Digital Marketing / Head of
 Demand Gen, Gurgaon/Gurugram only, 12+ years experience.
 
+**Recency window: last 3 weeks (21 days)** as of 2026-07-23 (was 7 days on
+day 1, briefly considered 14 days, settled on 21 per user request). Since
+`WebFetch` can't verify exact posted dates this session (see below), this
+window is applied loosely as an inclusion threshold on `WebSearch`'s own
+"posted X days/weeks ago" text where present, not as a hard filter.
+
+**Company-size preference**: prioritize employers with revenue clearly
+≥ Freshworks (~$700-800M) — the user's stated bar for their next move. Real
+Director/Head-level Gurgaon leads at smaller companies are still logged
+(useful fallback options) but flagged as below the target tier.
+
 ## Files
 
 - `seen_links.csv` — master de-dup log. Every job link ever surfaced to the
