@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<title>Ram Chandra Chaturvedi — Job Search Tracker</title>
+<style>
+  :root {
+    --bg: #f7f7f8;
+    --surface: #ffffff;
+    --border: #e4e4e7;
+    --text: #18181b;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --tier1: #059669;
+    --tier1-bg: #ecfdf5;
+    --tier2: #6b7280;
+    --tier2-bg: #f4f4f5;
+    --warn: #b45309;
+    --warn-bg: #fffbeb;
+    --low: #b91c1c;
+    --low-bg: #fef2f2;
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 8px rgba(0,0,0,0.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b0b0d; --surface: #17171a; --border: #2a2a2e; --text: #f4f4f5; --muted: #9ca3af;
+      --accent: #60a5fa; --tier1: #34d399; --tier1-bg: #052e21; --tier2: #9ca3af; --tier2-bg: #1f1f23;
+      --warn: #fbbf24; --warn-bg: #2a1f04; --low: #f87171; --low-bg: #2a0f0f;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 8px rgba(0,0,0,0.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b0b0d; --surface: #17171a; --border: #2a2a2e; --text: #f4f4f5; --muted: #9ca3af;
+    --accent: #60a5fa; --tier1: #34d399; --tier1-bg: #052e21; --tier2: #9ca3af; --tier2-bg: #1f1f23;
+    --warn: #fbbf24; --warn-bg: #2a1f04; --low: #f87171; --low-bg: #2a0f0f;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 8px rgba(0,0,0,0.3);
+  }
+  :root[data-theme="light"] {
+    --bg: #f7f7f8; --surface: #ffffff; --border: #e4e4e7; --text: #18181b; --muted: #6b7280;
+    --accent: #2563eb; --tier1: #059669; --tier1-bg: #ecfdf5; --tier2: #6b7280; --tier2-bg: #f4f4f5;
+    --warn: #b45309; --warn-bg: #fffbeb; --low: #b91c1c; --low-bg: #fef2f2;
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 8px rgba(0,0,0,0.04);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+  header { margin-bottom: 22px; }
+  h1 { font-size: 1.6rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 0.95rem; margin: 0 0 14px; }
+  .criteria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .pill {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 999px; padding: 5px 12px; font-size: 0.8rem; color: var(--muted);
+  }
+  .refreshed {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--tier1-bg); color: var(--tier1); border-radius: 8px;
+    padding: 6px 12px; font-size: 0.82rem; font-weight: 600;
+  }
+  section { margin-top: 36px; }
+  .tier-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .tier-head h2 { font-size: 1.15rem; margin: 0; }
+  .tier-head .count { font-size: 0.82rem; color: var(--muted); }
+  .tier-desc { color: var(--muted); font-size: 0.88rem; margin: 0 0 14px; }
+  .card-list { display: flex; flex-direction: column; gap: 10px; }
+  .job-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 18px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start;
+  }
+  .job-main { min-width: 0; }
+  .job-title { font-weight: 600; font-size: 1rem; margin: 0 0 3px; }
+  .job-title a { color: var(--text); text-decoration: none; }
+  .job-title a:hover { color: var(--accent); text-decoration: underline; }
+  .job-company { font-size: 0.9rem; color: var(--muted); margin: 0 0 8px; }
+  .job-tags { display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.76rem; }
+  .tag {
+    border-radius: 6px; padding: 2px 8px; font-weight: 500;
+    background: var(--tier2-bg); color: var(--tier2); border: 1px solid var(--border);
+  }
+  .confidence {
+    font-size: 0.78rem; border-radius: 8px; padding: 6px 10px; max-width: 220px;
+    text-align: right; align-self: center;
+  }
+  .confidence.high { background: var(--tier1-bg); color: var(--tier1); }
+  .confidence.warn { background: var(--warn-bg); color: var(--warn); }
+  .confidence.low { background: var(--low-bg); color: var(--low); }
+  .apply-btn {
+    display: inline-block; margin-top: 10px; font-size: 0.82rem; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+  }
+  .apply-btn:hover { text-decoration: underline; }
+  .caveats {
+    margin-top: 44px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 22px; box-shadow: var(--shadow);
+  }
+  .caveats h3 { margin: 0 0 10px; font-size: 1rem; }
+  .caveats ul { margin: 0; padding-left: 20px; color: var(--muted); font-size: 0.88rem; }
+  .caveats li { margin-bottom: 6px; }
+  footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 0.78rem; }
+  @media (max-width: 560px) {
+    .job-card { grid-template-columns: 1fr; }
+    .confidence { text-align: left; max-width: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Job Search Tracker — Ram Chandra Chaturvedi</h1>
+    <p class="sub">Director Digital Marketing · Head of Digital Marketing · Head of Demand Gen — Gurgaon / Gurugram only</p>
+    <div class="criteria">
+      <span class="pill">12+ yrs experience</span>
+      <span class="pill">Search window: last 3 weeks</span>
+      <span class="pill">Target: Forbes 1000 companies, 500+ employees worldwide</span>
+    </div>
+    <span class="refreshed">🕐 Last refreshed: 2026-07-23 22:06 UTC</span>
+  </header>
+
+  <section>
+    <div class="tier-head">
+      <h2>Forbes 1000 / large global employers</h2>
+      <span class="count">2 leads</span>
+    </div>
+    <p class="tier-desc">Primary target tier per current criteria: Forbes-1000-caliber companies with 500+ employees worldwide and a genuine Gurgaon marketing presence (not just a back-office site).</p>
+    <div class="card-list">
+
+      <div class="job-card">
+        <div class="job-main">
+          <p class="job-title"><a href="https://coke.wd1.myworkdayjobs.com/en-US/coca-cola-careers/job/India---Gurgaon/Senior-Director--Marketing---Digital-Lead_R-120599/apply/applyManually" target="_blank" rel="noopener">Senior Director, Marketing – Digital Lead</a></p>
+          <p class="job-company">Coca-Cola</p>
+          <div class="job-tags">
+            <span class="tag">Gurgaon</span>
+            <span class="tag">Company site (Workday)</span>
+            <span class="tag">Fortune 500 · ~$47B revenue</span>
+          </div>
+          <a class="apply-btn" href="https://coke.wd1.myworkdayjobs.com/en-US/coca-cola-careers/job/India---Gurgaon/Senior-Director--Marketing---Digital-Lead_R-120599/apply/applyManually" target="_blank" rel="noopener">Open listing →</a>
+        </div>
+        <div class="confidence high">Exact title match. Corroborated by a second independent LinkedIn mirror with a fresher job ID — best lead so far.</div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-main">
+          <p class="job-title"><a href="https://careers.coca-colacompany.com/job/22145805/director-marketing-emerging-categories-gurugram-in/" target="_blank" rel="noopener">Director, Marketing – Emerging Categories</a></p>
+          <p class="job-company">Coca-Cola</p>
+          <div class="job-tags">
+            <span class="tag">Gurugram</span>
+            <span class="tag">Company site (Phenom)</span>
+            <span class="tag">Fortune 500</span>
+          </div>
+          <a class="apply-btn" href="https://careers.coca-colacompany.com/job/22145805/director-marketing-emerging-categories-gurugram-in/" target="_blank" rel="noopener">Open listing →</a>
+        </div>
+        <div class="confidence warn">Adjacent — not explicitly "digital" marketing. Corroborated by 2 independent mirrors.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="tier-head">
+      <h2>Unconfirmed location — verify first</h2>
+      <span class="count">1 lead</span>
+    </div>
+    <p class="tier-desc">Real, large-company listing, but the posting itself doesn't state Gurgaon — confirm before applying.</p>
+    <div class="card-list">
+
+      <div class="job-card">
+        <div class="job-main">
+          <p class="job-title"><a href="https://www.amazon.jobs/en/jobs/3009146/head-growth-marketing-amazon-business-india" target="_blank" rel="noopener">Head, Growth Marketing, Amazon Business India</a></p>
+          <p class="job-company">Amazon</p>
+          <div class="job-tags">
+            <span class="tag">Location NOT confirmed as Gurgaon</span>
+            <span class="tag">Company site (amazon.jobs)</span>
+          </div>
+          <a class="apply-btn" href="https://www.amazon.jobs/en/jobs/3009146/head-growth-marketing-amazon-business-india" target="_blank" rel="noopener">Open listing →</a>
+        </div>
+        <div class="confidence low">Still can't confirm city from the posting text — Amazon Business marketing has historically leaned Bangalore. Verify before applying.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="tier-head">
+      <h2>Other real leads (smaller companies)</h2>
+      <span class="count">4 leads</span>
+    </div>
+    <p class="tier-desc">Real Director/Head-level, Gurgaon-anchored postings found earlier, kept as backup — but these companies do not meet the current Forbes-1000 target criterion.</p>
+    <div class="card-list">
+
+      <div class="job-card">
+        <div class="job-main">
+          <p class="job-title"><a href="https://www.instahyre.com/job-80454-head-of-marketing-at-yatra-gurgaon/" target="_blank" rel="noopener">Head of Marketing</a></p>
+          <p class="job-company">Yatra Online</p>
+          <div class="job-tags">
+            <span class="tag">Gurgaon</span>
+            <span class="tag">12–17 yrs</span>
+            <span class="tag">Instahyre</span>
+          </div>
+          <a class="apply-btn" href="https://www.instahyre.com/job-80454-head-of-marketing-at-yatra-gurgaon/" target="_blank" rel="noopener">Open listing →</a>
+        </div>
+        <div class="confidence warn">Not Forbes-1000 scale.</div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-main">
+          <p class="job-title"><a href="https://www.instahyre.com/job-253717-head-of-marketing-at-junglee-games-gurgaon/" target="_blank" rel="noopener">Head of Marketing</a></p>
+          <p class="job-company">Junglee Games</p>
+          <div class="job-tags">
+            <span class="tag">Gurgaon</span>
+            <span class="tag">11–16 yrs</span>
+            <span class="tag">Instahyre</span>
+          </div>
+          <a class="apply-btn" href="https://www.instahyre.com/job-253717-head-of-marketing-at-junglee-games-gurgaon/" target="_blank" rel="noopener">Open listing →</a>
+        </div>
+        <div class="confidence warn">Private company, not Forbes-1000 scale.</div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-main">
+          <p class="job-title"><a href="https://www.instahyre.com/job-331801-performance-marketing-head-at-bharatpe-gurgaon/" target="_blank" rel="noopener">Performance Marketing Head</a></p>
+          <p class="job-company">BharatPe</p>
+          <div class="job-tags">
+            <span class="tag">Gurgaon</span>
+            <span class="tag">8–12 yrs</span>
+            <span class="tag">Instahyre</span>
+          </div>
+          <a class="apply-btn" href="https://www.instahyre.com/job-331801-performance-marketing-head-at-bharatpe-gurgaon/" target="_blank" rel="noopener">Open listing →</a>
+        </div>
+        <div class="confidence warn">Adjacent role. Not Forbes-1000 scale.</div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-main">
+          <p class="job-title"><a href="https://www.foundit.in/job/head-of-marketing-masters-union-gurugram-38299873" target="_blank" rel="noopener">Head of Marketing</a></p>
+          <p class="job-company">Masters' Union</p>
+          <div class="job-tags">
+            <span class="tag">Gurugram</span>
+            <span class="tag">8–12 yrs</span>
+            <span class="tag">foundit.in</span>
+          </div>
+          <a class="apply-btn" href="https://www.foundit.in/job/head-of-marketing-masters-union-gurugram-38299873" target="_blank" rel="noopener">Open listing →</a>
+        </div>
+        <div class="confidence warn">Small ed-tech, not Forbes-1000 scale.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="caveats">
+    <h3>Read before applying</h3>
+    <ul>
+      <li>No link on this page is fabricated — every URL came from a live web search, and each Forbes-1000-tier listing was re-confirmed via an independent second search pass just before this refresh. One previously-listed link ("Head of Digital Marketing" at "ME") was <strong>removed</strong> this refresh: repeated searches found no independent corroboration and its job-ID pattern strongly suggested a stale/expired listing.</li>
+      <li>Exact posting dates and live "still open" status can't be verified directly: the fetch tool used to build this page returns HTTP 403 on every job board and career site tried this session (LinkedIn, Naukri, Indeed, Glassdoor, Instahyre, foundit.in, and even company-owned Workday/Phenom pages) — confirm each listing is still open when you click through.</li>
+      <li>Director/Head-level Digital Marketing or Demand Gen roles explicitly anchored to Gurgaon/Gurugram at Forbes-1000-scale companies is a narrow niche — expect single digits of genuinely new, on-target postings most weeks.</li>
+      <li>This page is set to noindex — it's not meant to appear in search engines.</li>
+    </ul>
+  </div>
+
+  <footer>
+    Source repo: ramcc007/job-007 · branch claude/director-digital-marketing-jobs-8kt775 · refreshed automatically every 2 hours
+  </footer>
+
+</div>
+</body>
+</html>

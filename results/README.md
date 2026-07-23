@@ -9,10 +9,33 @@ day 1, briefly considered 14 days, settled on 21 per user request). Since
 window is applied loosely as an inclusion threshold on `WebSearch`'s own
 "posted X days/weeks ago" text where present, not as a hard filter.
 
-**Company-size preference**: prioritize employers with revenue clearly
-≥ Freshworks (~$700-800M) — the user's stated bar for their next move. Real
-Director/Head-level Gurgaon leads at smaller companies are still logged
-(useful fallback options) but flagged as below the target tier.
+**Company-size criterion (updated 2026-07-23, supersedes the Freshworks bar
+above)**: target any Forbes-1000-caliber company with 500+ employees
+worldwide and a genuine Gurgaon marketing presence. Real Director/Head-level
+Gurgaon leads at smaller companies are still logged (useful fallback
+options) but flagged as not meeting this bar.
+
+## Live site + automation
+
+- Deployed to Vercel project `rcc-job-search-tracker`
+  (https://rcc-job-search-tracker.vercel.app), same project reused on every
+  redeploy so the URL never changes.
+- Canonical source for the deployed site lives at `site/index.html`,
+  `site/robots.txt`, `site/vercel.json` in this repo — every automated
+  refresh edits these files, commits them, then redeploys via the Vercel
+  `deploy_to_vercel` MCP tool (target=production, name=rcc-job-search-tracker,
+  teamId=team_7iVa6Hm7WfmystDTDEfUWd7k).
+- The page carries `<meta name="robots" content="noindex,...">` plus an
+  `X-Robots-Tag` response header (via `vercel.json`) and a blanket
+  `robots.txt` disallow — it's deliberately kept out of search engines.
+- A recurring Routine (scheduled trigger, cron `0 */2 * * *`,
+  fresh session per firing) re-runs the search, cross-validates each
+  candidate with a second independent `WebSearch` pass (since `WebFetch`
+  can't reach any job board or career site this session — see below),
+  drops anything that fails that check, updates `seen_links.csv` and
+  `site/index.html` with a new "Last refreshed" timestamp, commits, and
+  redeploys. See the trigger's stored prompt for the exact instructions
+  given to each fresh run.
 
 ## Files
 
