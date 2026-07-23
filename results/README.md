@@ -15,9 +15,18 @@ Demand Gen, Gurgaon/Gurugram only, 12+ years experience.
 
 ## Known tooling constraint (read before re-running)
 
-From this sandboxed session, `WebFetch` gets HTTP 403 from LinkedIn, Naukri,
-Indeed, Glassdoor, Instahyre and Foundit — they all block the fetcher's
-requests (standard bot-defense). That means:
+From this sandboxed session, `WebFetch` returns HTTP 403 on **every** URL
+tested — not just job boards. That includes LinkedIn, Naukri, Indeed,
+Glassdoor, Instahyre, foundit.in, Coca-Cola's own Workday career site,
+Coca-Cola's own Phenom career site, WNS's SmartRecruiters page, Samsung's
+own careers page, a Greenhouse-hosted board, and even **plain
+en.wikipedia.org** — a page with no bot-defense at all. That last one
+confirms this isn't individual sites blocking a scraper; `WebFetch` itself
+is non-functional for outbound fetches in this session (100% failure rate
+across 13+ distinct hosts tried). Going to company-owned career sites does
+**not** route around this — don't spend calls re-testing it session to
+session without checking first with one throwaway fetch (e.g. Wikipedia).
+Consequence:
 - Individual job links come from `WebSearch` result snippets only; they
   cannot be opened here to confirm the posting is still live or to read its
   exact "posted on" date.
