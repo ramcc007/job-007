@@ -3,6 +3,29 @@
 Target roles: Director Digital Marketing / Head of Digital Marketing / Head of
 Demand Gen, Gurgaon/Gurugram only, 12+ years experience.
 
+**Title-matching philosophy (updated 2026-07-24)**: match on seniority/
+authority, not literal title text. A posting qualifies if it carries
+equivalent decision-making authority over digital marketing/demand gen
+strategy and budget — owns the function, sets strategy, manages a team/P&L
+— even if the exact words "Director," "Head," or "Demand Gen" don't appear.
+Titles seen in the wild that should be treated as equivalent (non-exhaustive,
+judge each on substance — team size, budget ownership, reporting line —
+not just the label):
+- VP / AVP Digital Marketing (common in Indian org charts at Director-
+  equivalent authority, especially at mid-size firms where "VP" is used
+  more liberally than in US-style titling)
+- Group Head / Business Head / Category Head – Digital (Marketing)
+- Head, Marketing & Growth / Head of Growth (when growth = demand gen, not
+  a general product-growth IC role)
+- Chief Marketing Officer at a small/mid company, if the seniority note
+  suggests the actual scope is closer to a large-company Director (judgment
+  call — flag clearly rather than silently treating CMO as equivalent)
+- Senior Director / Group Director variants of the three core titles
+A title match found this way should still pass every other filter
+(Gurgaon/Gurugram location, 12+ yrs, company-size tier) and gets labeled on
+the site as "equivalent authority, different title" so it's clear it's a
+judgment call, not an exact match.
+
 **Recency window: last 3 weeks (21 days)** as of 2026-07-23 (was 7 days on
 day 1, briefly considered 14 days, settled on 21 per user request). Since
 `WebFetch` can't verify exact posted dates this session (see below), this
