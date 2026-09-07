@@ -1,0 +1,25 @@
+name: Probe Supabase pooler
+
+# One-off diagnostic: identifies which pooler host/port/username the project
+# answers on, using a deliberately wrong password so nothing secret is used
+# or logged. Manual trigger only.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/workflows/probe-pooler.yml", "scripts/probe-pooler.mjs"]
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: node scripts/probe-pooler.mjs
+        env:
+          SUPABASE_REF: vwocigleaieyfdeplmnd
+          SUPABASE_REGION: ap-south-1
