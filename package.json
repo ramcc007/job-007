@@ -16,24 +16,23 @@
     "test": "node --test --import tsx test/*.test.ts"
   },
   "dependencies": {
-    "drizzle-orm": "^0.45.2",
-    "next": "^15.5.25",
-    "postgres": "^3.4.9",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "yaml": "^2.9.0",
-    "zod": "^4.5.4"
+    "drizzle-orm": "0.45.2",
+    "next": "15.5.25",
+    "postgres": "3.4.9",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "yaml": "2.9.0",
+    "zod": "4.5.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
-    "@types/node": "^26.4.1",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
-    "drizzle-kit": "^0.31.10",
-    "playwright": "^1.63.0",
-    "postcss": "^8.5.28",
-    "tailwindcss": "^4.3.3",
-    "tsx": "^4.23.13",
-    "typescript": "^5.9.3"
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "26.4.1",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "drizzle-kit": "0.31.10",
+    "postcss": "8.5.28",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3"
   }
 }
