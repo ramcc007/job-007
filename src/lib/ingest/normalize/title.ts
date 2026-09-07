@@ -59,3 +59,20 @@ export function slugify(input: string, maxLength = 70): string {
     ? base.slice(0, maxLength).replace(/-+[^-]*$/, "").replace(/-+$/, "")
     : base;
 }
+
+/**
+ * Turns a board slug into a display name ("netflix" -> "Netflix").
+ *
+ * Only used when data/companies.yml gives no explicit name. Employers with
+ * stylised capitalisation (eBay, iRobot) should be given an explicit
+ * `name:` there rather than relying on this.
+ */
+export function humanizeSlug(slug: string): string {
+  return slug
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(" ")
+    .map((word) => (word ? word[0]!.toUpperCase() + word.slice(1) : word))
+    .join(" ") || slug;
+}

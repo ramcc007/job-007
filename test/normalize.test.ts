@@ -8,7 +8,7 @@ import { normalizeJob } from "@/lib/ingest/normalize";
 import { inferEmploymentType, inferWorkMode } from "@/lib/ingest/normalize/attributes";
 import { parseLocation } from "@/lib/ingest/normalize/location";
 import { parseSalaryText } from "@/lib/ingest/normalize/salary";
-import { normalizeTitle } from "@/lib/ingest/normalize/title";
+import { humanizeSlug, normalizeTitle } from "@/lib/ingest/normalize/title";
 
 describe("htmlToText", () => {
   it("unwraps entity-escaped HTML the way Greenhouse sends it", () => {
@@ -255,5 +255,13 @@ describe("normalizeJob", () => {
       companyName: "A", locationsRaw: [], postedAt: new Date("2099-01-01T00:00:00Z"),
     }, now);
     assert.equal(job?.postedAt.getTime(), now.getTime());
+  });
+});
+
+describe("humanizeSlug", () => {
+  it("turns a board slug into a display name", () => {
+    assert.equal(humanizeSlug("netflix"), "Netflix");
+    assert.equal(humanizeSlug("e-food"), "E Food");
+    assert.equal(humanizeSlug("acme_corp"), "Acme Corp");
   });
 });

@@ -1,6 +1,22 @@
 # Project Plan — Global Job Aggregation Portal
 
-Status: **awaiting approval — nothing has been built or deleted yet**
+Status: **approved and under construction** — Phases 0–2 built and running.
+
+| Phase | State |
+|---|---|
+| 0 — Foundation | done |
+| 1 — Ingestion engine | done (10 adapters, normalizer, classifier, dedupe) |
+| 2 — Website | done (search, job pages, company pages, JSON-LD, sitemap) |
+| 3 — Accounts, saved searches, email alerts | not started |
+| 4 — Monetisation hooks (off by default) | not started |
+
+Two decisions changed during the build, both for the better:
+
+- **Single Next.js app, not a monorepo.** Same module boundaries, zero
+  Vercel configuration. See the layout in `README.md`.
+- **GitHub Actions runs the crawl schedule**, not Vercel Cron — Vercel's
+  free tier caps cron at one run per day, GitHub Actions is free and
+  minute-level. See `.github/workflows/ingest.yml`.
 Branch: `claude/job-listings-aggregator-wsmaod`
 
 ---

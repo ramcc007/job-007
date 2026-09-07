@@ -12,12 +12,18 @@
 # against the live APIs. Companies move between ATS platforms regularly.
 # Run `npm run ingest -- --verify-seeds` to see which ones resolve and
 # prune the rest — a wrong slug is a harmless 404, not a crash.
+#
+# Display names are derived from the slug ("netflix" -> "Netflix"). For
+# employers with stylised capitalisation, give the name explicitly:
+#   - slug: ebay
+#     name: eBay
 
 greenhouse:
   - stripe
   - airbnb
   - dropbox
-  - doordash
+  - slug: doordash
+    name: DoorDash
   - instacart
   - robinhood
   - databricks
@@ -30,8 +36,10 @@ greenhouse:
   - flexport
   - samsara
   - benchling
-  - gitlab
-  - sofi
+  - slug: gitlab
+    name: GitLab
+  - slug: sofi
+    name: SoFi
   - cloudflare
   - asana
 
@@ -48,13 +56,15 @@ lever:
   - fivetran
 
 ashby:
-  - openai
+  - slug: openai
+    name: OpenAI
   - ramp
   - linear
   - vanta
   - clerk
   - deel
-  - posthog
+  - slug: posthog
+    name: PostHog
   - modal
   - replit
   - supabase
@@ -63,13 +73,15 @@ workable:
   - workable
   - blueground
   - persado
-  - e-food
+  - slug: e-food
+    name: e-food
 
 smartrecruiters:
   - Ubisoft
   - Visa
   - Bosch
-  - McDonalds
+  - slug: McDonalds
+    name: McDonald's
   - Avery
 
 recruitee:

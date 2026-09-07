@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 import { parse } from "yaml";
 
+import { humanizeSlug } from "./normalize/title";
 import type { CompanySeed } from "./types";
 
 /**
@@ -28,10 +29,10 @@ export async function loadSeeds(path = join(process.cwd(), "data", "companies.ym
     if (!Array.isArray(value)) continue;
     for (const entry of value) {
       if (typeof entry === "string") {
-        seeds.push({ platform, slug: entry });
+        seeds.push({ platform, slug: entry, name: humanizeSlug(entry) });
       } else if (entry && typeof entry === "object" && "slug" in entry) {
         const row = entry as { slug: string; name?: string };
-        seeds.push({ platform, slug: row.slug, name: row.name });
+        seeds.push({ platform, slug: row.slug, name: row.name ?? humanizeSlug(row.slug) });
       }
     }
   }
