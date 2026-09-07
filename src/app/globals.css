@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+/*
+ * Dark-first "control room" palette. Deep ink ground, copper-amber for
+ * primary action, teal for remote/positive states. Light mode is a
+ * deliberate inversion rather than a second design.
+ */
+@theme {
+  --color-ink: #0b0e14;
+  --color-surface: #12161f;
+  --color-elevated: #1a1f2b;
+  --color-hover: #222836;
+  --color-line: #252b38;
+  --color-line-soft: #1c2230;
+  --color-fg: #e6e9ef;
+  --color-fg-muted: #8a93a6;
+  --color-fg-faint: #5d6678;
+  --color-accent: #e8894a;
+  --color-accent-hover: #f59b5e;
+  --color-accent-dim: #7a4726;
+  --color-teal: #3fbfa8;
+  --color-teal-dim: #1f4f47;
+  --color-warn: #e5b84b;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+}
+
+/* Light mode: same hues, inverted lightness. Tokens only — no component
+   ever hard-codes a colour, so this is the entire theme switch. */
+:root[data-theme="light"] {
+  --color-ink: #f7f6f3;
+  --color-surface: #ffffff;
+  --color-elevated: #ffffff;
+  --color-hover: #f0eeea;
+  --color-line: #e2ded7;
+  --color-line-soft: #ebe8e2;
+  --color-fg: #14181f;
+  --color-fg-muted: #5c6472;
+  --color-fg-faint: #8b93a1;
+  --color-accent: #b85c1f;
+  --color-accent-hover: #9c4d18;
+  --color-accent-dim: #f2d9c6;
+  --color-teal: #14776a;
+  --color-teal-dim: #d3ece7;
+}
+
+html {
+  background: var(--color-ink);
+  color-scheme: dark;
+}
+:root[data-theme="light"] { color-scheme: light; }
+
+body {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--color-accent-dim); color: var(--color-fg); }
+
+/* Thin, unobtrusive scrollbars — the two-pane layout has three of them. */
+* { scrollbar-width: thin; scrollbar-color: var(--color-line) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 4px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,77 @@
+# Company career boards to crawl, grouped by ATS platform.
+#
+# The slug is the identifier in the employer's own job-board URL, e.g.
+#   https://boards.greenhouse.io/SLUG
+#   https://jobs.lever.co/SLUG
+#   https://jobs.ashbyhq.com/SLUG
+#   https://apply.workable.com/SLUG
+#   https://jobs.smartrecruiters.com/SLUG
+#   https://SLUG.recruitee.com
+#
+# IMPORTANT: these slugs are a starting list and have NOT been verified
+# against the live APIs. Companies move between ATS platforms regularly.
+# Run `npm run ingest -- --verify-seeds` to see which ones resolve and
+# prune the rest — a wrong slug is a harmless 404, not a crash.
+
+greenhouse:
+  - stripe
+  - airbnb
+  - dropbox
+  - doordash
+  - instacart
+  - robinhood
+  - databricks
+  - figma
+  - discord
+  - reddit
+  - twitch
+  - coinbase
+  - affirm
+  - flexport
+  - samsara
+  - benchling
+  - gitlab
+  - sofi
+  - cloudflare
+  - asana
+
+lever:
+  - netflix
+  - spotify
+  - shopify
+  - box
+  - mistral
+  - kandji
+  - attentive
+  - blend
+  - lattice
+  - fivetran
+
+ashby:
+  - openai
+  - ramp
+  - linear
+  - vanta
+  - clerk
+  - deel
+  - posthog
+  - modal
+  - replit
+  - supabase
+
+workable:
+  - workable
+  - blueground
+  - persado
+  - e-food
+
+smartrecruiters:
+  - Ubisoft
+  - Visa
+  - Bosch
+  - McDonalds
+  - Avery
+
+recruitee:
+  - recruitee
+  - framer

@@ -1,0 +1,421 @@
+{
+ "apiVersion": "1",
+ "jobs": [
+  {
+   "id": "e00b7c41-3a9d-4f10-b2c8-000000000000",
+   "title": "UX Researcher",
+   "location": "Boston, MA",
+   "secondaryLocations": [
+    {
+     "location": "New York, NY"
+    }
+   ],
+   "department": "Run",
+   "team": "Run",
+   "isListed": true,
+   "isRemote": false,
+   "descriptionPlain": "Run generative and evaluative user research across two product lines. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 2 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-09-06T04:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e00b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e00b7c41/application",
+   "compensation": {
+    "compensationTierSummary": "$150K \u2013 $200K",
+    "summaryComponents": [
+     {
+      "compensationType": "Salary",
+      "interval": "perYear",
+      "currencyCode": "USD",
+      "minValue": 150000,
+      "maxValue": 200000
+     },
+     {
+      "compensationType": "EquityPercentage",
+      "interval": "perYear",
+      "currencyCode": null,
+      "minValue": 0.01,
+      "maxValue": 0.05
+     }
+    ]
+   }
+  },
+  {
+   "id": "e01b7c41-3a9d-4f10-b2c8-000000000001",
+   "title": "Embedded Firmware Engineer",
+   "location": "Toronto, ON",
+   "secondaryLocations": [],
+   "department": "Write",
+   "team": "Write",
+   "isListed": true,
+   "isRemote": false,
+   "descriptionPlain": "Write C firmware for ARM microcontrollers on our sensor hardware. You will work with a collaborative team and own outcomes end to end. This is an on-site position at our facility. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-09-05T07:00:00+00:00",
+   "employmentType": "Intern",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e01b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e01b7c41/application",
+   "compensation": null
+  },
+  {
+   "id": "e02b7c41-3a9d-4f10-b2c8-000000000002",
+   "title": "Electrical Design Engineer",
+   "location": "Vancouver, BC",
+   "secondaryLocations": [],
+   "department": "Design",
+   "team": "Design",
+   "isListed": true,
+   "isRemote": false,
+   "descriptionPlain": "Design PCBs and power electronics for industrial equipment. You will work with a collaborative team and own outcomes end to end. Fully remote, work from anywhere in the region. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-09-04T12:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e02b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e02b7c41/application",
+   "compensation": {
+    "compensationTierSummary": "$160K \u2013 $212K",
+    "summaryComponents": [
+     {
+      "compensationType": "Salary",
+      "interval": "perYear",
+      "currencyCode": "USD",
+      "minValue": 160000,
+      "maxValue": 212000
+     },
+     {
+      "compensationType": "EquityPercentage",
+      "interval": "perYear",
+      "currencyCode": null,
+      "minValue": 0.01,
+      "maxValue": 0.05
+     }
+    ]
+   }
+  },
+  {
+   "id": "e03b7c41-3a9d-4f10-b2c8-000000000003",
+   "title": "Mechanical Design Engineer",
+   "location": "Berlin, Germany",
+   "secondaryLocations": [],
+   "department": "Design",
+   "team": "Design",
+   "isListed": true,
+   "isRemote": false,
+   "descriptionPlain": "Design sheet-metal and injection-moulded parts in SolidWorks with GD&T. You will work with a collaborative team and own outcomes end to end.  We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-09-03T12:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e03b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e03b7c41/application",
+   "compensation": null
+  },
+  {
+   "id": "e04b7c41-3a9d-4f10-b2c8-000000000004",
+   "title": "Manufacturing Process Engineer",
+   "location": "Remote - United States",
+   "secondaryLocations": [],
+   "department": "Improve",
+   "team": "Improve",
+   "isListed": true,
+   "isRemote": true,
+   "descriptionPlain": "Improve line throughput and yield at our assembly plant. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 3 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-09-02T10:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e04b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e04b7c41/application",
+   "compensation": {
+    "compensationTierSummary": "$170K \u2013 $224K",
+    "summaryComponents": [
+     {
+      "compensationType": "Salary",
+      "interval": "perYear",
+      "currencyCode": "USD",
+      "minValue": 170000,
+      "maxValue": 224000
+     },
+     {
+      "compensationType": "EquityPercentage",
+      "interval": "perYear",
+      "currencyCode": null,
+      "minValue": 0.01,
+      "maxValue": 0.05
+     }
+    ]
+   }
+  },
+  {
+   "id": "e05b7c41-3a9d-4f10-b2c8-000000000005",
+   "title": "Maintenance Engineer",
+   "location": "Worldwide",
+   "secondaryLocations": [
+    {
+     "location": "Vancouver, BC"
+    }
+   ],
+   "department": "Keep",
+   "team": "Keep",
+   "isListed": true,
+   "isRemote": true,
+   "descriptionPlain": "Keep production machinery running with planned preventive maintenance. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 2 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-09-01T23:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e05b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e05b7c41/application",
+   "compensation": null
+  },
+  {
+   "id": "e06b7c41-3a9d-4f10-b2c8-000000000006",
+   "title": "Civil Site Engineer",
+   "location": "Remote - United States",
+   "secondaryLocations": [],
+   "department": "Supervise",
+   "team": "Supervise",
+   "isListed": true,
+   "isRemote": true,
+   "descriptionPlain": "Supervise structural works and subcontractors on a metro project. You will work with a collaborative team and own outcomes end to end. This is an on-site position at our facility. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-31T07:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e06b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e06b7c41/application",
+   "compensation": {
+    "compensationTierSummary": "$180K \u2013 $236K",
+    "summaryComponents": [
+     {
+      "compensationType": "Salary",
+      "interval": "perYear",
+      "currencyCode": "USD",
+      "minValue": 180000,
+      "maxValue": 236000
+     },
+     {
+      "compensationType": "EquityPercentage",
+      "interval": "perYear",
+      "currencyCode": null,
+      "minValue": 0.01,
+      "maxValue": 0.05
+     }
+    ]
+   }
+  },
+  {
+   "id": "e07b7c41-3a9d-4f10-b2c8-000000000007",
+   "title": "Structural Engineer",
+   "location": "Madrid, Spain",
+   "secondaryLocations": [],
+   "department": "Design",
+   "team": "Design",
+   "isListed": true,
+   "isRemote": false,
+   "descriptionPlain": "Design reinforced concrete and steel structures using Revit and BIM. You will work with a collaborative team and own outcomes end to end. Fully remote, work from anywhere in the region. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-30T05:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e07b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e07b7c41/application",
+   "compensation": null
+  },
+  {
+   "id": "e08b7c41-3a9d-4f10-b2c8-000000000008",
+   "title": "Quantity Surveyor",
+   "location": "Remote - United States",
+   "secondaryLocations": [],
+   "department": "Cost",
+   "team": "Cost",
+   "isListed": true,
+   "isRemote": true,
+   "descriptionPlain": "Cost planning, valuations and final accounts on commercial builds. You will work with a collaborative team and own outcomes end to end.  We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-29T05:00:00+00:00",
+   "employmentType": "Intern",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e08b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e08b7c41/application",
+   "compensation": {
+    "compensationTierSummary": "$190K \u2013 $248K",
+    "summaryComponents": [
+     {
+      "compensationType": "Salary",
+      "interval": "perYear",
+      "currencyCode": "USD",
+      "minValue": 190000,
+      "maxValue": 248000
+     },
+     {
+      "compensationType": "EquityPercentage",
+      "interval": "perYear",
+      "currencyCode": null,
+      "minValue": 0.01,
+      "maxValue": 0.05
+     }
+    ]
+   }
+  },
+  {
+   "id": "e09b7c41-3a9d-4f10-b2c8-000000000009",
+   "title": "Account Executive, Enterprise",
+   "location": "Remote (India)",
+   "secondaryLocations": [],
+   "department": "Close",
+   "team": "Close",
+   "isListed": true,
+   "isRemote": true,
+   "descriptionPlain": "Close six-figure SaaS deals across EMEA with a defined quota. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 3 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-28T13:00:00+00:00",
+   "employmentType": "Contract",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e09b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e09b7c41/application",
+   "compensation": null
+  },
+  {
+   "id": "e10b7c41-3a9d-4f10-b2c8-000000000010",
+   "title": "Business Development Representative",
+   "location": "Stockholm, Sweden",
+   "secondaryLocations": [
+    {
+     "location": "Madrid, Spain"
+    }
+   ],
+   "department": "Generate",
+   "team": "Generate",
+   "isListed": false,
+   "isRemote": false,
+   "descriptionPlain": "Generate qualified pipeline through outbound prospecting. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 2 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-27T21:00:00+00:00",
+   "employmentType": "Intern",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e10b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e10b7c41/application",
+   "compensation": {
+    "compensationTierSummary": "$200K \u2013 $260K",
+    "summaryComponents": [
+     {
+      "compensationType": "Salary",
+      "interval": "perYear",
+      "currencyCode": "USD",
+      "minValue": 200000,
+      "maxValue": 260000
+     },
+     {
+      "compensationType": "EquityPercentage",
+      "interval": "perYear",
+      "currencyCode": null,
+      "minValue": 0.01,
+      "maxValue": 0.05
+     }
+    ]
+   }
+  },
+  {
+   "id": "e11b7c41-3a9d-4f10-b2c8-000000000011",
+   "title": "Digital Marketing Manager",
+   "location": "Zurich, Switzerland",
+   "secondaryLocations": [],
+   "department": "Own",
+   "team": "Own",
+   "isListed": true,
+   "isRemote": false,
+   "descriptionPlain": "Own paid performance marketing across Google and Meta. You will work with a collaborative team and own outcomes end to end. This is an on-site position at our facility. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-26T10:00:00+00:00",
+   "employmentType": "Intern",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e11b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e11b7c41/application",
+   "compensation": null
+  },
+  {
+   "id": "e12b7c41-3a9d-4f10-b2c8-000000000012",
+   "title": "Content Marketing Lead",
+   "location": "Bengaluru, Karnataka, India",
+   "secondaryLocations": [],
+   "department": "Run",
+   "team": "Run",
+   "isListed": true,
+   "isRemote": false,
+   "descriptionPlain": "Run our editorial calendar, SEO strategy and content team. You will work with a collaborative team and own outcomes end to end. Fully remote, work from anywhere in the region. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-25T22:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e12b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e12b7c41/application",
+   "compensation": {
+    "compensationTierSummary": "$210K \u2013 $272K",
+    "summaryComponents": [
+     {
+      "compensationType": "Salary",
+      "interval": "perYear",
+      "currencyCode": "USD",
+      "minValue": 210000,
+      "maxValue": 272000
+     },
+     {
+      "compensationType": "EquityPercentage",
+      "interval": "perYear",
+      "currencyCode": null,
+      "minValue": 0.01,
+      "maxValue": 0.05
+     }
+    ]
+   }
+  },
+  {
+   "id": "e13b7c41-3a9d-4f10-b2c8-000000000013",
+   "title": "Financial Analyst, FP&A",
+   "location": "Remote (India)",
+   "secondaryLocations": [],
+   "department": "Own",
+   "team": "Own",
+   "isListed": true,
+   "isRemote": true,
+   "descriptionPlain": "Own budgeting, forecasting and monthly variance analysis. You will work with a collaborative team and own outcomes end to end.  We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-24T16:00:00+00:00",
+   "employmentType": "Intern",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e13b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e13b7c41/application",
+   "compensation": null
+  },
+  {
+   "id": "e14b7c41-3a9d-4f10-b2c8-000000000014",
+   "title": "Senior Accountant",
+   "location": "Hyderabad, India",
+   "secondaryLocations": [],
+   "department": "Manage",
+   "team": "Manage",
+   "isListed": true,
+   "isRemote": false,
+   "descriptionPlain": "Manage month-end close, reconciliations and statutory reporting. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 3 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-23T19:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e14b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e14b7c41/application",
+   "compensation": {
+    "compensationTierSummary": "$220K \u2013 $284K",
+    "summaryComponents": [
+     {
+      "compensationType": "Salary",
+      "interval": "perYear",
+      "currencyCode": "USD",
+      "minValue": 220000,
+      "maxValue": 284000
+     },
+     {
+      "compensationType": "EquityPercentage",
+      "interval": "perYear",
+      "currencyCode": null,
+      "minValue": 0.01,
+      "maxValue": 0.05
+     }
+    ]
+   }
+  },
+  {
+   "id": "e15b7c41-3a9d-4f10-b2c8-000000000015",
+   "title": "Internal Auditor",
+   "location": "Worldwide",
+   "secondaryLocations": [
+    {
+     "location": "Bengaluru, Karnataka, India"
+    }
+   ],
+   "department": "Test",
+   "team": "Test",
+   "isListed": true,
+   "isRemote": true,
+   "descriptionPlain": "Test controls and report findings to the audit committee. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 2 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.",
+   "publishedAt": "2026-08-22T13:00:00+00:00",
+   "employmentType": "FullTime",
+   "jobUrl": "https://jobs.ashbyhq.com/openai/e15b7c41",
+   "applyUrl": "https://jobs.ashbyhq.com/openai/e15b7c41/application",
+   "compensation": null
+  }
+ ]
+}

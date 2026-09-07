@@ -1,0 +1,535 @@
+{
+ "jobs": [
+  {
+   "id": 4300000,
+   "internal_job_id": 900000,
+   "title": "Senior Backend Engineer (m/f/d)",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300000",
+   "updated_at": "2026-09-06T20:00:00+00:00",
+   "first_published": "2026-09-05T12:00:00+00:00",
+   "content": "&lt;p&gt;Design and scale our Go and PostgreSQL services handling millions of requests. You will work with a collaborative team and own outcomes end to end.  We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "London, United Kingdom"
+   },
+   "offices": [
+    {
+     "name": "London",
+     "location": "London, United Kingdom"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Design"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300001,
+   "internal_job_id": 900001,
+   "title": "Staff Frontend Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300001",
+   "updated_at": "2026-09-05T22:00:00+00:00",
+   "first_published": "2026-09-04T07:00:00+00:00",
+   "content": "&lt;p&gt;Own our React and TypeScript design system and rendering performance. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 3 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Manchester, UK"
+   },
+   "offices": [
+    {
+     "name": "Manchester",
+     "location": "Manchester, UK"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Own"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300002,
+   "internal_job_id": 900002,
+   "title": "Machine Learning Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300002",
+   "updated_at": "2026-09-04T23:00:00+00:00",
+   "first_published": "2026-09-03T08:00:00+00:00",
+   "content": "&lt;p&gt;Train and deploy ranking models with PyTorch on a Databricks stack. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 2 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Worldwide"
+   },
+   "offices": [
+    {
+     "name": "Worldwide",
+     "location": "Worldwide"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Train"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300003,
+   "internal_job_id": 900003,
+   "title": "Data Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300003",
+   "updated_at": "2026-09-03T11:00:00+00:00",
+   "first_published": "2026-09-02T11:00:00+00:00",
+   "content": "&lt;p&gt;Build batch and streaming pipelines with Spark, dbt and Airflow. You will work with a collaborative team and own outcomes end to end. This is an on-site position at our facility. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Remote"
+   },
+   "offices": [
+    {
+     "name": "Remote",
+     "location": "Remote"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Build"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300004,
+   "internal_job_id": 900004,
+   "title": "Data Analyst",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300004",
+   "updated_at": "2026-09-02T07:00:00+00:00",
+   "first_published": "2026-09-01T11:00:00+00:00",
+   "content": "&lt;p&gt;Partner with commercial teams on SQL analysis and BI dashboards. You will work with a collaborative team and own outcomes end to end. Fully remote, work from anywhere in the region. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Remote"
+   },
+   "offices": [
+    {
+     "name": "Remote",
+     "location": "Remote"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Partner"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300005,
+   "internal_job_id": 900005,
+   "title": "Site Reliability Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300005",
+   "updated_at": "2026-09-01T21:00:00+00:00",
+   "first_published": "2026-08-31T17:00:00+00:00",
+   "content": "&lt;p&gt;Run our Kubernetes platform, Terraform infrastructure and on-call rotation. You will work with a collaborative team and own outcomes end to end.  We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Worldwide"
+   },
+   "offices": [
+    {
+     "name": "Worldwide",
+     "location": "Worldwide"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Run"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300006,
+   "internal_job_id": 900006,
+   "title": "DevOps Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300006",
+   "updated_at": "2026-08-31T06:00:00+00:00",
+   "first_published": "2026-08-30T23:00:00+00:00",
+   "content": "&lt;p&gt;Automate CI/CD and AWS infrastructure for a fast-moving product team. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 3 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Seattle, WA"
+   },
+   "offices": [
+    {
+     "name": "Seattle",
+     "location": "Seattle, WA"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Automate"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300007,
+   "internal_job_id": 900007,
+   "title": "Security Engineer, AppSec (m/f/d)",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300007",
+   "updated_at": "2026-08-30T12:00:00+00:00",
+   "first_published": "2026-08-29T23:00:00+00:00",
+   "content": "&lt;p&gt;Threat model services, run penetration tests and drive SOC 2 evidence. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 2 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Boston, MA"
+   },
+   "offices": [
+    {
+     "name": "Boston",
+     "location": "Boston, MA"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Threat"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300008,
+   "internal_job_id": 900008,
+   "title": "QA Automation Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300008",
+   "updated_at": "2026-08-29T23:00:00+00:00",
+   "first_published": "2026-08-28T07:00:00+00:00",
+   "content": "&lt;p&gt;Build Playwright test automation across web and mobile. You will work with a collaborative team and own outcomes end to end. This is an on-site position at our facility. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Toronto, ON"
+   },
+   "offices": [
+    {
+     "name": "Toronto",
+     "location": "Toronto, ON"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Build"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300009,
+   "internal_job_id": 900009,
+   "title": "Product Manager, Payments",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300009",
+   "updated_at": "2026-08-28T15:00:00+00:00",
+   "first_published": "2026-08-27T11:00:00+00:00",
+   "content": "&lt;p&gt;Own the payments roadmap from discovery to launch. You will work with a collaborative team and own outcomes end to end. Fully remote, work from anywhere in the region. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Vancouver, BC"
+   },
+   "offices": [
+    {
+     "name": "Vancouver",
+     "location": "Vancouver, BC"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Own"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300010,
+   "internal_job_id": 900010,
+   "title": "Senior Product Designer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300010",
+   "updated_at": "2026-08-27T06:00:00+00:00",
+   "first_published": "2026-08-26T15:00:00+00:00",
+   "content": "&lt;p&gt;Lead end-to-end UX for our onboarding surface in Figma. You will work with a collaborative team and own outcomes end to end.  We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Remote"
+   },
+   "offices": [
+    {
+     "name": "Remote",
+     "location": "Remote"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Lead"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300011,
+   "internal_job_id": 900011,
+   "title": "UX Researcher",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300011",
+   "updated_at": "2026-08-26T19:00:00+00:00",
+   "first_published": "2026-08-25T21:00:00+00:00",
+   "content": "&lt;p&gt;Run generative and evaluative user research across two product lines. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 3 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Munich, Germany"
+   },
+   "offices": [
+    {
+     "name": "Munich",
+     "location": "Munich, Germany"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Run"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300012,
+   "internal_job_id": 900012,
+   "title": "Embedded Firmware Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300012",
+   "updated_at": "2026-08-25T04:00:00+00:00",
+   "first_published": "2026-08-24T18:00:00+00:00",
+   "content": "&lt;p&gt;Write C firmware for ARM microcontrollers on our sensor hardware. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 2 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Amsterdam, Netherlands"
+   },
+   "offices": [
+    {
+     "name": "Amsterdam",
+     "location": "Amsterdam, Netherlands"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Write"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300013,
+   "internal_job_id": 900013,
+   "title": "Electrical Design Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300013",
+   "updated_at": "2026-08-24T07:00:00+00:00",
+   "first_published": "2026-08-23T22:00:00+00:00",
+   "content": "&lt;p&gt;Design PCBs and power electronics for industrial equipment. You will work with a collaborative team and own outcomes end to end. This is an on-site position at our facility. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Paris, France"
+   },
+   "offices": [
+    {
+     "name": "Paris",
+     "location": "Paris, France"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Design"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300014,
+   "internal_job_id": 900014,
+   "title": "Mechanical Design Engineer (m/f/d)",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300014",
+   "updated_at": "2026-08-23T05:00:00+00:00",
+   "first_published": "2026-08-22T18:00:00+00:00",
+   "content": "&lt;p&gt;Design sheet-metal and injection-moulded parts in SolidWorks with GD&T. You will work with a collaborative team and own outcomes end to end. Fully remote, work from anywhere in the region. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Madrid, Spain"
+   },
+   "offices": [
+    {
+     "name": "Madrid",
+     "location": "Madrid, Spain"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Design"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300015,
+   "internal_job_id": 900015,
+   "title": "Manufacturing Process Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300015",
+   "updated_at": "2026-08-22T07:00:00+00:00",
+   "first_published": "2026-08-21T11:00:00+00:00",
+   "content": "&lt;p&gt;Improve line throughput and yield at our assembly plant. You will work with a collaborative team and own outcomes end to end.  We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Lisbon, Portugal"
+   },
+   "offices": [
+    {
+     "name": "Lisbon",
+     "location": "Lisbon, Portugal"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Improve"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300016,
+   "internal_job_id": 900016,
+   "title": "Maintenance Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300016",
+   "updated_at": "2026-08-21T10:00:00+00:00",
+   "first_published": "2026-08-20T06:00:00+00:00",
+   "content": "&lt;p&gt;Keep production machinery running with planned preventive maintenance. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 3 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Warsaw, Poland"
+   },
+   "offices": [
+    {
+     "name": "Warsaw",
+     "location": "Warsaw, Poland"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Keep"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300017,
+   "internal_job_id": 900017,
+   "title": "Civil Site Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300017",
+   "updated_at": "2026-08-20T13:00:00+00:00",
+   "first_published": "2026-08-19T15:00:00+00:00",
+   "content": "&lt;p&gt;Supervise structural works and subcontractors on a metro project. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 2 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Stockholm, Sweden"
+   },
+   "offices": [
+    {
+     "name": "Stockholm",
+     "location": "Stockholm, Sweden"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Supervise"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300018,
+   "internal_job_id": 900018,
+   "title": "Structural Engineer",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300018",
+   "updated_at": "2026-08-19T17:00:00+00:00",
+   "first_published": "2026-08-18T22:00:00+00:00",
+   "content": "&lt;p&gt;Design reinforced concrete and steel structures using Revit and BIM. You will work with a collaborative team and own outcomes end to end. This is an on-site position at our facility. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Remote - United States"
+   },
+   "offices": [
+    {
+     "name": "Remote - United States",
+     "location": "Remote - United States"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Design"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300019,
+   "internal_job_id": 900019,
+   "title": "Quantity Surveyor",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300019",
+   "updated_at": "2026-08-18T08:00:00+00:00",
+   "first_published": "2026-08-17T09:00:00+00:00",
+   "content": "&lt;p&gt;Cost planning, valuations and final accounts on commercial builds. You will work with a collaborative team and own outcomes end to end. Fully remote, work from anywhere in the region. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Bengaluru, Karnataka, India"
+   },
+   "offices": [
+    {
+     "name": "Bengaluru",
+     "location": "Bengaluru, Karnataka, India"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Cost"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300020,
+   "internal_job_id": 900020,
+   "title": "Account Executive, Enterprise",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300020",
+   "updated_at": "2026-09-06T10:00:00+00:00",
+   "first_published": "2026-09-05T15:00:00+00:00",
+   "content": "&lt;p&gt;Close six-figure SaaS deals across EMEA with a defined quota. You will work with a collaborative team and own outcomes end to end.  We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Gurgaon, India"
+   },
+   "offices": [
+    {
+     "name": "Gurgaon",
+     "location": "Gurgaon, India"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Close"
+    }
+   ],
+   "metadata": []
+  },
+  {
+   "id": 4300021,
+   "internal_job_id": 900021,
+   "title": "Business Development Representative (m/f/d)",
+   "absolute_url": "https://boards.greenhouse.io/stripe/jobs/4300021",
+   "updated_at": "2026-09-05T22:00:00+00:00",
+   "first_published": "2026-09-04T21:00:00+00:00",
+   "content": "&lt;p&gt;Generate qualified pipeline through outbound prospecting. You will work with a collaborative team and own outcomes end to end. This is a hybrid role, 3 days a week in the office. We offer strong benefits, learning budget and equity. Applications are reviewed on a rolling basis.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strong fundamentals&lt;/li&gt;&lt;li&gt;5+ years experience&lt;/li&gt;&lt;/ul&gt;",
+   "location": {
+    "name": "Hyderabad, India"
+   },
+   "offices": [
+    {
+     "name": "Hyderabad",
+     "location": "Hyderabad, India"
+    }
+   ],
+   "departments": [
+    {
+     "name": "Generate"
+    }
+   ],
+   "metadata": []
+  }
+ ],
+ "meta": {
+  "total": 22
+ }
+}

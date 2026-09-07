@@ -1,0 +1,483 @@
+{
+ "offset": 0,
+ "limit": 100,
+ "totalFound": 14,
+ "content": [
+  {
+   "id": "74400000",
+   "name": "Warehouse Supervisor",
+   "uuid": "uuid-0",
+   "refNumber": "REF-00000",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-09-06T10:00:00+00:00",
+   "location": {
+    "city": "Stockholm",
+    "region": "",
+    "country": "Sweden",
+    "remote": true
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Lead"
+   },
+   "function": {
+    "label": "Lead"
+   },
+   "typeOfEmployment": {
+    "label": "Temporary"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Entry Level"
+   }
+  },
+  {
+   "id": "74400001",
+   "name": "Customer Success Manager",
+   "uuid": "uuid-1",
+   "refNumber": "REF-00001",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-09-05T13:00:00+00:00",
+   "location": {
+    "city": "Zurich",
+    "region": "",
+    "country": "Switzerland",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Own"
+   },
+   "function": {
+    "label": "Own"
+   },
+   "typeOfEmployment": {
+    "label": "Permanent"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Mid-Senior Level"
+   }
+  },
+  {
+   "id": "74400002",
+   "name": "Technical Support Engineer",
+   "uuid": "uuid-2",
+   "refNumber": "REF-00002",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-09-04T21:00:00+00:00",
+   "location": {
+    "city": "Bengaluru",
+    "region": "Karnataka",
+    "country": "India",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Debug"
+   },
+   "function": {
+    "label": "Debug"
+   },
+   "typeOfEmployment": {
+    "label": "Permanent"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Entry Level"
+   }
+  },
+  {
+   "id": "74400003",
+   "name": "Registered Nurse - ICU",
+   "uuid": "uuid-3",
+   "refNumber": "REF-00003",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-09-03T18:00:00+00:00",
+   "location": {
+    "city": "Gurgaon",
+    "region": "",
+    "country": "India",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Deliver"
+   },
+   "function": {
+    "label": "Deliver"
+   },
+   "typeOfEmployment": {
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Mid-Senior Level"
+   }
+  },
+  {
+   "id": "74400004",
+   "name": "Clinical Research Associate",
+   "uuid": "uuid-4",
+   "refNumber": "REF-00004",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-09-02T09:00:00+00:00",
+   "location": {
+    "city": "Hyderabad",
+    "region": "",
+    "country": "India",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Monitor"
+   },
+   "function": {
+    "label": "Monitor"
+   },
+   "typeOfEmployment": {
+    "label": "Temporary"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Director"
+   }
+  },
+  {
+   "id": "74400005",
+   "name": "Pharmacist",
+   "uuid": "uuid-5",
+   "refNumber": "REF-00005",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-09-02T00:00:00+00:00",
+   "location": {
+    "city": "Pune",
+    "region": "",
+    "country": "India",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Dispense"
+   },
+   "function": {
+    "label": "Dispense"
+   },
+   "typeOfEmployment": {
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Director"
+   }
+  },
+  {
+   "id": "74400006",
+   "name": "Physiotherapist",
+   "uuid": "uuid-6",
+   "refNumber": "REF-00006",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-08-31T13:00:00+00:00",
+   "location": {
+    "city": "Mumbai",
+    "region": "",
+    "country": "India",
+    "remote": true
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Assess"
+   },
+   "function": {
+    "label": "Assess"
+   },
+   "typeOfEmployment": {
+    "label": "Temporary"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Mid-Senior Level"
+   }
+  },
+  {
+   "id": "74400007",
+   "name": "Secondary School Teacher",
+   "uuid": "uuid-7",
+   "refNumber": "REF-00007",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-08-30T21:00:00+00:00",
+   "location": {
+    "city": "Chennai",
+    "region": "",
+    "country": "India",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Teach"
+   },
+   "function": {
+    "label": "Teach"
+   },
+   "typeOfEmployment": {
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Director"
+   }
+  },
+  {
+   "id": "74400008",
+   "name": "Curriculum Designer",
+   "uuid": "uuid-8",
+   "refNumber": "REF-00008",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-08-29T18:00:00+00:00",
+   "location": {
+    "city": "Noida",
+    "region": "",
+    "country": "India",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Build"
+   },
+   "function": {
+    "label": "Build"
+   },
+   "typeOfEmployment": {
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Mid-Senior Level"
+   }
+  },
+  {
+   "id": "74400009",
+   "name": "Maintenance Electrician",
+   "uuid": "uuid-9",
+   "refNumber": "REF-00009",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-08-28T11:00:00+00:00",
+   "location": {
+    "city": "Singapore",
+    "region": "",
+    "country": "Singapore",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Fault-find"
+   },
+   "function": {
+    "label": "Fault-find"
+   },
+   "typeOfEmployment": {
+    "label": "Temporary"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Entry Level"
+   }
+  },
+  {
+   "id": "74400010",
+   "name": "HVAC Technician",
+   "uuid": "uuid-10",
+   "refNumber": "REF-00010",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-08-27T22:00:00+00:00",
+   "location": {
+    "city": "Sydney",
+    "region": "",
+    "country": "Australia",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Service"
+   },
+   "function": {
+    "label": "Service"
+   },
+   "typeOfEmployment": {
+    "label": "Temporary"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Entry Level"
+   }
+  },
+  {
+   "id": "74400011",
+   "name": "CNC Machinist",
+   "uuid": "uuid-11",
+   "refNumber": "REF-00011",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-08-26T10:00:00+00:00",
+   "location": {
+    "city": "Melbourne",
+    "region": "",
+    "country": "Australia",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Set"
+   },
+   "function": {
+    "label": "Set"
+   },
+   "typeOfEmployment": {
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Director"
+   }
+  },
+  {
+   "id": "74400012",
+   "name": "Field Service Technician",
+   "uuid": "uuid-12",
+   "refNumber": "REF-00012",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-08-25T22:00:00+00:00",
+   "location": {
+    "city": "Tokyo",
+    "region": "",
+    "country": "Japan",
+    "remote": true
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Install"
+   },
+   "function": {
+    "label": "Install"
+   },
+   "typeOfEmployment": {
+    "label": "Temporary"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Mid-Senior Level"
+   }
+  },
+  {
+   "id": "74400013",
+   "name": "Executive Assistant",
+   "uuid": "uuid-13",
+   "refNumber": "REF-00013",
+   "company": {
+    "identifier": "Ubisoft",
+    "name": "Ubisoft"
+   },
+   "releasedDate": "2026-08-24T19:00:00+00:00",
+   "location": {
+    "city": "Dubai",
+    "region": "",
+    "country": "United Arab Emirates",
+    "remote": false
+   },
+   "industry": {
+    "id": "media",
+    "label": "Media and Entertainment"
+   },
+   "department": {
+    "label": "Support"
+   },
+   "function": {
+    "label": "Support"
+   },
+   "typeOfEmployment": {
+    "label": "Permanent"
+   },
+   "experienceLevel": {
+    "id": "mid",
+    "label": "Mid-Senior Level"
+   }
+  }
+ ]
+}

@@ -4,3 +4,13 @@ __pycache__/
 job_radar.db
 .naukri_browser_profile/
 debug/
+
+# node / next
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env
+.env.local
+.vercel

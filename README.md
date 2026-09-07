@@ -1,148 +1,94 @@
-# Digital Marketing Director – Gurgaon Job Radar
+# JobRail
 
-A local dashboard that continuously scrapes public job-board search
-results and shows only postings matching a narrow profile: senior
-Digital-Marketing-Director-level roles, based in Gurgaon, permanent,
-Hybrid (≤3 days in office) or Remote, posted in the last 15/30 days.
+A job search site that pulls listings **directly from company career pages**
+and open job feeds, worldwide, across every industry and function.
 
-## How it works
+Jobs come from public ATS APIs (Greenhouse, Lever, Ashby, Workable,
+SmartRecruiters, Recruitee) and openly licensed feeds (Adzuna, Remotive,
+RemoteOK, Arbeitnow). No headless-browser scraping of bot-defended job
+boards — every source here publishes a documented public API.
 
-1. **Scrapers** (`app/scrapers/`) pull listings from Naukri, LinkedIn
-   (guest/public search), Instahyre, Indeed and Foundit. Each source is
-   isolated: if one board changes its markup/API and breaks, the others
-   keep working. Every source searches multiple title variants
-   (`SEARCH_KEYWORDS_LIST` in config) — LinkedIn additionally paginates
-   several pages per keyword and fetches full job descriptions for
-   likely matches so work-mode and summary get real text.
-   - **LinkedIn** uses public guest HTTP endpoints (no login).
-   - **Naukri** runs Akamai bot-defense and per-request signed tokens
-     that block plain HTTP entirely, so it's scraped via a real,
-     persistent, *logged-in* Chromium session (Playwright) — see
-     **Naukri setup** below.
-   - **Indeed, Foundit, Instahyre** also fetch through a real Chromium
-     session, but an *anonymous* one (shared `.browser_profile/`,
-     created automatically) — that's what defeats Indeed's 403
-     bot-fingerprint block.
-2. **Filter engine** (`app/filters.py`) applies, in order:
-   - Title whitelist (Digital Marketing Director / Head of Digital
-     Marketing / Growth or Demand Gen Director) minus VP/Senior
-     Director/CMO/Manager-level titles.
-   - Location: must explicitly say Gurgaon/Gurugram (generic "NCR"/"Delhi
-     NCR" tags are rejected so Noida/Faridabad/Delhi postings don't leak
-     in). Exception: confirmed-Remote roles pass regardless of the city
-     the posting is anchored to, since they're workable from Gurgaon.
-   - Employment type: permanent only (contract/freelance/temp/internship
-     rejected).
-   - Work mode: Remote always passes; Hybrid passes only if the parsed
-     in-office day count is ≤3 (configurable); fully onsite is rejected;
-     if work mode can't be determined from the listing text it's kept and
-     labeled "Unspecified" rather than silently dropped.
-   - Recency: 0–15 days old = "recent" bucket (default view), 16–30 days
-     = "extended" bucket (toggle in the UI), older is purged.
-3. **Scheduler** (`app/scheduler.py`, APScheduler) re-runs each scraper on
-   its own interval (default every 5 min; LinkedIn every 15 min since its
-   guest endpoint throttles aggressive polling) and upserts matches into
-   a local SQLite DB (`job_radar.db`).
-4. **Dashboard** (`app/static/`) polls `/api/jobs` every 5 minutes,
-   sorted newest → oldest, with filters for source, work mode and
-   recency bucket, plus a free-text search box.
-
-## Setup
+## Quick start
 
 ```bash
-pip install -r requirements.txt
-playwright install chromium
+npm install
+./scripts/dev-db.sh                 # creates the local Postgres database
+cp .env.example .env
+npx drizzle-kit push                # create tables
+psql "$DATABASE_URL" -f drizzle/custom/0001_search.sql   # search indexes
+npm run ingest -- --fixtures        # populate from recorded payloads
+npm run dev
 ```
 
-### Naukri setup (one-time)
+Open http://localhost:3000.
 
-Naukri can't be scraped with plain HTTP — it needs a real logged-in
-browser session:
+## Layout
+
+```
+src/
+  app/                 Next.js App Router pages and API routes
+  components/          UI
+  config/brand.ts      name, tagline, crawler user-agent — rename here only
+  lib/
+    db/                Drizzle schema + client
+    ingest/
+      sources/ats/     greenhouse, lever, ashby, workable,
+                       smartrecruiters, recruitee
+      sources/feeds/   remotive, remoteok, arbeitnow, adzuna
+      normalize/       location, salary, work mode, employment type, titles
+      classify/        vertical / function / seniority taxonomy
+      dedupe.ts        collapses the same role found on several sources
+      runner.ts        drives a crawl, isolating each source
+    search/            faceted search query builder
+data/companies.yml     company boards to crawl, grouped by ATS
+fixtures/              recorded API payloads for offline runs
+drizzle/custom/        SQL the ORM can't express (tsvector, GIN, trigram)
+```
+
+## Crawling
 
 ```bash
-python scripts/setup_naukri_login.py
+npm run ingest                   # all sources
+npm run ingest -- --only lever   # one source
+npm run ingest -- --limit 50     # cap listings per source
+npm run ingest -- --dry-run      # fetch and map, write nothing
+npm run ingest -- --fixtures     # read fixtures/ instead of the network
 ```
 
-This opens a visible Chromium window. Log in to Naukri normally in that
-window, then come back to the terminal and press Enter. Your session is
-saved to `.naukri_browser_profile/` (gitignored, stays local to your
-machine) and reused automatically on every future run — no need to log
-in again or paste any cookies/tokens. Re-run this script only if Naukri
-logs your saved session out (should be rare — weeks, not hours).
+Each source is isolated: one board changing shape or going down never stops
+the others. Per-run outcomes are recorded in the `sources` table.
 
-Naukri's automated poll interval is set conservatively (every 20 min, see
-`SCRAPE_INTERVAL_MINUTES` in `app/config.py`) to look like normal manual
-browsing on your account rather than aggressive bot polling. Don't lower
-it without a reason — Akamai bot-defense is specifically designed to flag
-unusually regular/frequent automated request patterns, and this uses your
-real personal Naukri login.
+### About the fixtures
 
-### Run it
+`fixtures/` holds payloads shaped to each API's **documented** response
+format. They were authored offline — the environment this was built in
+blocks outbound access to the job APIs — so they exercise every adapter's
+parsing and mapping code, but they are **not** captured live responses.
+Before trusting a source in production, run it once against the real API
+and confirm the field mapping:
 
 ```bash
-python run.py
+npm run ingest -- --only greenhouse --limit 5 --dry-run
 ```
 
-Open http://localhost:8000 — the dashboard loads immediately and the
-first scrape cycle fires on startup (no need to wait 5 minutes for the
-first results).
+Company slugs in `data/companies.yml` are likewise a starting list and are
+unverified. A wrong slug is a logged 404, not a crash.
 
-### Debugging a source
+## Copyright and source etiquette
 
-To test any source directly — outside the server, with full detail on
-what was fetched and why rows were accepted/rejected:
+- Only **facts** are stored — title, company, location, salary, dates.
+  These are not copyrightable.
+- Job description **text** is the employer's copyrighted work, so only a
+  short excerpt is kept and every listing links out to the original
+  posting. The full description is never republished.
+- The crawler identifies itself honestly (`config/brand.ts`), rate-limits,
+  retries only on 429/5xx, and honours `Retry-After`.
+- RemoteOK's terms require a visible backlink to the original post; every
+  job card and detail page provides one.
+
+## Tests
 
 ```bash
-python scripts/test_scrapers.py            # all sources
-python scripts/test_scrapers.py naukri     # just one
+npm test        # normalizer, classifier, location, salary, dedupe
+npm run typecheck
 ```
-
-## Tuning the search
-
-Everything is centralized in `app/config.py`:
-- `TITLE_INCLUDE_PATTERNS` / `TITLE_EXCLUDE_PATTERNS` — widen/narrow the
-  title whitelist.
-- `LOCATION_INCLUDE` — add more acceptable location strings.
-- `MAX_HYBRID_OFFICE_DAYS` — currently 3.
-- `EMPLOYMENT_TYPE_REJECT_PATTERNS` — currently rejects contract,
-  freelance, temp, internship, part-time.
-- `RECENT_WINDOW_DAYS` / `EXTENDED_WINDOW_DAYS` — currently 15 / 30.
-- `SCRAPE_INTERVAL_MINUTES` — per-source polling cadence.
-
-## Known limitations
-
-- **Scraper fragility**: job-board frontends change their markup
-  periodically. Each scraper file has a docstring explaining how to
-  re-verify/update its selectors if it starts returning 0 results while
-  the live site clearly shows jobs — and
-  `python scripts/test_scrapers.py <source>` shows exactly what was
-  fetched and why rows were rejected.
-- **Foundit/Instahyre selectors are best-effort guesses** (their DOMs
-  couldn't be inspected while building this). If they return 0, run the
-  test script and share the output — the parsing falls back to generic
-  job-link harvesting so there's usually *something* to diagnose from.
-- **Instahyre** gates most search results behind candidate login; if it
-  stays at 0, either ignore the source or log in once inside
-  `.browser_profile` (same approach as the Naukri setup script).
-- **Naukri account risk**: the Naukri scraper drives your real logged-in
-  browser session. It's built to look as close to normal manual browsing
-  as reasonably possible (real browser, infrequent polling, no headless
-  fingerprint), but any automation against a site with active bot-defense
-  carries some inherent risk of the account being flagged. If you'd
-  rather avoid that entirely, disable it in `app/scrapers/__init__.py`
-  and instead use Naukri's own built-in "Create a job alert" feature on
-  the search results page — same coverage, zero automation risk, just
-  arrives by email instead of in this dashboard.
-- **Rate limiting**: aggressive polling (especially LinkedIn) can trigger
-  temporary blocks. Back off the interval in `config.py` if a source
-  starts erroring consistently.
-- **Low volume expected**: this is a narrow niche (Director-level Digital
-  Marketing, Gurgaon-only, Hybrid/Remote, permanent). Expect a handful of
-  new postings per week, not per 5-minute cycle — "0 new jobs" between
-  refreshes is normal, not a bug.
-- **Salary data**: rarely published on Indian job boards; most rows will
-  show "N/A".
-- **LinkedIn summaries**: the guest search endpoint doesn't expose full
-  job descriptions, so LinkedIn-sourced rows often land in the
-  "Unspecified" work-mode bucket and have no summary text — this is a
-  platform limitation, not a bug in the scraper.
