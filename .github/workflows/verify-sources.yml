@@ -1,0 +1,41 @@
+name: Verify job sources
+
+# Runs the crawler against the real ATS and feed APIs in dry-run mode: it
+# fetches, normalises and classifies everything, then writes nothing and
+# reports what each source returned.
+#
+# This is the early-warning system for the most fragile part of the project.
+# When a job board changes its API shape, or a company moves off one ATS onto
+# another and its slug in data/companies.yml goes stale, this job is what
+# tells us — instead of the site quietly going empty.
+on:
+  push:
+    branches: [main, claude/job-listings-aggregator-wsmaod]
+    paths:
+      - "src/lib/ingest/**"
+      - "data/companies.yml"
+      - ".github/workflows/verify-sources.yml"
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays, 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Live dry run against every source
+        # No DATABASE_URL: --dry-run never opens a database connection, so
+        # this needs no secrets and is safe to run on any branch.
+        run: npm run ingest -- --dry-run --limit 25
