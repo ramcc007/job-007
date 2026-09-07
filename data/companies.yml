@@ -44,7 +44,6 @@ greenhouse:
   - asana
 
 lever:
-  - netflix
   - spotify
   - shopify
   - box
@@ -70,7 +69,6 @@ ashby:
   - supabase
 
 workable:
-  - workable
   - blueground
   - persado
   - slug: e-food
@@ -84,6 +82,6 @@ smartrecruiters:
     name: McDonald's
   - Avery
 
-recruitee:
-  - recruitee
-  - framer
+# Both seeded slugs 404'd against the live API and were removed. Add
+# verified Recruitee tenants here (they are the <slug> in <slug>.recruitee.com).
+recruitee: []
