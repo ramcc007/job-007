@@ -1,0 +1,33 @@
+# Job boards that publish an RSS feed.
+#
+# RSS exists to be syndicated, so consuming a published feed is both lawful
+# and stable — unlike scraping a site that offers no feed and forbids
+# automated access in its terms. Adding a board here needs no code.
+#
+#   name            label shown as the source
+#   url             the feed
+#   countries       ISO codes this feed serves; omit for global
+#   remote          true when every listing is remote
+#   company         fixed employer, for a single company's feed
+#   defaultLocation used when an item states no location of its own
+
+feeds:
+  - name: We Work Remotely
+    url: https://weworkremotely.com/remote-jobs.rss
+    remote: true
+
+  - name: We Work Remotely — Marketing
+    url: https://weworkremotely.com/categories/remote-marketing-jobs.rss
+    remote: true
+
+  - name: Jobicy
+    url: https://jobicy.com/?feed=job_feed
+    remote: true
+
+  - name: Himalayas
+    url: https://himalayas.app/jobs/rss
+    remote: true
+
+  - name: Remotive
+    url: https://remotive.com/remote-jobs/feed
+    remote: true

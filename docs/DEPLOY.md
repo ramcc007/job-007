@@ -27,12 +27,34 @@ together if either ever moves.
 
 ## Environment variables
 
-| Name | Required | Purpose |
-|---|---|---|
-| `DATABASE_URL` | yes | Postgres connection string (Supabase transaction pooler) |
-| `INGEST_SECRET` | yes | Shared secret guarding `POST /api/ingest` |
-| `NEXT_PUBLIC_SITE_URL` | no | Canonical origin; falls back to Vercel's own URL |
-| `ADZUNA_APP_ID` / `ADZUNA_APP_KEY` | no | Free key unlocking 16 more countries |
+None are required — every keyed source disables itself cleanly when
+unconfigured, and the keyless ones keep working.
+
+| Name | Unlocks |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin; falls back to Vercel's own URL |
+| `ADZUNA_APP_ID` / `ADZUNA_APP_KEY` | 19 national markets including India |
+| `RAPIDAPI_KEY` | Indeed, LinkedIn, Glassdoor and ZipRecruiter listings via JSearch |
+| `JOOBLE_KEY` | 60+ countries, indexing national boards |
+| `CAREERJET_AFFID` | ~90 countries |
+
+## On Indeed, Naukri, LinkedIn, iimjobs and Monster
+
+None of these publishes an open API, and all forbid automated access in
+their terms. Indeed retired its Publisher API to new applicants; Naukri
+(and its sibling iimjobs) runs Akamai bot defence; LinkedIn gates jobs
+behind partner-only Talent Solutions; Monster/Foundit exposes nothing for
+job seekers.
+
+Their listings are reachable anyway, through aggregators that license the
+same inventory — JSearch for Indeed and LinkedIn, Jooble and Careerjet for
+the national boards. Those are the adapters above. Scraping the sites
+directly would breach their terms, risk the account used to do it, and
+break whenever their defences change.
+
+For anything else, `data/feeds.yml` reads any board that publishes RSS —
+which is a feed offered for syndication, so consuming it is both lawful and
+stable. Adding one takes no code.
 
 ## Filling the database
 

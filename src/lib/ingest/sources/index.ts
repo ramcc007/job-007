@@ -6,7 +6,11 @@ import { smartrecruiters } from "./ats/smartrecruiters";
 import { workable } from "./ats/workable";
 import { adzuna } from "./feeds/adzuna";
 import { arbeitnow } from "./feeds/arbeitnow";
+import { careerjet } from "./feeds/careerjet";
 import { himalayas } from "./feeds/himalayas";
+import { jooble } from "./feeds/jooble";
+import { jsearch } from "./feeds/jsearch";
+import { rss } from "./feeds/rss";
 import { jobicy } from "./feeds/jobicy";
 import { themuse } from "./feeds/themuse";
 import { remoteok } from "./feeds/remoteok";
@@ -30,7 +34,14 @@ export const ADAPTERS: readonly SourceAdapter[] = [
   jobicy,
   themuse,
   himalayas,
+  rss,
+  // Licensed aggregators. Each self-disables without its key, and each is
+  // the lawful route to inventory that Indeed, LinkedIn, Glassdoor and the
+  // national boards do not expose directly.
   adzuna,
+  jsearch,
+  jooble,
+  careerjet,
 ];
 
 export const ADAPTERS_BY_NAME = new Map(ADAPTERS.map((a) => [a.name, a]));
