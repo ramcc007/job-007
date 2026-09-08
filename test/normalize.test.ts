@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import { TENANT_NOT_FOUND, candidateUrls } from "@/lib/db";
+import { mintToken, verifyToken } from "@/lib/ingest/auth";
 import { classify, inferSeniority } from "@/lib/ingest/classify";
 import { dedupHash } from "@/lib/ingest/dedupe";
 import { excerpt, htmlToText } from "@/lib/ingest/html";
@@ -311,5 +312,33 @@ describe("TENANT_NOT_FOUND", () => {
   it("does not match an unrelated failure", () => {
     assert.ok(!TENANT_NOT_FOUND.test("password authentication failed for user"));
     assert.ok(!TENANT_NOT_FOUND.test("connect ETIMEDOUT"));
+  });
+});
+
+describe("ingest tokens", () => {
+  const secret = "s3cret-value";
+
+  it("accepts a freshly minted token", () => {
+    assert.ok(verifyToken(mintToken(secret), secret));
+  });
+
+  it("rejects a token past its expiry", () => {
+    const token = mintToken(secret, 1000);
+    assert.ok(!verifyToken(token, secret, Date.now() + 2000));
+  });
+
+  it("rejects a token signed with a different secret", () => {
+    assert.ok(!verifyToken(mintToken(secret), "other-secret"));
+  });
+
+  it("rejects a tampered expiry", () => {
+    const [, signature] = mintToken(secret).split(".");
+    assert.ok(!verifyToken(`${Date.now() + 999999}.${signature}`, secret));
+  });
+
+  it("rejects malformed input without throwing", () => {
+    for (const bad of ["", ".", "abc", "123.", `${Date.now() + 1000}.short`]) {
+      assert.equal(verifyToken(bad, secret), false, bad);
+    }
   });
 });

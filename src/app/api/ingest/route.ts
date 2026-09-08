@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { isAuthorized } from "@/lib/ingest/auth";
 import { loadSeeds } from "@/lib/ingest/seeds";
 import { runIngest } from "@/lib/ingest/runner";
 
@@ -9,10 +10,10 @@ export const maxDuration = 300;
 /**
  * Crawl trigger for the scheduled workflow.
  *
- * Guarded by a shared secret so a crawl can't be started by anyone who
- * finds the URL — ingestion is expensive and hits third-party APIs under
- * our name. The comparison is length-safe but not constant-time; the
- * secret is a deploy-time value, not a user credential.
+ * Guarded so a crawl can't be started by anyone who finds the URL —
+ * ingestion is expensive and hits third-party APIs under our name. Accepts
+ * either the long-lived INGEST_SECRET or a short-lived signed token; see
+ * lib/ingest/auth.ts.
  */
 export async function POST(request: Request) {
   const secret = process.env.INGEST_SECRET;
@@ -20,11 +21,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "INGEST_SECRET is not configured" }, { status: 503 });
   }
 
-  const provided =
-    request.headers.get("authorization")?.replace(/^Bearer\s+/i, "") ??
-    request.headers.get("x-ingest-secret");
-
-  if (provided !== secret) {
+  if (!isAuthorized(request, secret)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
