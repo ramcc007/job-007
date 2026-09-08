@@ -72,8 +72,17 @@ function toLiveJob(job: NormalizedJob, score: number): LiveJob {
   };
 }
 
-/** Per-source ceiling, so one enormous feed cannot dominate the budget. */
-const PER_SOURCE_LIMIT = 400;
+/**
+ * Ceiling on listings considered per source.
+ *
+ * Set high on purpose. The ATS adapters fetch every seeded board before this
+ * applies, so a low cap does not save any network time — it just discards
+ * boards that happen to sit late in the list. At 400 the India seeds, which
+ * were appended after the existing companies, were being cut off entirely
+ * and a Gurgaon search could never have matched them. The cap now exists
+ * only to bound memory on a pathological feed.
+ */
+const PER_SOURCE_LIMIT = 5000;
 
 export interface LiveSearchOptions {
   query: SourceQuery;

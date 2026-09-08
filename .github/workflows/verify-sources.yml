@@ -35,6 +35,11 @@ jobs:
       - name: Unit tests
         run: npm test
 
-      - name: Live dry run against every source
+      - name: Live search across every source
         # Nothing is stored, so this needs no database and no secrets.
         run: npm run verify-sources -- engineer
+
+      - name: Live search for a specific market
+        # Guards the case that prompted this work: a location-filtered
+        # search finding nothing because seeded boards were truncated away.
+        run: npm run verify-sources -- manager india
