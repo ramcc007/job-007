@@ -4,9 +4,27 @@ import { join } from "node:path";
 import { brand } from "@/config/brand";
 
 export class HttpError extends Error {
-  constructor(readonly status: number, readonly url: string, message?: string) {
-    super(message ?? `HTTP ${status} for ${url}`);
+  constructor(
+    readonly status: number,
+    readonly url: string,
+    message?: string,
+    /** Start of the response body — APIs explain a rejection there. */
+    readonly body?: string,
+  ) {
+    super(message ?? `HTTP ${status} for ${url}${body ? ` — ${body}` : ""}`);
     this.name = "HttpError";
+  }
+}
+
+/** Enough of a body to carry an API's explanation, not enough to spam logs. */
+const ERROR_BODY_CHARS = 300;
+
+async function readErrorBody(response: Response): Promise<string | undefined> {
+  try {
+    const text = (await response.text()).replace(/\s+/g, " ").trim();
+    return text ? text.slice(0, ERROR_BODY_CHARS) : undefined;
+  } catch {
+    return undefined;
   }
 }
 
@@ -74,7 +92,7 @@ export async function getJson<T>(
         const waitMs = Number.isFinite(retryAfter) && retryAfter > 0
           ? retryAfter * 1000
           : 2 ** attempt * 500;
-        lastError = new HttpError(res.status, url);
+        lastError = new HttpError(res.status, url, undefined, await readErrorBody(res));
         if (attempt < MAX_ATTEMPTS) {
           await sleep(waitMs);
           continue;
@@ -82,7 +100,7 @@ export async function getJson<T>(
         throw lastError;
       }
 
-      if (!res.ok) throw new HttpError(res.status, url);
+      if (!res.ok) throw new HttpError(res.status, url, undefined, await readErrorBody(res));
       return (await res.json()) as T;
     } catch (err) {
       lastError = err;
