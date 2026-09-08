@@ -46,3 +46,26 @@ export function excerpt(text: string, maxChars = 320): string {
   const lastSpace = cut.lastIndexOf(" ");
   return `${(lastSpace > maxChars * 0.6 ? cut.slice(0, lastSpace) : cut).trimEnd()}…`;
 }
+
+/**
+ * Repairs text that was UTF-8 but got decoded as Latin-1 somewhere upstream,
+ * which turns "دبي" into "Ø¯Ø¨Ù" and "café" into "cafÃ©". Several job feeds
+ * serve doubly-encoded text and it is very visible on a site carrying
+ * Arabic, CJK and accented European place names.
+ *
+ * The repair is only kept when re-decoding actually produces valid UTF-8 and
+ * removes the tell-tale sequences — otherwise the original is returned, so
+ * legitimate text containing "Ã" or "Ø" is never mangled.
+ */
+const MOJIBAKE = /[ÃÂØÐÑâ][\u0080-\u00BF]/;
+
+export function repairEncoding(input: string): string {
+  if (!input || !MOJIBAKE.test(input)) return input;
+  try {
+    const repaired = Buffer.from(input, "latin1").toString("utf8");
+    if (repaired.includes("\uFFFD") || MOJIBAKE.test(repaired)) return input;
+    return repaired;
+  } catch {
+    return input;
+  }
+}

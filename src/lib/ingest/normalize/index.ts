@@ -1,4 +1,4 @@
-import { excerpt } from "../html";
+import { excerpt, repairEncoding } from "../html";
 import { classify } from "../classify";
 import { dedupHash } from "../dedupe";
 import type { RawJob } from "../types";
@@ -42,6 +42,13 @@ export interface NormalizedJob {
   dedupHash: string;
 }
 
+/**
+ * Section headings that some feeds emit in the title field instead of the
+ * actual role. A listing called "Job Summary" is unusable to a job seeker,
+ * so it is dropped rather than published.
+ */
+const NON_TITLES = /^(job\s*(summary|description|title|posting)|description|summary|apply now|n\/?a|untitled|position|vacancy)$/i;
+
 /** Postings dated in the future, or absurdly old, are treated as undated. */
 const MAX_FUTURE_MS = 2 * 24 * 60 * 60 * 1000;
 const MAX_AGE_MS = 3 * 365 * 24 * 60 * 60 * 1000;
@@ -62,14 +69,14 @@ function safePostedAt(value: Date | undefined, now: Date): Date {
  * through is worse than no row.
  */
 export function normalizeJob(raw: RawJob, now = new Date()): NormalizedJob | null {
-  const title = cleanTitle(raw.title ?? "");
-  if (!title || !raw.url) return null;
+  const title = cleanTitle(repairEncoding(raw.title ?? ""));
+  if (!title || !raw.url || NON_TITLES.test(title)) return null;
 
   const titleNormalized = normalizeTitle(title);
   if (!titleNormalized) return null;
 
-  const locations = parseLocations(raw.locationsRaw ?? [], raw.isRemoteHint);
-  const description = raw.descriptionText ?? "";
+  const locations = parseLocations((raw.locationsRaw ?? []).map(repairEncoding), raw.isRemoteHint);
+  const description = repairEncoding(raw.descriptionText ?? "");
   const workMode = inferWorkMode(`${title}\n${description}`, locations, raw.isRemoteHint);
   const salary = resolveSalary(raw);
 
@@ -96,7 +103,7 @@ export function normalizeJob(raw: RawJob, now = new Date()): NormalizedJob | nul
     titleNormalized,
     descriptionExcerpt: description ? excerpt(description) : null,
 
-    companyName: raw.companyName?.trim() || "Unknown",
+    companyName: repairEncoding(raw.companyName ?? "").trim() || "Unknown",
     companyWebsite: raw.companyWebsite ?? null,
     companyLogoUrl: raw.companyLogoUrl ?? null,
     atsPlatform: raw.atsPlatform ?? null,

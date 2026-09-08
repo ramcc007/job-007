@@ -263,7 +263,10 @@ export const SENIORITY: Category[] = [
     r("\\bdirector\\b", 5),
   ]},
   { id: "manager", label: "Manager", rules: [
-    r("\\b(manager|management)\\b", 4),
+    // "management" is deliberately absent: it appears in plenty of
+    // non-managerial titles ("Power Management", "Asset Management
+    // Analyst") and was promoting individual contributors to Manager.
+    r("\\bmanagers?\\b", 4),
     r("\\b(supervisor|team lead(er)?|foreman)\\b", 3),
   ]},
   { id: "lead", label: "Lead / Principal", rules: [

@@ -5,7 +5,7 @@ import { TENANT_NOT_FOUND, candidateUrls } from "@/lib/db";
 import { mintToken, verifyToken } from "@/lib/ingest/auth";
 import { classify, inferSeniority } from "@/lib/ingest/classify";
 import { dedupHash } from "@/lib/ingest/dedupe";
-import { excerpt, htmlToText } from "@/lib/ingest/html";
+import { excerpt, htmlToText, repairEncoding } from "@/lib/ingest/html";
 import { normalizeJob } from "@/lib/ingest/normalize";
 import { inferEmploymentType, inferWorkMode } from "@/lib/ingest/normalize/attributes";
 import { parseLocation } from "@/lib/ingest/normalize/location";
@@ -340,5 +340,46 @@ describe("ingest tokens", () => {
     for (const bad of ["", ".", "abc", "123.", `${Date.now() + 1000}.short`]) {
       assert.equal(verifyToken(bad, secret), false, bad);
     }
+  });
+});
+
+describe("repairEncoding", () => {
+  it("recovers UTF-8 that was decoded as Latin-1", () => {
+    const broken = Buffer.from("دبي", "utf8").toString("latin1");
+    assert.equal(repairEncoding(broken), "دبي");
+    assert.equal(repairEncoding(Buffer.from("café", "utf8").toString("latin1")), "café");
+  });
+
+  it("leaves clean text untouched", () => {
+    for (const text of ["Dubai", "دبي", "Zürich", "東京", ""]) {
+      assert.equal(repairEncoding(text), text);
+    }
+  });
+});
+
+describe("junk titles", () => {
+  for (const title of ["Job Summary", "job description", "Apply Now", "N/A", "Untitled"]) {
+    it(`drops a listing titled ${JSON.stringify(title)}`, () => {
+      assert.equal(
+        normalizeJob({ source: "x", sourceJobId: "1", url: "https://e.com/1", title,
+                       companyName: "A", locationsRaw: [] }),
+        null,
+      );
+    });
+  }
+
+  it("keeps a real title that merely contains one of those words", () => {
+    const job = normalizeJob({ source: "x", sourceJobId: "1", url: "https://e.com/1",
+                               title: "Summary Analyst", companyName: "A", locationsRaw: [] });
+    assert.ok(job);
+  });
+});
+
+describe("seniority false positives", () => {
+  it("does not promote 'Power Management' to Manager", () => {
+    assert.equal(inferSeniority("Software Engineer, Frontier Systems - Power Management"), "mid");
+  });
+  it("still recognises a real manager title", () => {
+    assert.equal(inferSeniority("Engineering Manager"), "manager");
   });
 });
