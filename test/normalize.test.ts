@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { candidateUrls } from "@/lib/db";
+import { TENANT_NOT_FOUND, candidateUrls } from "@/lib/db";
 import { classify, inferSeniority } from "@/lib/ingest/classify";
 import { dedupHash } from "@/lib/ingest/dedupe";
 import { excerpt, htmlToText } from "@/lib/ingest/html";
@@ -291,5 +291,25 @@ describe("candidateUrls", () => {
     const [, sibling] = candidateUrls(tricky);
     assert.ok(sibling.includes("p@ss-0-word"), "password must not be rewritten");
     assert.ok(sibling.includes("aws-0-eu-west-2"), sibling);
+  });
+});
+
+describe("TENANT_NOT_FOUND", () => {
+  // Both phrasings observed from Supabase's pooler. The first is what the
+  // live deployment actually returned; matching only the documented wording
+  // meant the fallback never fired.
+  const messages = [
+    "tenant/user jobrail_app.vwocigleaieyfdeplmnd not found",
+    "Tenant or user not found",
+  ];
+  for (const message of messages) {
+    it(`matches ${JSON.stringify(message)}`, () => {
+      assert.ok(TENANT_NOT_FOUND.test(message));
+    });
+  }
+
+  it("does not match an unrelated failure", () => {
+    assert.ok(!TENANT_NOT_FOUND.test("password authentication failed for user"));
+    assert.ok(!TENANT_NOT_FOUND.test("connect ETIMEDOUT"));
   });
 });

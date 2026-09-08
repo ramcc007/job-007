@@ -28,7 +28,13 @@ function candidateUrls(url: string): string[] {
   return [url, `${prefix}aws-${sibling}-${suffix}${tail}`];
 }
 
-const TENANT_NOT_FOUND = /tenant or user not found/i;
+/**
+ * Supavisor has worded this error at least two ways — "Tenant or user not
+ * found" and "tenant/user <name> not found" — so match the stable parts
+ * rather than one exact phrasing. Getting this wrong is silent: the
+ * fallback simply never fires.
+ */
+const TENANT_NOT_FOUND = /tenant.{0,120}not found/is;
 
 function createClient(url: string) {
   return postgres(url, {
@@ -100,4 +106,4 @@ export async function closeDb(): Promise<void> {
   await existing.then(({ client }) => client.end({ timeout: 5 })).catch(() => {});
 }
 
-export { schema, candidateUrls };
+export { schema, candidateUrls, TENANT_NOT_FOUND };
