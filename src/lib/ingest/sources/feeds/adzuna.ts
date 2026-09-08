@@ -93,6 +93,9 @@ export const adzuna: SourceAdapter = {
           body = await getJson(url);
         } catch (err) {
           log(`adzuna ${country} p${page}: ${String(err)}`);
+          // Failing on the very first page means the source contributed
+          // nothing; surfacing that beats reporting a silent success.
+          if (out.length === 0) throw err;
           break;
         }
 

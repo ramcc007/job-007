@@ -73,6 +73,9 @@ export const jsearch: SourceAdapter = {
         });
       } catch (err) {
         log(`jsearch p${page}: ${String(err)}`);
+        // Failing on the very first page means the source contributed
+        // nothing; surfacing that beats reporting a silent success.
+        if (out.length === 0) throw err;
         break;
       }
 
