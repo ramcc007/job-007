@@ -135,22 +135,14 @@ export async function* liveSearch(
       (async () => {
         const relevant = seeds.filter((s) => s.platform === adapter.name);
         try {
-          const notes: string[] = [];
           const raw = await adapter.fetch({
             seeds: relevant,
             query,
             limit: PER_SOURCE_LIMIT,
             // Discarding these made a failing source indistinguishable from
             // an empty one: both reported "done, 0 scanned".
-            log: (message) => {
-              notes.push(message);
-              console.warn(`[${adapter.name}] ${message}`);
-            },
+            log: (message) => console.warn(`[${adapter.name}] ${message}`),
           });
-          // A source that returned nothing *and* complained did not succeed.
-          if (raw.length === 0 && notes.length > 0) {
-            return { adapter, jobs: [], scanned: 0, error: notes[0] };
-          }
           const normalized: NormalizedJob[] = [];
           for (const item of raw) {
             const job = normalizeJob(item);
