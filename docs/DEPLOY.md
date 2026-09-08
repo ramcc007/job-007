@@ -13,6 +13,18 @@ this Next.js app failed with
 over the saved dashboard preset. Don't delete it unless the project's preset
 has been corrected in Vercel's settings first.
 
+## Why the function region is pinned
+
+`vercel.json` pins `regions: ["bom1"]` (Mumbai) to sit next to the Supabase
+project, which is also in `ap-south-1`.
+
+This matters more than it looks. Ingestion writes each listing with several
+sequential statements, so every extra millisecond of round-trip latency is
+paid hundreds of times over. Serving from Washington against a Mumbai
+database added roughly 200 ms per statement and made a crawl time out;
+co-located, the same work is a fraction of the time. Keep the two regions
+together if either ever moves.
+
 ## Environment variables
 
 | Name | Required | Purpose |
