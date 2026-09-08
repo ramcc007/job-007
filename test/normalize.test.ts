@@ -1,8 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { TENANT_NOT_FOUND, candidateUrls } from "@/lib/db";
-import { mintToken, verifyToken } from "@/lib/ingest/auth";
 import { classify, inferSeniority } from "@/lib/ingest/classify";
 import { dedupHash } from "@/lib/ingest/dedupe";
 import { excerpt, htmlToText, repairEncoding } from "@/lib/ingest/html";
@@ -268,80 +266,7 @@ describe("humanizeSlug", () => {
   });
 });
 
-describe("candidateUrls", () => {
-  const base = "postgresql://u.ref:pw@aws-0-ap-south-1.pooler.supabase.com:6543/postgres";
 
-  it("offers the sibling Supabase pooler shard as a fallback", () => {
-    const [first, second] = candidateUrls(base);
-    assert.equal(first, base);
-    assert.equal(second, base.replace("aws-0-", "aws-1-"));
-  });
-
-  it("swaps in both directions", () => {
-    const fromOne = base.replace("aws-0-", "aws-1-");
-    assert.equal(candidateUrls(fromOne)[1], base);
-  });
-
-  it("leaves a non-Supabase URL alone", () => {
-    const local = "postgresql://jobrail:jobrail@localhost:5432/jobrail";
-    assert.deepEqual(candidateUrls(local), [local]);
-  });
-
-  it("preserves the password verbatim", () => {
-    const tricky = "postgresql://u.ref:p@ss-0-word@aws-1-eu-west-2.pooler.supabase.com:5432/postgres";
-    const [, sibling] = candidateUrls(tricky);
-    assert.ok(sibling.includes("p@ss-0-word"), "password must not be rewritten");
-    assert.ok(sibling.includes("aws-0-eu-west-2"), sibling);
-  });
-});
-
-describe("TENANT_NOT_FOUND", () => {
-  // Both phrasings observed from Supabase's pooler. The first is what the
-  // live deployment actually returned; matching only the documented wording
-  // meant the fallback never fired.
-  const messages = [
-    "tenant/user jobrail_app.vwocigleaieyfdeplmnd not found",
-    "Tenant or user not found",
-  ];
-  for (const message of messages) {
-    it(`matches ${JSON.stringify(message)}`, () => {
-      assert.ok(TENANT_NOT_FOUND.test(message));
-    });
-  }
-
-  it("does not match an unrelated failure", () => {
-    assert.ok(!TENANT_NOT_FOUND.test("password authentication failed for user"));
-    assert.ok(!TENANT_NOT_FOUND.test("connect ETIMEDOUT"));
-  });
-});
-
-describe("ingest tokens", () => {
-  const secret = "s3cret-value";
-
-  it("accepts a freshly minted token", () => {
-    assert.ok(verifyToken(mintToken(secret), secret));
-  });
-
-  it("rejects a token past its expiry", () => {
-    const token = mintToken(secret, 1000);
-    assert.ok(!verifyToken(token, secret, Date.now() + 2000));
-  });
-
-  it("rejects a token signed with a different secret", () => {
-    assert.ok(!verifyToken(mintToken(secret), "other-secret"));
-  });
-
-  it("rejects a tampered expiry", () => {
-    const [, signature] = mintToken(secret).split(".");
-    assert.ok(!verifyToken(`${Date.now() + 999999}.${signature}`, secret));
-  });
-
-  it("rejects malformed input without throwing", () => {
-    for (const bad of ["", ".", "abc", "123.", `${Date.now() + 1000}.short`]) {
-      assert.equal(verifyToken(bad, secret), false, bad);
-    }
-  });
-});
 
 describe("repairEncoding", () => {
   it("recovers UTF-8 that was decoded as Latin-1", () => {

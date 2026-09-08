@@ -36,6 +36,5 @@ jobs:
         run: npm test
 
       - name: Live dry run against every source
-        # No DATABASE_URL: --dry-run never opens a database connection, so
-        # this needs no secrets and is safe to run on any branch.
-        run: npm run ingest -- --dry-run --limit 25
+        # Nothing is stored, so this needs no database and no secrets.
+        run: npm run verify-sources -- engineer

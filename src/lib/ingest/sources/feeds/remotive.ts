@@ -26,8 +26,10 @@ export const remotive: SourceAdapter = {
   name: "remotive",
   kind: "feed",
 
-  async fetch({ limit }: FetchContext): Promise<RawJob[]> {
-    const url = `https://remotive.com/api/remote-jobs?limit=${limit ?? 500}`;
+  async fetch({ limit, query }: FetchContext): Promise<RawJob[]> {
+    const params = new URLSearchParams({ limit: String(limit ?? 500) });
+    if (query?.text) params.set("search", query.text);
+    const url = `https://remotive.com/api/remote-jobs?${params}`;
     const body = await getJson<{ jobs?: RemotiveJob[] }>(url);
 
     return (body.jobs ?? []).map((job) => ({

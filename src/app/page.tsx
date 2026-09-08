@@ -1,27 +1,29 @@
 import Link from "next/link";
 
-import { JobCard } from "@/components/job-card";
 import { SearchBar } from "@/components/search-bar";
 import { brand } from "@/config/brand";
+import { JOB_TITLES } from "@/lib/search/catalogue";
 import { FUNCTION_LABELS, labelFor } from "@/lib/search/labels";
-import { countActiveJobs, loadFacets, searchJobs } from "@/lib/search/query";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
-export default async function HomePage() {
-  const [{ jobs }, facets, total] = await Promise.all([
-    searchJobs({ perPage: 6 }),
-    loadFacets({}),
-    countActiveJobs(),
-  ]);
+/** One representative title per function, for the browse links. */
+const BY_FUNCTION = Object.entries(
+  JOB_TITLES.reduce<Record<string, string[]>>((acc, entry) => {
+    (acc[entry.function] ??= []).push(entry.title);
+    return acc;
+  }, {}),
+).slice(0, 16);
 
-  const topFunctions = facets.jobFunction.slice(0, 12);
-  const topCountries = facets.country.slice(0, 8);
+const POPULAR = [
+  "Digital Marketing Manager", "Software Engineer", "Registered Nurse",
+  "Accountant", "Civil Engineer", "Sales Manager", "Data Analyst", "Electrician",
+];
 
+export default function HomePage() {
   return (
     <main>
       <section className="relative overflow-hidden border-b border-line px-4 py-16 sm:py-24">
-        {/* Rails receding into the distance — the brand mark, scaled up. */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.07]">
           <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
             <path d="M20 100 L46 0M80 100 L54 0" stroke="var(--color-accent)" strokeWidth="0.4" />
@@ -36,23 +38,23 @@ export default async function HomePage() {
 
         <div className="relative mx-auto max-w-3xl text-center">
           <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.2em] text-accent">
-            {total.toLocaleString()} open roles · free, no account needed
+            Live search · free · no account needed
           </p>
           <h1 className="mt-4 font-[family-name:var(--font-display)] text-4xl font-semibold leading-[1.1] tracking-tight text-fg sm:text-5xl">
             {brand.tagline}
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-fg-muted">
-            Jobs pulled directly from company career pages and open job feeds — every
-            industry, every function, worldwide. You apply with the employer, not through us.
+            Every search goes straight to company career pages and job feeds, the moment
+            you ask. No stale index, no reposts — you apply with the employer, not through us.
           </p>
 
           <div className="mx-auto mt-8 max-w-2xl">
-            <SearchBar size="lg" />
+            <SearchBar size="lg" autoFocus />
           </div>
 
           <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5 text-[12px]">
             <span className="text-fg-faint">Popular:</span>
-            {["Software Engineer", "Nurse", "Accountant", "Civil Engineer", "Sales"].map((term) => (
+            {POPULAR.map((term) => (
               <Link
                 key={term}
                 href={`/jobs?q=${encodeURIComponent(term)}`}
@@ -65,67 +67,25 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
-        <section>
-          <div className="flex items-baseline justify-between">
-            <h2 className="font-[family-name:var(--font-display)] text-lg font-semibold text-fg">
-              Latest roles
-            </h2>
-            <Link href="/jobs" className="text-[13px] text-accent hover:underline">
-              Browse all →
+      <section className="mx-auto max-w-5xl px-4 py-12">
+        <h2 className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.15em] text-fg-faint">
+          Browse by function
+        </h2>
+        <div className="mt-4 grid gap-x-8 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
+          {BY_FUNCTION.map(([fn, titles]) => (
+            <Link
+              key={fn}
+              href={`/jobs?q=${encodeURIComponent(titles[0]!)}`}
+              className="flex items-baseline justify-between gap-2 rounded px-1.5 py-1.5 text-[13px] text-fg-muted transition-colors hover:bg-hover hover:text-fg"
+            >
+              <span className="truncate">{labelFor(FUNCTION_LABELS, fn)}</span>
+              <span className="shrink-0 font-[family-name:var(--font-mono)] text-[11px] text-fg-faint">
+                {titles.length} titles
+              </span>
             </Link>
-          </div>
-          <div className="mt-3 overflow-hidden rounded-lg border border-line bg-surface">
-            {jobs.map((job) => (
-              <JobCard key={job.id} job={job} href={`/jobs/${job.slug}`} />
-            ))}
-          </div>
-        </section>
-
-        <aside className="space-y-8">
-          <section>
-            <h2 className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.15em] text-fg-faint">
-              Browse by function
-            </h2>
-            <ul className="mt-3 space-y-1">
-              {topFunctions.map((bucket) => (
-                <li key={bucket.value}>
-                  <Link
-                    href={`/jobs?fn=${bucket.value}`}
-                    className="flex items-baseline justify-between gap-2 rounded px-1.5 py-1 text-[13px] text-fg-muted transition-colors hover:bg-hover hover:text-fg"
-                  >
-                    <span className="truncate">{labelFor(FUNCTION_LABELS, bucket.value)}</span>
-                    <span className="font-[family-name:var(--font-mono)] text-[11px] text-fg-faint">
-                      {bucket.count}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.15em] text-fg-faint">
-              Browse by country
-            </h2>
-            <ul className="mt-3 space-y-1">
-              {topCountries.map((bucket) => (
-                <li key={bucket.value}>
-                  <Link
-                    href={`/jobs?country=${bucket.value}`}
-                    className="flex items-baseline justify-between gap-2 rounded px-1.5 py-1 text-[13px] text-fg-muted transition-colors hover:bg-hover hover:text-fg"
-                  >
-                    <span>{new Intl.DisplayNames(["en"], { type: "region" }).of(bucket.value)}</span>
-                    <span className="font-[family-name:var(--font-mono)] text-[11px] text-fg-faint">
-                      {bucket.count}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </aside>
-      </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

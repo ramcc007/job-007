@@ -10,19 +10,27 @@ SmartRecruiters, Recruitee) and openly licensed feeds (Adzuna, Remotive,
 RemoteOK, Arbeitnow). No headless-browser scraping of bot-defended job
 boards — every source here publishes a documented public API.
 
-## How it runs in production
+## How search works
 
-| Piece | Where |
-|---|---|
-| Site | Vercel, functions pinned to `bom1` (Mumbai) |
-| Database | Supabase Postgres, `ap-south-1`, free tier |
-| Refresh | Vercel cron, daily at 02:00 UTC |
-| Source health | GitHub Actions, weekly live dry run |
+**There is no job database.** Every search fans out across company career
+pages and job feeds at the moment it is asked, filters what comes back, and
+streams matches to the browser as each source finishes.
 
-The app connects as a restricted `jobrail_app` role, not the Postgres
-superuser. Row-level security allows public reads of job data and no public
-writes; the `sources` table, which holds crawl diagnostics, is not readable
-publicly at all.
+That is the whole trade: results are never stale, and a search takes twenty
+to thirty seconds instead of milliseconds. The progress bar exists because
+of it — a long wait with visible progress reads as work, a long wait with a
+blank screen reads as broken.
+
+Two consequences worth knowing:
+
+- **Coverage is bounded by `data/companies.yml`.** Greenhouse, Lever and
+  Ashby have no global search — you can only ask a named company's board
+  what it has open — so a role at a company not on that list is invisible.
+  Adzuna is the one source that queries a whole national market, and it
+  needs a free key.
+- **There are no indexable job pages**, so Google for Jobs and organic
+  search traffic are not available. That is inherent to not keeping an
+  index, not an oversight.
 
 ## Quick start
 

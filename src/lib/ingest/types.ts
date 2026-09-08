@@ -43,7 +43,18 @@ export interface CompanySeed {
   name?: string;
 }
 
+/** What the visitor asked for, passed to sources that can filter server-side. */
+export interface SourceQuery {
+  text?: string;
+  location?: string;
+}
+
 export interface FetchContext {
+  /**
+   * Present for on-demand searches. Sources with a real search API should
+   * push these to the server; the rest are filtered locally after fetching.
+   */
+  query?: SourceQuery;
   /** Company slugs to crawl, already filtered to this adapter's platform. */
   seeds: CompanySeed[];
   /** Cap on listings per source, for quick test runs. */

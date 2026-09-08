@@ -5,11 +5,5 @@
   "buildCommand": "next build",
   "regions": [
     "bom1"
-  ],
-  "crons": [
-    {
-      "path": "/api/ingest?limit=60",
-      "schedule": "0 2 * * *"
-    }
   ]
 }

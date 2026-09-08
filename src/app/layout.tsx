@@ -56,9 +56,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/jobs" className="rounded px-2.5 py-1.5 text-fg-muted transition-colors hover:text-fg">
                 Browse
               </Link>
-              <Link href="/companies" className="hidden rounded px-2.5 py-1.5 text-fg-muted transition-colors hover:text-fg sm:block">
-                Companies
-              </Link>
               <ThemeToggle />
             </nav>
           </div>

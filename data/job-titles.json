@@ -1,0 +1,2386 @@
+[
+ {
+  "title": "Software Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Senior Software Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Backend Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Frontend Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Full Stack Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Mobile Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "iOS Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Android Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Java Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Python Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "PHP Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Ruby on Rails Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Golang Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Rust Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "C++ Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": ".NET Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "React Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Angular Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Node.js Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Web Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Application Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Software Architect",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Principal Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Staff Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Engineering Manager",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Director of Engineering",
+  "function": "software_engineering"
+ },
+ {
+  "title": "VP of Engineering",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Embedded Software Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Game Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Salesforce Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "SAP Consultant",
+  "function": "software_engineering"
+ },
+ {
+  "title": "ServiceNow Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Integration Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "API Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Blockchain Developer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Graduate Software Engineer",
+  "function": "software_engineering"
+ },
+ {
+  "title": "Data Scientist",
+  "function": "data_ai"
+ },
+ {
+  "title": "Senior Data Scientist",
+  "function": "data_ai"
+ },
+ {
+  "title": "Data Analyst",
+  "function": "data_ai"
+ },
+ {
+  "title": "Business Analyst",
+  "function": "data_ai"
+ },
+ {
+  "title": "Data Engineer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Analytics Engineer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Machine Learning Engineer",
+  "function": "data_ai"
+ },
+ {
+  "title": "AI Engineer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Deep Learning Engineer",
+  "function": "data_ai"
+ },
+ {
+  "title": "NLP Engineer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Computer Vision Engineer",
+  "function": "data_ai"
+ },
+ {
+  "title": "MLOps Engineer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Research Scientist",
+  "function": "data_ai"
+ },
+ {
+  "title": "Business Intelligence Analyst",
+  "function": "data_ai"
+ },
+ {
+  "title": "BI Developer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Power BI Developer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Tableau Developer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Big Data Engineer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Data Architect",
+  "function": "data_ai"
+ },
+ {
+  "title": "Database Developer",
+  "function": "data_ai"
+ },
+ {
+  "title": "Statistician",
+  "function": "data_ai"
+ },
+ {
+  "title": "Quantitative Analyst",
+  "function": "data_ai"
+ },
+ {
+  "title": "Data Governance Analyst",
+  "function": "data_ai"
+ },
+ {
+  "title": "Reporting Analyst",
+  "function": "data_ai"
+ },
+ {
+  "title": "Head of Data",
+  "function": "data_ai"
+ },
+ {
+  "title": "DevOps Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Site Reliability Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Platform Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Cloud Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Cloud Architect",
+  "function": "infrastructure"
+ },
+ {
+  "title": "AWS Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Azure Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Kubernetes Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Systems Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "System Administrator",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Linux Administrator",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Windows Administrator",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Network Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Network Administrator",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Database Administrator",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Infrastructure Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Build Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Release Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "IT Support Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Desktop Support Technician",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Help Desk Technician",
+  "function": "infrastructure"
+ },
+ {
+  "title": "IT Manager",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Head of IT",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Technical Operations Engineer",
+  "function": "infrastructure"
+ },
+ {
+  "title": "Security Engineer",
+  "function": "security"
+ },
+ {
+  "title": "Cybersecurity Analyst",
+  "function": "security"
+ },
+ {
+  "title": "Information Security Analyst",
+  "function": "security"
+ },
+ {
+  "title": "Application Security Engineer",
+  "function": "security"
+ },
+ {
+  "title": "Penetration Tester",
+  "function": "security"
+ },
+ {
+  "title": "Security Architect",
+  "function": "security"
+ },
+ {
+  "title": "SOC Analyst",
+  "function": "security"
+ },
+ {
+  "title": "Threat Intelligence Analyst",
+  "function": "security"
+ },
+ {
+  "title": "Incident Response Analyst",
+  "function": "security"
+ },
+ {
+  "title": "GRC Analyst",
+  "function": "security"
+ },
+ {
+  "title": "Compliance Analyst",
+  "function": "security"
+ },
+ {
+  "title": "Identity and Access Management Engineer",
+  "function": "security"
+ },
+ {
+  "title": "Cloud Security Engineer",
+  "function": "security"
+ },
+ {
+  "title": "Chief Information Security Officer",
+  "function": "security"
+ },
+ {
+  "title": "Security Consultant",
+  "function": "security"
+ },
+ {
+  "title": "QA Engineer",
+  "function": "qa"
+ },
+ {
+  "title": "QA Analyst",
+  "function": "qa"
+ },
+ {
+  "title": "Test Engineer",
+  "function": "qa"
+ },
+ {
+  "title": "Automation Test Engineer",
+  "function": "qa"
+ },
+ {
+  "title": "SDET",
+  "function": "qa"
+ },
+ {
+  "title": "Manual Tester",
+  "function": "qa"
+ },
+ {
+  "title": "Performance Test Engineer",
+  "function": "qa"
+ },
+ {
+  "title": "QA Lead",
+  "function": "qa"
+ },
+ {
+  "title": "Quality Assurance Manager",
+  "function": "qa"
+ },
+ {
+  "title": "Test Architect",
+  "function": "qa"
+ },
+ {
+  "title": "Product Manager",
+  "function": "product"
+ },
+ {
+  "title": "Senior Product Manager",
+  "function": "product"
+ },
+ {
+  "title": "Associate Product Manager",
+  "function": "product"
+ },
+ {
+  "title": "Group Product Manager",
+  "function": "product"
+ },
+ {
+  "title": "Director of Product",
+  "function": "product"
+ },
+ {
+  "title": "Head of Product",
+  "function": "product"
+ },
+ {
+  "title": "Chief Product Officer",
+  "function": "product"
+ },
+ {
+  "title": "Product Owner",
+  "function": "product"
+ },
+ {
+  "title": "Technical Program Manager",
+  "function": "product"
+ },
+ {
+  "title": "Program Manager",
+  "function": "product"
+ },
+ {
+  "title": "Project Manager",
+  "function": "product"
+ },
+ {
+  "title": "Scrum Master",
+  "function": "product"
+ },
+ {
+  "title": "Agile Coach",
+  "function": "product"
+ },
+ {
+  "title": "Delivery Manager",
+  "function": "product"
+ },
+ {
+  "title": "Business Systems Analyst",
+  "function": "product"
+ },
+ {
+  "title": "Product Analyst",
+  "function": "product"
+ },
+ {
+  "title": "Product Operations Manager",
+  "function": "product"
+ },
+ {
+  "title": "UX Designer",
+  "function": "design"
+ },
+ {
+  "title": "UI Designer",
+  "function": "design"
+ },
+ {
+  "title": "Product Designer",
+  "function": "design"
+ },
+ {
+  "title": "Senior Product Designer",
+  "function": "design"
+ },
+ {
+  "title": "UX Researcher",
+  "function": "design"
+ },
+ {
+  "title": "Interaction Designer",
+  "function": "design"
+ },
+ {
+  "title": "Visual Designer",
+  "function": "design"
+ },
+ {
+  "title": "Graphic Designer",
+  "function": "design"
+ },
+ {
+  "title": "Motion Designer",
+  "function": "design"
+ },
+ {
+  "title": "Design Lead",
+  "function": "design"
+ },
+ {
+  "title": "Design Manager",
+  "function": "design"
+ },
+ {
+  "title": "Creative Director",
+  "function": "design"
+ },
+ {
+  "title": "Art Director",
+  "function": "design"
+ },
+ {
+  "title": "Brand Designer",
+  "function": "design"
+ },
+ {
+  "title": "Web Designer",
+  "function": "design"
+ },
+ {
+  "title": "Industrial Designer",
+  "function": "design"
+ },
+ {
+  "title": "Design System Designer",
+  "function": "design"
+ },
+ {
+  "title": "Illustrator",
+  "function": "design"
+ },
+ {
+  "title": "Electrical Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Electronics Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Hardware Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Firmware Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Embedded Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "PCB Design Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "RF Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "ASIC Design Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "FPGA Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "VLSI Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Power Electronics Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Controls Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Instrumentation Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Semiconductor Process Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Test Engineer Hardware",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Automation Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "PLC Programmer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Robotics Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Mechatronics Engineer",
+  "function": "hardware_engineering"
+ },
+ {
+  "title": "Mechanical Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Mechanical Design Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Manufacturing Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Production Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Process Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Industrial Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Quality Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Maintenance Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Reliability Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Automotive Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Aerospace Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Tooling Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "HVAC Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Piping Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Welding Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "CAD Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Design Draughtsman",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Plant Manager",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Production Supervisor",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Production Planner",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Manufacturing Manager",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Operations Engineer",
+  "function": "mechanical_engineering"
+ },
+ {
+  "title": "Civil Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Structural Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Site Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Project Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Geotechnical Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Transportation Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Environmental Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Water Resources Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Quantity Surveyor",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Construction Manager",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Site Supervisor",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Site Foreman",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Estimator",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Planning Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Architect",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Architectural Assistant",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "BIM Coordinator",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Land Surveyor",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Building Inspector",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "MEP Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Highways Engineer",
+  "function": "civil_engineering"
+ },
+ {
+  "title": "Sales Executive",
+  "function": "sales"
+ },
+ {
+  "title": "Sales Manager",
+  "function": "sales"
+ },
+ {
+  "title": "Account Executive",
+  "function": "sales"
+ },
+ {
+  "title": "Enterprise Account Executive",
+  "function": "sales"
+ },
+ {
+  "title": "Account Manager",
+  "function": "sales"
+ },
+ {
+  "title": "Key Account Manager",
+  "function": "sales"
+ },
+ {
+  "title": "Business Development Manager",
+  "function": "sales"
+ },
+ {
+  "title": "Business Development Executive",
+  "function": "sales"
+ },
+ {
+  "title": "Business Development Representative",
+  "function": "sales"
+ },
+ {
+  "title": "Sales Development Representative",
+  "function": "sales"
+ },
+ {
+  "title": "Inside Sales Executive",
+  "function": "sales"
+ },
+ {
+  "title": "Field Sales Executive",
+  "function": "sales"
+ },
+ {
+  "title": "Territory Sales Manager",
+  "function": "sales"
+ },
+ {
+  "title": "Regional Sales Manager",
+  "function": "sales"
+ },
+ {
+  "title": "National Sales Manager",
+  "function": "sales"
+ },
+ {
+  "title": "Sales Director",
+  "function": "sales"
+ },
+ {
+  "title": "Head of Sales",
+  "function": "sales"
+ },
+ {
+  "title": "VP of Sales",
+  "function": "sales"
+ },
+ {
+  "title": "Chief Revenue Officer",
+  "function": "sales"
+ },
+ {
+  "title": "Sales Engineer",
+  "function": "sales"
+ },
+ {
+  "title": "Solutions Consultant",
+  "function": "sales"
+ },
+ {
+  "title": "Pre-Sales Consultant",
+  "function": "sales"
+ },
+ {
+  "title": "Partnerships Manager",
+  "function": "sales"
+ },
+ {
+  "title": "Channel Sales Manager",
+  "function": "sales"
+ },
+ {
+  "title": "Retail Sales Associate",
+  "function": "sales"
+ },
+ {
+  "title": "Telesales Executive",
+  "function": "sales"
+ },
+ {
+  "title": "Sales Coordinator",
+  "function": "sales"
+ },
+ {
+  "title": "Sales Operations Analyst",
+  "function": "sales"
+ },
+ {
+  "title": "Marketing Executive",
+  "function": "marketing"
+ },
+ {
+  "title": "Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Digital Marketing Executive",
+  "function": "marketing"
+ },
+ {
+  "title": "Digital Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Digital Marketing Specialist",
+  "function": "marketing"
+ },
+ {
+  "title": "Performance Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Growth Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Product Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Brand Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Content Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Content Writer",
+  "function": "marketing"
+ },
+ {
+  "title": "Copywriter",
+  "function": "marketing"
+ },
+ {
+  "title": "SEO Specialist",
+  "function": "marketing"
+ },
+ {
+  "title": "SEO Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "SEM Specialist",
+  "function": "marketing"
+ },
+ {
+  "title": "PPC Specialist",
+  "function": "marketing"
+ },
+ {
+  "title": "Social Media Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Social Media Executive",
+  "function": "marketing"
+ },
+ {
+  "title": "Email Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Marketing Analyst",
+  "function": "marketing"
+ },
+ {
+  "title": "Campaign Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Community Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Influencer Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Events Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Public Relations Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Communications Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Marketing Director",
+  "function": "marketing"
+ },
+ {
+  "title": "Head of Marketing",
+  "function": "marketing"
+ },
+ {
+  "title": "Chief Marketing Officer",
+  "function": "marketing"
+ },
+ {
+  "title": "Demand Generation Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Marketing Automation Specialist",
+  "function": "marketing"
+ },
+ {
+  "title": "Affiliate Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Product Marketing Lead",
+  "function": "marketing"
+ },
+ {
+  "title": "Trade Marketing Manager",
+  "function": "marketing"
+ },
+ {
+  "title": "Customer Support Executive",
+  "function": "customer_support"
+ },
+ {
+  "title": "Customer Service Representative",
+  "function": "customer_support"
+ },
+ {
+  "title": "Customer Success Manager",
+  "function": "customer_support"
+ },
+ {
+  "title": "Customer Success Executive",
+  "function": "customer_support"
+ },
+ {
+  "title": "Technical Support Engineer",
+  "function": "customer_support"
+ },
+ {
+  "title": "Support Specialist",
+  "function": "customer_support"
+ },
+ {
+  "title": "Help Desk Analyst",
+  "function": "customer_support"
+ },
+ {
+  "title": "Service Desk Analyst",
+  "function": "customer_support"
+ },
+ {
+  "title": "Call Centre Executive",
+  "function": "customer_support"
+ },
+ {
+  "title": "Customer Experience Manager",
+  "function": "customer_support"
+ },
+ {
+  "title": "Client Relationship Manager",
+  "function": "customer_support"
+ },
+ {
+  "title": "Implementation Consultant",
+  "function": "customer_support"
+ },
+ {
+  "title": "Onboarding Specialist",
+  "function": "customer_support"
+ },
+ {
+  "title": "Renewals Manager",
+  "function": "customer_support"
+ },
+ {
+  "title": "Support Team Lead",
+  "function": "customer_support"
+ },
+ {
+  "title": "Head of Customer Success",
+  "function": "customer_support"
+ },
+ {
+  "title": "Accountant",
+  "function": "finance"
+ },
+ {
+  "title": "Senior Accountant",
+  "function": "finance"
+ },
+ {
+  "title": "Junior Accountant",
+  "function": "finance"
+ },
+ {
+  "title": "Chartered Accountant",
+  "function": "finance"
+ },
+ {
+  "title": "Financial Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "Senior Financial Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "FP&A Manager",
+  "function": "finance"
+ },
+ {
+  "title": "Finance Manager",
+  "function": "finance"
+ },
+ {
+  "title": "Financial Controller",
+  "function": "finance"
+ },
+ {
+  "title": "Group Controller",
+  "function": "finance"
+ },
+ {
+  "title": "Chief Financial Officer",
+  "function": "finance"
+ },
+ {
+  "title": "Finance Director",
+  "function": "finance"
+ },
+ {
+  "title": "Management Accountant",
+  "function": "finance"
+ },
+ {
+  "title": "Cost Accountant",
+  "function": "finance"
+ },
+ {
+  "title": "Accounts Payable Clerk",
+  "function": "finance"
+ },
+ {
+  "title": "Accounts Receivable Clerk",
+  "function": "finance"
+ },
+ {
+  "title": "Payroll Specialist",
+  "function": "finance"
+ },
+ {
+  "title": "Payroll Manager",
+  "function": "finance"
+ },
+ {
+  "title": "Bookkeeper",
+  "function": "finance"
+ },
+ {
+  "title": "Auditor",
+  "function": "finance"
+ },
+ {
+  "title": "Internal Auditor",
+  "function": "finance"
+ },
+ {
+  "title": "External Auditor",
+  "function": "finance"
+ },
+ {
+  "title": "Tax Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "Tax Manager",
+  "function": "finance"
+ },
+ {
+  "title": "Treasury Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "Credit Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "Investment Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "Equity Research Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "Portfolio Manager",
+  "function": "finance"
+ },
+ {
+  "title": "Investment Banking Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "Private Equity Associate",
+  "function": "finance"
+ },
+ {
+  "title": "Actuary",
+  "function": "finance"
+ },
+ {
+  "title": "Underwriter",
+  "function": "finance"
+ },
+ {
+  "title": "Claims Adjuster",
+  "function": "finance"
+ },
+ {
+  "title": "Insurance Advisor",
+  "function": "finance"
+ },
+ {
+  "title": "Mortgage Advisor",
+  "function": "finance"
+ },
+ {
+  "title": "Financial Advisor",
+  "function": "finance"
+ },
+ {
+  "title": "Wealth Manager",
+  "function": "finance"
+ },
+ {
+  "title": "Risk Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "Compliance Officer",
+  "function": "finance"
+ },
+ {
+  "title": "Billing Specialist",
+  "function": "finance"
+ },
+ {
+  "title": "Revenue Analyst",
+  "function": "finance"
+ },
+ {
+  "title": "HR Executive",
+  "function": "hr"
+ },
+ {
+  "title": "HR Manager",
+  "function": "hr"
+ },
+ {
+  "title": "HR Generalist",
+  "function": "hr"
+ },
+ {
+  "title": "HR Business Partner",
+  "function": "hr"
+ },
+ {
+  "title": "Human Resources Director",
+  "function": "hr"
+ },
+ {
+  "title": "Chief People Officer",
+  "function": "hr"
+ },
+ {
+  "title": "Recruiter",
+  "function": "hr"
+ },
+ {
+  "title": "Technical Recruiter",
+  "function": "hr"
+ },
+ {
+  "title": "Senior Recruiter",
+  "function": "hr"
+ },
+ {
+  "title": "Talent Acquisition Specialist",
+  "function": "hr"
+ },
+ {
+  "title": "Talent Acquisition Manager",
+  "function": "hr"
+ },
+ {
+  "title": "Sourcing Specialist",
+  "function": "hr"
+ },
+ {
+  "title": "Recruitment Consultant",
+  "function": "hr"
+ },
+ {
+  "title": "HR Coordinator",
+  "function": "hr"
+ },
+ {
+  "title": "HR Administrator",
+  "function": "hr"
+ },
+ {
+  "title": "Compensation and Benefits Manager",
+  "function": "hr"
+ },
+ {
+  "title": "Learning and Development Manager",
+  "function": "hr"
+ },
+ {
+  "title": "Training Manager",
+  "function": "hr"
+ },
+ {
+  "title": "Employee Relations Manager",
+  "function": "hr"
+ },
+ {
+  "title": "People Operations Manager",
+  "function": "hr"
+ },
+ {
+  "title": "HRIS Analyst",
+  "function": "hr"
+ },
+ {
+  "title": "Organisational Development Consultant",
+  "function": "hr"
+ },
+ {
+  "title": "Head of Talent",
+  "function": "hr"
+ },
+ {
+  "title": "Legal Counsel",
+  "function": "legal"
+ },
+ {
+  "title": "Senior Legal Counsel",
+  "function": "legal"
+ },
+ {
+  "title": "General Counsel",
+  "function": "legal"
+ },
+ {
+  "title": "Corporate Lawyer",
+  "function": "legal"
+ },
+ {
+  "title": "Solicitor",
+  "function": "legal"
+ },
+ {
+  "title": "Barrister",
+  "function": "legal"
+ },
+ {
+  "title": "Attorney",
+  "function": "legal"
+ },
+ {
+  "title": "Paralegal",
+  "function": "legal"
+ },
+ {
+  "title": "Legal Assistant",
+  "function": "legal"
+ },
+ {
+  "title": "Contracts Manager",
+  "function": "legal"
+ },
+ {
+  "title": "Contract Administrator",
+  "function": "legal"
+ },
+ {
+  "title": "Compliance Manager",
+  "function": "legal"
+ },
+ {
+  "title": "Regulatory Affairs Manager",
+  "function": "legal"
+ },
+ {
+  "title": "Company Secretary",
+  "function": "legal"
+ },
+ {
+  "title": "Intellectual Property Attorney",
+  "function": "legal"
+ },
+ {
+  "title": "Patent Agent",
+  "function": "legal"
+ },
+ {
+  "title": "Legal Operations Manager",
+  "function": "legal"
+ },
+ {
+  "title": "AML Analyst",
+  "function": "legal"
+ },
+ {
+  "title": "KYC Analyst",
+  "function": "legal"
+ },
+ {
+  "title": "Operations Executive",
+  "function": "operations"
+ },
+ {
+  "title": "Operations Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Operations Analyst",
+  "function": "operations"
+ },
+ {
+  "title": "Business Operations Manager",
+  "function": "operations"
+ },
+ {
+  "title": "General Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Chief Operating Officer",
+  "function": "operations"
+ },
+ {
+  "title": "Head of Operations",
+  "function": "operations"
+ },
+ {
+  "title": "Strategy Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Strategy Analyst",
+  "function": "operations"
+ },
+ {
+  "title": "Management Consultant",
+  "function": "operations"
+ },
+ {
+  "title": "Chief of Staff",
+  "function": "operations"
+ },
+ {
+  "title": "Corporate Development Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Process Improvement Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Continuous Improvement Engineer",
+  "function": "operations"
+ },
+ {
+  "title": "Lean Six Sigma Specialist",
+  "function": "operations"
+ },
+ {
+  "title": "Branch Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Area Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Regional Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Franchise Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Facilities Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Office Manager",
+  "function": "operations"
+ },
+ {
+  "title": "Supply Chain Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Supply Chain Analyst",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Logistics Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Logistics Coordinator",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Procurement Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Procurement Specialist",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Purchasing Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Buyer",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Category Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Sourcing Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Vendor Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Inventory Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Inventory Analyst",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Warehouse Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Warehouse Supervisor",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Warehouse Associate",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Demand Planner",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Supply Planner",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Transport Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Fleet Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Import Export Executive",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Customs Broker",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Freight Forwarder",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Materials Manager",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Store Keeper",
+  "function": "supply_chain"
+ },
+ {
+  "title": "Registered Nurse",
+  "function": "healthcare"
+ },
+ {
+  "title": "Staff Nurse",
+  "function": "healthcare"
+ },
+ {
+  "title": "Nurse Practitioner",
+  "function": "healthcare"
+ },
+ {
+  "title": "ICU Nurse",
+  "function": "healthcare"
+ },
+ {
+  "title": "Theatre Nurse",
+  "function": "healthcare"
+ },
+ {
+  "title": "Midwife",
+  "function": "healthcare"
+ },
+ {
+  "title": "Healthcare Assistant",
+  "function": "healthcare"
+ },
+ {
+  "title": "Care Assistant",
+  "function": "healthcare"
+ },
+ {
+  "title": "Support Worker",
+  "function": "healthcare"
+ },
+ {
+  "title": "Physician",
+  "function": "healthcare"
+ },
+ {
+  "title": "General Practitioner",
+  "function": "healthcare"
+ },
+ {
+  "title": "Consultant Physician",
+  "function": "healthcare"
+ },
+ {
+  "title": "Surgeon",
+  "function": "healthcare"
+ },
+ {
+  "title": "Anaesthetist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Paediatrician",
+  "function": "healthcare"
+ },
+ {
+  "title": "Radiologist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Radiographer",
+  "function": "healthcare"
+ },
+ {
+  "title": "Pharmacist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Pharmacy Technician",
+  "function": "healthcare"
+ },
+ {
+  "title": "Physiotherapist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Occupational Therapist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Speech and Language Therapist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Dietitian",
+  "function": "healthcare"
+ },
+ {
+  "title": "Psychologist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Counsellor",
+  "function": "healthcare"
+ },
+ {
+  "title": "Psychiatrist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Dentist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Dental Nurse",
+  "function": "healthcare"
+ },
+ {
+  "title": "Optometrist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Veterinarian",
+  "function": "healthcare"
+ },
+ {
+  "title": "Veterinary Nurse",
+  "function": "healthcare"
+ },
+ {
+  "title": "Paramedic",
+  "function": "healthcare"
+ },
+ {
+  "title": "Medical Laboratory Technician",
+  "function": "healthcare"
+ },
+ {
+  "title": "Phlebotomist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Clinical Research Associate",
+  "function": "healthcare"
+ },
+ {
+  "title": "Clinical Trial Manager",
+  "function": "healthcare"
+ },
+ {
+  "title": "Medical Writer",
+  "function": "healthcare"
+ },
+ {
+  "title": "Pharmacovigilance Officer",
+  "function": "healthcare"
+ },
+ {
+  "title": "Regulatory Affairs Specialist",
+  "function": "healthcare"
+ },
+ {
+  "title": "Medical Representative",
+  "function": "healthcare"
+ },
+ {
+  "title": "Hospital Administrator",
+  "function": "healthcare"
+ },
+ {
+  "title": "Practice Manager",
+  "function": "healthcare"
+ },
+ {
+  "title": "Teacher",
+  "function": "education"
+ },
+ {
+  "title": "Primary School Teacher",
+  "function": "education"
+ },
+ {
+  "title": "Secondary School Teacher",
+  "function": "education"
+ },
+ {
+  "title": "Mathematics Teacher",
+  "function": "education"
+ },
+ {
+  "title": "Science Teacher",
+  "function": "education"
+ },
+ {
+  "title": "English Teacher",
+  "function": "education"
+ },
+ {
+  "title": "Special Education Teacher",
+  "function": "education"
+ },
+ {
+  "title": "Teaching Assistant",
+  "function": "education"
+ },
+ {
+  "title": "Lecturer",
+  "function": "education"
+ },
+ {
+  "title": "Senior Lecturer",
+  "function": "education"
+ },
+ {
+  "title": "Professor",
+  "function": "education"
+ },
+ {
+  "title": "Assistant Professor",
+  "function": "education"
+ },
+ {
+  "title": "Research Assistant",
+  "function": "education"
+ },
+ {
+  "title": "Postdoctoral Researcher",
+  "function": "education"
+ },
+ {
+  "title": "Tutor",
+  "function": "education"
+ },
+ {
+  "title": "Online Tutor",
+  "function": "education"
+ },
+ {
+  "title": "Instructional Designer",
+  "function": "education"
+ },
+ {
+  "title": "Curriculum Developer",
+  "function": "education"
+ },
+ {
+  "title": "Academic Advisor",
+  "function": "education"
+ },
+ {
+  "title": "Admissions Officer",
+  "function": "education"
+ },
+ {
+  "title": "School Principal",
+  "function": "education"
+ },
+ {
+  "title": "Head Teacher",
+  "function": "education"
+ },
+ {
+  "title": "Education Consultant",
+  "function": "education"
+ },
+ {
+  "title": "Training Coordinator",
+  "function": "education"
+ },
+ {
+  "title": "Corporate Trainer",
+  "function": "education"
+ },
+ {
+  "title": "Librarian",
+  "function": "education"
+ },
+ {
+  "title": "Electrician",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Industrial Electrician",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Plumber",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Carpenter",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Joiner",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Welder",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Fabricator",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Machinist",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "CNC Machinist",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "CNC Operator",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Fitter",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Mechanic",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Automotive Technician",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Diesel Mechanic",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "HVAC Technician",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Refrigeration Engineer",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Maintenance Technician",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Field Service Engineer",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Field Service Technician",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Installation Technician",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Lift Engineer",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Millwright",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Rigger",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Boilermaker",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Painter and Decorator",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Plasterer",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Bricklayer",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Roofer",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Glazier",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Scaffolder",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Crane Operator",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Forklift Operator",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Heavy Equipment Operator",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Truck Driver",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Delivery Driver",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Bus Driver",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Warehouse Operative",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Machine Operator",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Production Operative",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Assembler",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Quality Inspector",
+  "function": "skilled_trades"
+ },
+ {
+  "title": "Chef",
+  "function": "hospitality"
+ },
+ {
+  "title": "Head Chef",
+  "function": "hospitality"
+ },
+ {
+  "title": "Sous Chef",
+  "function": "hospitality"
+ },
+ {
+  "title": "Chef de Partie",
+  "function": "hospitality"
+ },
+ {
+  "title": "Commis Chef",
+  "function": "hospitality"
+ },
+ {
+  "title": "Pastry Chef",
+  "function": "hospitality"
+ },
+ {
+  "title": "Cook",
+  "function": "hospitality"
+ },
+ {
+  "title": "Kitchen Assistant",
+  "function": "hospitality"
+ },
+ {
+  "title": "Kitchen Porter",
+  "function": "hospitality"
+ },
+ {
+  "title": "Restaurant Manager",
+  "function": "hospitality"
+ },
+ {
+  "title": "Assistant Restaurant Manager",
+  "function": "hospitality"
+ },
+ {
+  "title": "Waiter",
+  "function": "hospitality"
+ },
+ {
+  "title": "Waitress",
+  "function": "hospitality"
+ },
+ {
+  "title": "Server",
+  "function": "hospitality"
+ },
+ {
+  "title": "Bartender",
+  "function": "hospitality"
+ },
+ {
+  "title": "Barista",
+  "function": "hospitality"
+ },
+ {
+  "title": "Host",
+  "function": "hospitality"
+ },
+ {
+  "title": "Hotel Manager",
+  "function": "hospitality"
+ },
+ {
+  "title": "Front Office Manager",
+  "function": "hospitality"
+ },
+ {
+  "title": "Receptionist Hotel",
+  "function": "hospitality"
+ },
+ {
+  "title": "Concierge",
+  "function": "hospitality"
+ },
+ {
+  "title": "Housekeeper",
+  "function": "hospitality"
+ },
+ {
+  "title": "Housekeeping Supervisor",
+  "function": "hospitality"
+ },
+ {
+  "title": "Event Coordinator",
+  "function": "hospitality"
+ },
+ {
+  "title": "Banquet Manager",
+  "function": "hospitality"
+ },
+ {
+  "title": "Catering Manager",
+  "function": "hospitality"
+ },
+ {
+  "title": "Travel Consultant",
+  "function": "hospitality"
+ },
+ {
+  "title": "Tour Guide",
+  "function": "hospitality"
+ },
+ {
+  "title": "Cabin Crew",
+  "function": "hospitality"
+ },
+ {
+  "title": "Flight Attendant",
+  "function": "hospitality"
+ },
+ {
+  "title": "Store Manager",
+  "function": "hospitality"
+ },
+ {
+  "title": "Assistant Store Manager",
+  "function": "hospitality"
+ },
+ {
+  "title": "Retail Associate",
+  "function": "hospitality"
+ },
+ {
+  "title": "Cashier",
+  "function": "hospitality"
+ },
+ {
+  "title": "Visual Merchandiser",
+  "function": "hospitality"
+ },
+ {
+  "title": "Merchandiser",
+  "function": "hospitality"
+ },
+ {
+  "title": "Stock Assistant",
+  "function": "hospitality"
+ },
+ {
+  "title": "Administrative Assistant",
+  "function": "admin"
+ },
+ {
+  "title": "Executive Assistant",
+  "function": "admin"
+ },
+ {
+  "title": "Personal Assistant",
+  "function": "admin"
+ },
+ {
+  "title": "Office Administrator",
+  "function": "admin"
+ },
+ {
+  "title": "Receptionist",
+  "function": "admin"
+ },
+ {
+  "title": "Data Entry Operator",
+  "function": "admin"
+ },
+ {
+  "title": "Data Entry Clerk",
+  "function": "admin"
+ },
+ {
+  "title": "Secretary",
+  "function": "admin"
+ },
+ {
+  "title": "Clerk",
+  "function": "admin"
+ },
+ {
+  "title": "Records Officer",
+  "function": "admin"
+ },
+ {
+  "title": "Document Controller",
+  "function": "admin"
+ },
+ {
+  "title": "Scheduler",
+  "function": "admin"
+ },
+ {
+  "title": "Coordinator",
+  "function": "admin"
+ },
+ {
+  "title": "Front Desk Executive",
+  "function": "admin"
+ },
+ {
+  "title": "Back Office Executive",
+  "function": "admin"
+ },
+ {
+  "title": "Virtual Assistant",
+  "function": "admin"
+ },
+ {
+  "title": "Senior Research Scientist",
+  "function": "research"
+ },
+ {
+  "title": "Laboratory Technician",
+  "function": "research"
+ },
+ {
+  "title": "Lab Analyst",
+  "function": "research"
+ },
+ {
+  "title": "Chemist",
+  "function": "research"
+ },
+ {
+  "title": "Analytical Chemist",
+  "function": "research"
+ },
+ {
+  "title": "Biologist",
+  "function": "research"
+ },
+ {
+  "title": "Microbiologist",
+  "function": "research"
+ },
+ {
+  "title": "Biotechnologist",
+  "function": "research"
+ },
+ {
+  "title": "Bioinformatics Scientist",
+  "function": "research"
+ },
+ {
+  "title": "Geneticist",
+  "function": "research"
+ },
+ {
+  "title": "Physicist",
+  "function": "research"
+ },
+ {
+  "title": "Materials Scientist",
+  "function": "research"
+ },
+ {
+  "title": "Environmental Scientist",
+  "function": "research"
+ },
+ {
+  "title": "Food Technologist",
+  "function": "research"
+ },
+ {
+  "title": "Quality Control Analyst",
+  "function": "research"
+ },
+ {
+  "title": "R&D Engineer",
+  "function": "research"
+ },
+ {
+  "title": "R&D Manager",
+  "function": "research"
+ },
+ {
+  "title": "Formulation Scientist",
+  "function": "research"
+ },
+ {
+  "title": "Agronomist",
+  "function": "research"
+ }
+]

@@ -52,7 +52,7 @@ export const adzuna: SourceAdapter = {
     return null;
   },
 
-  async fetch({ limit, log }: FetchContext): Promise<RawJob[]> {
+  async fetch({ limit, log, query }: FetchContext): Promise<RawJob[]> {
     const appId = process.env.ADZUNA_APP_ID!;
     const appKey = process.env.ADZUNA_APP_KEY!;
     const countries = (process.env.ADZUNA_COUNTRIES ?? DEFAULT_COUNTRIES.join(","))
@@ -64,10 +64,19 @@ export const adzuna: SourceAdapter = {
 
     for (const country of countries) {
       for (let page = 1; page <= PAGES_PER_COUNTRY; page++) {
-        const url =
-          `https://api.adzuna.com/v1/api/jobs/${country}/search/${page}` +
-          `?app_id=${encodeURIComponent(appId)}&app_key=${encodeURIComponent(appKey)}` +
-          `&results_per_page=${PER_PAGE}&content-type=application/json`;
+        // `what` and `where` are Adzuna's own keyword and place filters, so
+        // an on-demand search is answered by Adzuna rather than by fetching
+        // a sample and filtering it here.
+        const params = new URLSearchParams({
+          app_id: appId,
+          app_key: appKey,
+          results_per_page: String(PER_PAGE),
+          "content-type": "application/json",
+        });
+        if (query?.text) params.set("what", query.text);
+        if (query?.location) params.set("where", query.location);
+
+        const url = `https://api.adzuna.com/v1/api/jobs/${country}/search/${page}?${params}`;
 
         let body: { results?: AdzunaResult[] };
         try {
