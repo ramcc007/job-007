@@ -37,6 +37,8 @@ const CURRENCY_BY_COUNTRY: Record<string, string> = {
   za: "ZAR",
 };
 
+/** Every market Adzuna publishes, as ISO codes. */
+const SUPPORTED = ["gb","us","at","au","be","br","ca","ch","de","es","fr","in","it","mx","nl","nz","pl","sg","za"];
 const DEFAULT_COUNTRIES = ["gb", "us", "in", "de", "ca", "au", "nl", "fr", "sg"];
 const PAGES_PER_COUNTRY = 3;
 const PER_PAGE = 50;
@@ -44,6 +46,7 @@ const PER_PAGE = 50;
 export const adzuna: SourceAdapter = {
   name: "adzuna",
   kind: "feed",
+  countries: SUPPORTED.map((c) => c.toUpperCase()),
 
   unavailableReason() {
     if (!process.env.ADZUNA_APP_ID || !process.env.ADZUNA_APP_KEY) {
@@ -55,10 +58,17 @@ export const adzuna: SourceAdapter = {
   async fetch({ limit, log, query }: FetchContext): Promise<RawJob[]> {
     const appId = process.env.ADZUNA_APP_ID!;
     const appKey = process.env.ADZUNA_APP_KEY!;
-    const countries = (process.env.ADZUNA_COUNTRIES ?? DEFAULT_COUNTRIES.join(","))
-      .split(",")
-      .map((c) => c.trim().toLowerCase())
-      .filter(Boolean);
+
+    // Searching one market is both faster and far more relevant than
+    // sweeping nine; only fall back to the spread when no country is known.
+    const requested = query?.country?.toLowerCase();
+    const countries =
+      requested && SUPPORTED.includes(requested)
+        ? [requested]
+        : (process.env.ADZUNA_COUNTRIES ?? DEFAULT_COUNTRIES.join(","))
+            .split(",")
+            .map((c) => c.trim().toLowerCase())
+            .filter((c) => SUPPORTED.includes(c));
 
     const out: RawJob[] = [];
 

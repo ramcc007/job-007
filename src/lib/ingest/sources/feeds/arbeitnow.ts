@@ -25,6 +25,9 @@ const MAX_PAGES = 5;
 export const arbeitnow: SourceAdapter = {
   name: "arbeitnow",
   kind: "feed",
+  // German-language board: strong across DACH and neighbouring markets,
+  // essentially empty elsewhere, so it is skipped for other countries.
+  countries: ["DE", "AT", "CH", "NL", "BE", "PL", "CZ"],
 
   async fetch({ limit }: FetchContext): Promise<RawJob[]> {
     const out: RawJob[] = [];

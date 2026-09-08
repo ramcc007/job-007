@@ -17,8 +17,13 @@ export function tokenize(input: string): string[] {
     .filter((token) => token.length > 1 && !STOP_WORDS.has(token));
 }
 
-/** Locations that mean "anywhere", which should satisfy any place query. */
-const ANYWHERE = /\b(worldwide|anywhere|global|remote)\b/i;
+/**
+ * A remote posting is only workable from the place being searched when it is
+ * genuinely unrestricted. "Worldwide" qualifies; "Remote - US" does not, and
+ * treating it as if it did put a San Francisco role at the top of a Gurugram
+ * search.
+ */
+const UNRESTRICTED_REMOTE = /\b(worldwide|anywhere|global|international)\b/i;
 
 export interface MatchResult {
   matched: boolean;
@@ -35,7 +40,7 @@ export interface MatchResult {
  */
 export function matchJob(
   job: NormalizedJob,
-  query: { text?: string; location?: string },
+  query: { text?: string; location?: string; country?: string | null },
 ): MatchResult {
   let score = 0;
 
@@ -63,8 +68,17 @@ export function matchJob(
         .join(" ")
         .toLowerCase();
       if (haystack.includes(place)) return true;
-      // A fully remote role is workable from the place being searched.
-      return location.isRemote && ANYWHERE.test(location.raw ?? "Remote");
+
+      if (!location.isRemote) return false;
+
+      // Remote with a country attached is remote *within that country*, so it
+      // only counts when that country is the one being searched.
+      if (location.countryCode) return Boolean(query.country) && location.countryCode === query.country;
+
+      // Remote with no country at all: accept only when the posting says so
+      // explicitly, or says nothing about where at all.
+      const raw = location.raw ?? "";
+      return UNRESTRICTED_REMOTE.test(raw) || /^\s*(remote|work from home|wfh)\s*$/i.test(raw);
     });
 
     if (!hit) return { matched: false, score: 0 };

@@ -47,6 +47,8 @@ export interface CompanySeed {
 export interface SourceQuery {
   text?: string;
   location?: string;
+  /** ISO country resolved from the location, so sources can target a market. */
+  country?: string | null;
 }
 
 export interface FetchContext {
@@ -65,6 +67,12 @@ export interface FetchContext {
 export interface SourceAdapter {
   name: string;
   kind: "ats" | "feed";
+  /**
+   * ISO country codes this source can actually serve. Omitted means global —
+   * either it covers everywhere, or it is a per-company board whose reach is
+   * decided by the companies seeded rather than by geography.
+   */
+  countries?: readonly string[];
   /** True when the adapter needs credentials that aren't configured. */
   unavailableReason?: () => string | null;
   /** Throws on hard failure; the runner isolates each source. */

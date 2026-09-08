@@ -6,6 +6,9 @@ import { smartrecruiters } from "./ats/smartrecruiters";
 import { workable } from "./ats/workable";
 import { adzuna } from "./feeds/adzuna";
 import { arbeitnow } from "./feeds/arbeitnow";
+import { himalayas } from "./feeds/himalayas";
+import { jobicy } from "./feeds/jobicy";
+import { themuse } from "./feeds/themuse";
 import { remoteok } from "./feeds/remoteok";
 import { remotive } from "./feeds/remotive";
 import type { SourceAdapter } from "../types";
@@ -24,6 +27,9 @@ export const ADAPTERS: readonly SourceAdapter[] = [
   remotive,
   remoteok,
   arbeitnow,
+  jobicy,
+  themuse,
+  himalayas,
   adzuna,
 ];
 

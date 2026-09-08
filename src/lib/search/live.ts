@@ -2,6 +2,7 @@ import { dedupHash } from "@/lib/ingest/dedupe";
 import { normalizeJob, type NormalizedJob } from "@/lib/ingest/normalize";
 import { ADAPTERS } from "@/lib/ingest/sources";
 import type { CompanySeed, SourceAdapter, SourceQuery } from "@/lib/ingest/types";
+import { resolveCountry } from "./geo";
 import { matchJob } from "./match";
 
 /**
@@ -33,7 +34,7 @@ export interface LiveJob {
 }
 
 export type SearchEvent =
-  | { type: "start"; sources: string[]; boards: number }
+  | { type: "start"; sources: string[]; boards: number; country: string | null }
   | { type: "source"; name: string; status: "searching" | "done" | "error" | "skipped";
       scanned?: number; matched?: number; message?: string }
   | { type: "results"; jobs: LiveJob[] }
@@ -97,10 +98,18 @@ export async function* liveSearch(
 ): AsyncGenerator<SearchEvent> {
   const started = Date.now();
   const budgetMs = options.budgetMs ?? 45_000;
-  const { query, seeds } = options;
+  const { seeds } = options;
+
+  // The country the search is about decides which sources are worth asking.
+  // Querying a German-language board for a Gurugram search wastes the budget
+  // and returns nothing, and a source that cannot serve a market should not
+  // appear to have searched it.
+  const country = options.query.country ?? resolveCountry(options.query.location);
+  const query = { ...options.query, country };
 
   const usable = ADAPTERS.filter((adapter) => {
     if (adapter.unavailableReason?.()) return false;
+    if (adapter.countries && country && !adapter.countries.includes(country)) return false;
     if (adapter.kind !== "ats") return true;
     return seeds.some((seed) => seed.platform === adapter.name);
   });
@@ -109,6 +118,7 @@ export async function* liveSearch(
     type: "start",
     sources: usable.map((a) => a.name),
     boards: seeds.length,
+    country,
   };
 
   const seen = new Set<string>();

@@ -15,6 +15,11 @@ interface LiveJob {
 
 type SourceState = { name: string; status: string; scanned?: number; matched?: number };
 
+const REGIONS = new Intl.DisplayNames(["en"], { type: "region" });
+function regionName(code: string): string {
+  try { return REGIONS.of(code) ?? code; } catch { return code; }
+}
+
 const MODE_STYLE: Record<string, string> = {
   remote: "border-teal-dim bg-teal-dim/40 text-teal",
   hybrid: "border-accent-dim bg-accent-dim/25 text-accent",
@@ -29,6 +34,7 @@ export function LiveResults({ q, l }: { q: string; l: string }) {
   const [finished, setFinished] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [boards, setBoards] = useState(0);
+  const [country, setCountry] = useState<string | null>(null);
   const startedAt = useRef(Date.now());
 
   useEffect(() => {
@@ -47,6 +53,7 @@ export function LiveResults({ q, l }: { q: string; l: string }) {
 
       if (event.type === "start") {
         setBoards(event.boards);
+        setCountry(event.country ?? null);
         setSources(event.sources.map((name: string) => ({ name, status: "queued" })));
       } else if (event.type === "source") {
         setSources((current) => {
@@ -98,7 +105,9 @@ export function LiveResults({ q, l }: { q: string; l: string }) {
         <div className="border-b border-line px-4 py-3">
           <div className="flex items-baseline justify-between gap-3">
             <p className="text-[13px] text-fg">
-              Searching {sources.length} sources across {boards} company career pages…
+              Searching {sources.length} sources
+              {country ? ` for ${regionName(country)}` : ""} across {boards} company
+              career pages…
             </p>
             <span className="font-[family-name:var(--font-mono)] text-[11px] text-fg-faint">
               {jobs.length} found · {scanned.toLocaleString()} scanned

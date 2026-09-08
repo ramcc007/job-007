@@ -5,6 +5,8 @@ import { classify, inferSeniority } from "@/lib/ingest/classify";
 import { dedupHash } from "@/lib/ingest/dedupe";
 import { excerpt, htmlToText, repairEncoding } from "@/lib/ingest/html";
 import { normalizeJob } from "@/lib/ingest/normalize";
+import { resolveCountry } from "@/lib/search/geo";
+import { matchJob } from "@/lib/search/match";
 import { inferEmploymentType, inferWorkMode } from "@/lib/ingest/normalize/attributes";
 import { parseLocation } from "@/lib/ingest/normalize/location";
 import { parseSalaryText } from "@/lib/ingest/normalize/salary";
@@ -306,5 +308,53 @@ describe("seniority false positives", () => {
   });
   it("still recognises a real manager title", () => {
     assert.equal(inferSeniority("Engineering Manager"), "manager");
+  });
+});
+
+describe("country routing", () => {
+  it("resolves Indian cities to IN", () => {
+    for (const place of ["Gurugram", "Gurgaon", "Bengaluru", "Gurgaon, India"]) {
+      assert.equal(resolveCountry(place), "IN", place);
+    }
+  });
+
+  it("resolves other markets", () => {
+    assert.equal(resolveCountry("Toronto"), "CA");
+    assert.equal(resolveCountry("Sydney"), "AU");
+    assert.equal(resolveCountry("Berlin"), "DE");
+    assert.equal(resolveCountry("Singapore"), "SG");
+    assert.equal(resolveCountry("Austin, TX"), "US");
+  });
+
+  it("treats a bare remote query as unconstrained", () => {
+    assert.equal(resolveCountry("Remote"), null);
+    assert.equal(resolveCountry(""), null);
+  });
+});
+
+describe("remote roles must respect the searched country", () => {
+  const base = {
+    source: "x", sourceJobId: "1", url: "https://e.com/1",
+    title: "Digital Marketing Manager", companyName: "Stripe",
+  };
+
+  it("does not offer a US-only remote role to a Gurugram search", () => {
+    const job = normalizeJob({ ...base, locationsRaw: ["Remote - United States"] })!;
+    assert.equal(matchJob(job, { text: "digital marketing manager", location: "Gurugram", country: "IN" }).matched, false);
+  });
+
+  it("does offer a worldwide remote role", () => {
+    const job = normalizeJob({ ...base, locationsRaw: ["Worldwide"] })!;
+    assert.equal(matchJob(job, { text: "digital marketing manager", location: "Gurugram", country: "IN" }).matched, true);
+  });
+
+  it("does offer an India-restricted remote role", () => {
+    const job = normalizeJob({ ...base, locationsRaw: ["Remote (India)"] })!;
+    assert.equal(matchJob(job, { text: "digital marketing manager", location: "Gurugram", country: "IN" }).matched, true);
+  });
+
+  it("still matches a real Gurugram office role", () => {
+    const job = normalizeJob({ ...base, locationsRaw: ["Gurugram, India"] })!;
+    assert.equal(matchJob(job, { text: "digital marketing manager", location: "Gurugram", country: "IN" }).matched, true);
   });
 });
