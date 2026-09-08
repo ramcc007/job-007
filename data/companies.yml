@@ -43,6 +43,30 @@ greenhouse:
   - cloudflare
   - asana
 
+  # India-focused additions: the first live crawl returned zero Indian
+  # listings, so a Gurgaon or Bengaluru search found nothing. Unverified
+  # until the weekly source check reports which of these resolve.
+  - freshworks
+  - zoho
+  - flipkart
+  - myntra
+  - paytm
+  - policybazaar
+  - delhivery
+  - oyo
+  - unacademy
+  - upgrad
+  - practo
+  - pharmeasy
+  - bigbasket
+  - zetwerk
+  - udaan
+  - cars24
+  - spinny
+  - meesho
+  - navi
+  - acko
+
 lever:
   - spotify
   - shopify
@@ -53,6 +77,40 @@ lever:
   - blend
   - lattice
   - fivetran
+
+  # India-focused additions: the first live crawl returned zero Indian
+  # listings, so a Gurgaon or Bengaluru search found nothing. Unverified
+  # until the weekly source check reports which of these resolve.
+  - razorpay
+  - meesho
+  - cred
+  - sprinklr
+  - postman
+  - browserstack
+  - chargebee
+  - hasura
+  - innovaccer
+  - darwinbox
+  - moengage
+  - leadsquared
+  - clevertap
+  - whatfix
+  - mindtickle
+  - capillary
+  - zeta
+  - slice
+  - jupiter
+  - groww
+  - upstox
+  - lenskart
+  - nykaa
+  - licious
+  - purplle
+  - urbancompany
+  - swiggy
+  - zomato
+  - phonepe
+  - dream11
 
 ashby:
   - slug: openai
@@ -67,6 +125,20 @@ ashby:
   - modal
   - replit
   - supabase
+
+  # India-focused additions: the first live crawl returned zero Indian
+  # listings, so a Gurgaon or Bengaluru search found nothing. Unverified
+  # until the weekly source check reports which of these resolve.
+  - zepto
+  - rippling
+  - atlan
+  - devrev
+  - fampay
+  - khatabook
+  - plum
+  - onsurity
+  - jar
+  - juspay
 
 workable:
   - blueground
