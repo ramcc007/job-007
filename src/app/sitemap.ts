@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { desc, eq } from "drizzle-orm";
 
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import { companies, jobs } from "@/lib/db/schema";
 import { siteUrl } from "@/lib/site";
 
@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let jobRows: { slug: string; postedAt: Date; lastSeenAt: Date }[] = [];
   let companyRows: { slug: string; updatedAt: Date }[] = [];
   try {
+    const db = await getDb();
     [jobRows, companyRows] = await Promise.all([
     db
       .select({ slug: jobs.slug, postedAt: jobs.postedAt, lastSeenAt: jobs.lastSeenAt })

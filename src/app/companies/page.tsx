@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { desc, eq, sql } from "drizzle-orm";
 
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import { companies, jobs } from "@/lib/db/schema";
 
 export const dynamic = "force-dynamic";
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CompaniesPage() {
+  const db = await getDb();
   const rows = await db
     .select({
       slug: companies.slug,

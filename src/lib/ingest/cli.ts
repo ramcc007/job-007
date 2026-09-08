@@ -9,7 +9,7 @@
  */
 import { loadSeeds } from "./seeds";
 import { runIngest } from "./runner";
-import { sql } from "@/lib/db";
+import { closeDb } from "@/lib/db";
 
 function flag(name: string): boolean {
   return process.argv.includes(`--${name}`);
@@ -60,11 +60,11 @@ async function main() {
   );
   console.log(`\n${totals.kept} listings kept, ${totals.added} new, in ${(summary.durationMs / 1000).toFixed(1)}s`);
 
-  await sql.end();
+  await closeDb();
 }
 
 main().catch(async (err) => {
   console.error(err);
-  await sql.end().catch(() => {});
+  await closeDb().catch(() => {});
   process.exit(1);
 });

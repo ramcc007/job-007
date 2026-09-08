@@ -2,7 +2,7 @@ import { and, asc, desc, eq, gte, ilike, inArray, or, sql, type SQL } from "driz
 
 import type { AnyPgColumn } from "drizzle-orm/pg-core";
 
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import { companies, jobLocations, jobs } from "@/lib/db/schema";
 
 export interface SearchParams {
@@ -150,6 +150,7 @@ export interface SearchResponse {
 }
 
 export async function searchJobs(params: SearchParams): Promise<SearchResponse> {
+  const db = await getDb();
   const perPage = params.perPage ?? PER_PAGE;
   const page = Math.max(1, params.page ?? 1);
   const conditions = buildConditions(params);
@@ -231,6 +232,7 @@ async function facetCounts(
   column: AnyPgColumn,
   key: keyof SearchParams,
 ): Promise<FacetBucket[]> {
+  const db = await getDb();
   const conditions = buildConditions(params, key);
   const rows = await db
     .select({ value: sql<string | null>`${column}`, count: sql<number>`count(*)::int` })
@@ -256,6 +258,7 @@ export interface Facets {
 }
 
 export async function loadFacets(params: SearchParams): Promise<Facets> {
+  const db = await getDb();
   const countryConditions = buildConditions(params, "country");
   const [workMode, jobFunction, vertical, seniority, employmentType, source, countryRows] =
     await Promise.all([
@@ -289,6 +292,7 @@ export async function loadFacets(params: SearchParams): Promise<Facets> {
 }
 
 export async function getJobBySlug(slug: string) {
+  const db = await getDb();
   const [row] = await db
     .select({
       id: jobs.id, slug: jobs.slug, title: jobs.title, externalUrl: jobs.externalUrl,
@@ -319,11 +323,13 @@ export async function getJobBySlug(slug: string) {
 }
 
 export async function getCompanyBySlug(slug: string) {
+  const db = await getDb();
   const [row] = await db.select().from(companies).where(eq(companies.slug, slug)).limit(1);
   return row ?? null;
 }
 
 export async function countActiveJobs(): Promise<number> {
+  const db = await getDb();
   const [row] = await db
     .select({ count: sql<number>`count(*)::int` })
     .from(jobs)

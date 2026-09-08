@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
+import { candidateUrls } from "@/lib/db";
 import { classify, inferSeniority } from "@/lib/ingest/classify";
 import { dedupHash } from "@/lib/ingest/dedupe";
 import { excerpt, htmlToText } from "@/lib/ingest/html";
@@ -263,5 +264,32 @@ describe("humanizeSlug", () => {
     assert.equal(humanizeSlug("netflix"), "Netflix");
     assert.equal(humanizeSlug("e-food"), "E Food");
     assert.equal(humanizeSlug("acme_corp"), "Acme Corp");
+  });
+});
+
+describe("candidateUrls", () => {
+  const base = "postgresql://u.ref:pw@aws-0-ap-south-1.pooler.supabase.com:6543/postgres";
+
+  it("offers the sibling Supabase pooler shard as a fallback", () => {
+    const [first, second] = candidateUrls(base);
+    assert.equal(first, base);
+    assert.equal(second, base.replace("aws-0-", "aws-1-"));
+  });
+
+  it("swaps in both directions", () => {
+    const fromOne = base.replace("aws-0-", "aws-1-");
+    assert.equal(candidateUrls(fromOne)[1], base);
+  });
+
+  it("leaves a non-Supabase URL alone", () => {
+    const local = "postgresql://jobrail:jobrail@localhost:5432/jobrail";
+    assert.deepEqual(candidateUrls(local), [local]);
+  });
+
+  it("preserves the password verbatim", () => {
+    const tricky = "postgresql://u.ref:p@ss-0-word@aws-1-eu-west-2.pooler.supabase.com:5432/postgres";
+    const [, sibling] = candidateUrls(tricky);
+    assert.ok(sibling.includes("p@ss-0-word"), "password must not be rewritten");
+    assert.ok(sibling.includes("aws-0-eu-west-2"), sibling);
   });
 });

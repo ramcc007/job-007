@@ -1,6 +1,6 @@
 import { eq, sql } from "drizzle-orm";
 
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import { sources as sourcesTable } from "@/lib/db/schema";
 import { normalizeJob, type NormalizedJob } from "./normalize";
 import { CompanyResolver, deactivateMissing, expireStale, upsertJobs } from "./persist";
@@ -100,6 +100,7 @@ async function runSource(
 }
 
 async function recordSourceRun(report: SourceReport, now: Date): Promise<void> {
+  const db = await getDb();
   await db
     .insert(sourcesTable)
     .values({
@@ -173,6 +174,7 @@ export async function runIngest(options: RunOptions = {}): Promise<RunSummary> {
 }
 
 export async function listSourceStatus() {
+  const db = await getDb();
   return db.select().from(sourcesTable).orderBy(sourcesTable.name);
 }
 

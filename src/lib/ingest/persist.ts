@@ -1,6 +1,6 @@
 import { and, eq, lt, sql } from "drizzle-orm";
 
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import { companies, jobLocations, jobTags, jobs } from "@/lib/db/schema";
 import type { NormalizedJob } from "./normalize";
 import { slugify } from "./normalize/title";
@@ -16,6 +16,7 @@ export class CompanyResolver {
   }
 
   async resolve(job: NormalizedJob): Promise<number> {
+    const db = await getDb();
     const key = this.key(job);
     const cached = this.cache.get(key);
     if (cached) return cached;
@@ -67,6 +68,7 @@ export async function upsertJobs(
   resolver: CompanyResolver,
   now = new Date(),
 ): Promise<UpsertResult> {
+  const db = await getDb();
   let inserted = 0;
   let updated = 0;
   const seenIds: string[] = [];
@@ -173,6 +175,7 @@ export async function deactivateMissing(
   now = new Date(),
 ): Promise<number> {
   if (seenIds.length === 0) return 0;
+  const db = await getDb();
 
   // Every listing this crawl touched had last_seen_at stamped with `now`,
   // so "not seen this run" is simply an older timestamp — no need to send
@@ -188,6 +191,7 @@ export async function deactivateMissing(
 
 /** Ages out anything we have not seen in a while, whatever the source. */
 export async function expireStale(maxAgeDays = 45): Promise<number> {
+  const db = await getDb();
   const cutoff = new Date(Date.now() - maxAgeDays * 24 * 60 * 60 * 1000);
   const result = await db
     .update(jobs)

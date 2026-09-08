@@ -3,11 +3,12 @@ name: Probe Supabase pooler
 # One-off diagnostic: identifies which pooler host/port/username the project
 # answers on, using a deliberately wrong password so nothing secret is used
 # or logged. Manual trigger only.
+# Manual only: it answered its question (this project lives on the aws-0
+# shard) and there is no reason to re-run it on every push. Kept because the
+# same question recurs whenever a Supabase connection string is set up by
+# hand, and it answers it without needing the real password.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: [".github/workflows/probe-pooler.yml", "scripts/probe-pooler.mjs"]
 
 jobs:
   probe:
