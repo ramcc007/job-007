@@ -7,6 +7,7 @@ Status: **approved and under construction** — Phases 0–2 built and running.
 | 0 — Foundation | done |
 | 1 — Ingestion engine | done (10 adapters, normalizer, classifier, dedupe) |
 | 2 — Website | done (search, job pages, company pages, JSON-LD, sitemap) |
+| Deployment | done — live at https://job-007.vercel.app with a daily refresh |
 | 3 — Accounts, saved searches, email alerts | not started |
 | 4 — Monetisation hooks (off by default) | not started |
 

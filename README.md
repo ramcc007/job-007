@@ -1,5 +1,7 @@
 # JobRail
 
+**Live: https://job-007.vercel.app**
+
 A job search site that pulls listings **directly from company career pages**
 and open job feeds, worldwide, across every industry and function.
 
@@ -7,6 +9,20 @@ Jobs come from public ATS APIs (Greenhouse, Lever, Ashby, Workable,
 SmartRecruiters, Recruitee) and openly licensed feeds (Adzuna, Remotive,
 RemoteOK, Arbeitnow). No headless-browser scraping of bot-defended job
 boards — every source here publishes a documented public API.
+
+## How it runs in production
+
+| Piece | Where |
+|---|---|
+| Site | Vercel, functions pinned to `bom1` (Mumbai) |
+| Database | Supabase Postgres, `ap-south-1`, free tier |
+| Refresh | Vercel cron, daily at 02:00 UTC |
+| Source health | GitHub Actions, weekly live dry run |
+
+The app connects as a restricted `jobrail_app` role, not the Postgres
+superuser. Row-level security allows public reads of job data and no public
+writes; the `sources` table, which holds crawl diagnostics, is not readable
+publicly at all.
 
 ## Quick start
 
