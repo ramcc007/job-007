@@ -1,4 +1,4 @@
-import { getJson } from "@/lib/ingest/http";
+import { HttpError, getJson } from "@/lib/ingest/http";
 import type { FetchContext, RawJob, SourceAdapter } from "@/lib/ingest/types";
 
 /**
@@ -36,6 +36,24 @@ interface JSearchJob {
 
 const PAGES = 2;
 
+/**
+ * RapidAPI answers a moved or renamed route with
+ *   {"message":"Endpoint '/search' does not exist"}
+ * which is indistinguishable from an unsubscribed key at a glance — it cost
+ * a wrong diagnosis once already. Rather than hard-code one path, the
+ * working one is discovered on first use and remembered for the process.
+ *
+ * A 404 on a non-existent route is not a metered call, so probing is cheap;
+ * the winner is cached so it happens at most once per cold start.
+ */
+const CANDIDATE_PATHS = ["/search", "/v1/search", "/search-jobs", "/jobs/search"];
+
+let resolvedPath: string | null = null;
+
+function isMissingEndpoint(err: unknown): boolean {
+  return err instanceof HttpError && err.status === 404 && /does not exist/i.test(err.body ?? "");
+}
+
 export const jsearch: SourceAdapter = {
   name: "jsearch",
   kind: "feed",
@@ -63,19 +81,34 @@ export const jsearch: SourceAdapter = {
       });
       if (query?.country) params.set("country", query.country.toLowerCase());
 
-      let body: { data?: JSearchJob[] };
-      try {
-        body = await getJson(`https://jsearch.p.rapidapi.com/search?${params}`, {
-          headers: {
-            "X-RapidAPI-Key": key,
-            "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
-          },
-        });
-      } catch (err) {
-        log(`jsearch p${page}: ${String(err)}`);
-        // Failing on the very first page means the source contributed
-        // nothing; surfacing that beats reporting a silent success.
-        if (out.length === 0) throw err;
+      const headers = {
+        "X-RapidAPI-Key": key,
+        "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
+      };
+      const paths = resolvedPath ? [resolvedPath] : CANDIDATE_PATHS;
+
+      let body: { data?: JSearchJob[] } | undefined;
+      let lastError: unknown;
+
+      for (const path of paths) {
+        try {
+          body = await getJson(`https://jsearch.p.rapidapi.com${path}?${params}`, { headers });
+          if (resolvedPath !== path) {
+            resolvedPath = path;
+            log(`jsearch: using ${path}`);
+          }
+          break;
+        } catch (err) {
+          lastError = err;
+          // Only a missing route is worth trying elsewhere. A bad key or a
+          // spent quota would fail identically on every path.
+          if (!isMissingEndpoint(err)) break;
+        }
+      }
+
+      if (!body) {
+        log(`jsearch p${page}: ${String(lastError)}`);
+        if (out.length === 0) throw lastError;
         break;
       }
 
