@@ -47,16 +47,34 @@ export const jobicy: SourceAdapter = {
   name: "jobicy",
   kind: "feed",
 
-  async fetch({ limit, query }: FetchContext): Promise<RawJob[]> {
-    const params = new URLSearchParams({ count: String(Math.min(limit ?? 50, 50)) });
-
+  async fetch({ limit, query, log }: FetchContext): Promise<RawJob[]> {
+    const count = String(Math.min(limit ?? 50, 50));
     const geo = query?.country ? GEO_BY_COUNTRY[query.country] : undefined;
-    if (geo) params.set("geo", geo);
-    if (query?.text) params.set("tag", query.text);
 
-    const body = await getJson<{ jobs?: JobicyJob[] }>(
-      `https://jobicy.com/api/v2/remote-jobs?${params}`,
-    );
+    /**
+     * Jobicy rejects some filter combinations outright with a 400 rather
+     * than returning an empty list, and which combinations are accepted is
+     * not documented. Narrowest first, then progressively plainer, so an
+     * unsupported filter costs relevance rather than the whole source.
+     */
+    const attempts: URLSearchParams[] = [];
+    if (geo && query?.text) attempts.push(new URLSearchParams({ count, geo, tag: query.text }));
+    if (geo) attempts.push(new URLSearchParams({ count, geo }));
+    if (query?.text) attempts.push(new URLSearchParams({ count, tag: query.text }));
+    attempts.push(new URLSearchParams({ count }));
+
+    let body: { jobs?: JobicyJob[] } | undefined;
+    for (const params of attempts) {
+      try {
+        body = await getJson<{ jobs?: JobicyJob[] }>(
+          `https://jobicy.com/api/v2/remote-jobs?${params}`,
+        );
+        break;
+      } catch (err) {
+        log(`jobicy rejected ${params}: ${String(err)}`);
+      }
+    }
+    if (!body) return [];
 
     return (body.jobs ?? []).map((job) => ({
       source: "jobicy",
