@@ -1,0 +1,6 @@
+{
+  "site_url": "https://job-007.vercel.app",
+  "token": "1788832842546.b7b92dfca903e1bff37e4bc114faaac9a41c1f0dc8837aaabff947ffe4432e85",
+  "limit": 40,
+  "note": "Short-lived signed token; expires ~30 minutes after minting, so it is inert in this public repo."
+}
