@@ -8,7 +8,25 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 300;
 
 /**
- * Crawl trigger for the scheduled workflow.
+ * Vercel's scheduler calls crons over GET. It strips client-supplied
+ * `x-vercel-*` headers from inbound requests, so the header's presence is a
+ * trustworthy signal that the call came from the platform rather than the
+ * open internet. When CRON_SECRET is configured, Vercel also sends it as a
+ * bearer token and that is checked too.
+ */
+export async function GET(request: Request) {
+  const isCron = request.headers.get("x-vercel-cron") !== null;
+  const cronSecret = process.env.CRON_SECRET;
+  const bearer = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
+
+  if (!isCron || (cronSecret && bearer !== cronSecret)) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+  return runCrawl(request);
+}
+
+/**
+ * Manual and CI-driven crawl trigger.
  *
  * Guarded so a crawl can't be started by anyone who finds the URL —
  * ingestion is expensive and hits third-party APIs under our name. Accepts
@@ -25,6 +43,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
+  return runCrawl(request);
+}
+
+async function runCrawl(request: Request) {
   const url = new URL(request.url);
   const only = url.searchParams.get("only")?.split(",").map((s) => s.trim()).filter(Boolean);
   const limitRaw = url.searchParams.get("limit");

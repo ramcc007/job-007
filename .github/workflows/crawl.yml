@@ -31,6 +31,13 @@ jobs:
         id: request
         run: |
           set -euo pipefail
+          # Deleting the request file also matches the path filter, so treat
+          # "no file and no inputs" as nothing to do rather than a failure.
+          if [ ! -f .crawl-request.json ] && [ -z "${{ inputs.site_url }}" ]; then
+            echo "no crawl requested; nothing to do"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           if [ -f .crawl-request.json ]; then
             echo "url=$(jq -r .site_url .crawl-request.json)"   >> "$GITHUB_OUTPUT"
             echo "token=$(jq -r .token .crawl-request.json)"     >> "$GITHUB_OUTPUT"
@@ -41,6 +48,7 @@ jobs:
           fi
 
       - name: Trigger crawl
+        if: steps.request.outputs.skip != 'true'
         run: |
           set -euo pipefail
           url="${{ steps.request.outputs.url }}/api/ingest"
